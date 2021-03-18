@@ -59,15 +59,11 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //setupRecyclerView()
-
-
         _binding.txtPending.setOnClickListener {
             _binding.txtPending.isSelected = true
             _binding.txtPartialy.isSelected = false
             _binding.txtCollected.isSelected = false
             status = Constant.PENDING
-            // setupRecyclerView()
             getRefreshData()
         }
         _binding.txtPartialy.setOnClickListener {
@@ -75,7 +71,6 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             _binding.txtPartialy.isSelected = true
             _binding.txtCollected.isSelected = false
             status =Constant.PARTIALY
-
             getRefreshData()
          
         }
@@ -84,7 +79,6 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             _binding.txtPartialy.isSelected = false
             _binding.txtCollected.isSelected = true
             status =Constant.COLLECTED
-           // setupRecyclerView()
             getRefreshData()
         }
 
@@ -267,7 +261,6 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         ClientID = ""
         LoanID = ""
         ClientName = ""
-      //  _binding = null
         super.onDestroyView()
     }
 

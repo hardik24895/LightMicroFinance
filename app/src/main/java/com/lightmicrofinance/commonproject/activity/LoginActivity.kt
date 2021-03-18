@@ -59,7 +59,6 @@ class LoginActivity : BaseActivity() {
             this,
             object : LogoutDailog.onItemClick {
                 override fun onItemCLicked() {
-
                 }
             })
         val bundle = Bundle()

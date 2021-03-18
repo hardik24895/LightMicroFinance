@@ -60,6 +60,10 @@
     <string name="show_server_error">Server Connetion Failed.</string>
     <string name="enter_empid">Enter EmployeeID</string>
     <string name="enter_valid_empid">Enter Valid EmployeeID</string>
-    <string name="enter_valid_password">Enter Valid Password</string>
+    <string name="enter_valid_password">Enter Minimum Six Character Password</string>
+    <string name="change_pwd">Change Password</string>
+    <string name="enter_old_pwd">Enter OLD Password</string>
+    <string name="password_not_matched">Password Not Matched</string>
+
 
 </resources>
