@@ -1,10 +1,7 @@
 package com.commonProject.network
 
 
-import com.lightmicrofinance.commonproject.modal.CenternameListModal
-import com.lightmicrofinance.commonproject.modal.CollectionListModal
-import com.lightmicrofinance.commonproject.modal.LoginModal
-import com.lightmicrofinance.commonproject.modal.ParListModal
+import com.lightmicrofinance.commonproject.modal.*
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -22,7 +19,8 @@ interface APIInterface {
     @POST("user/resetPassword")
     fun resetPassword(@Body body: RequestBody): Observable<Response<LoginModal>>
 
-
+    @POST("collection/getTarget")
+    fun getTarget(@Body body: RequestBody): Observable<Response<TargetModal>>
 
    /* @Multipart
     @POST("service/")
@@ -42,4 +40,7 @@ interface APIInterface {
 
     @POST("collection/GetCenters")
     fun getCenterName(@Body body: RequestBody): Observable<Response<CenternameListModal>>
+
+    @POST("cms/getPage")
+    fun getCMS(@Body body: RequestBody): Observable<Response<CMSDataModal>>
 }

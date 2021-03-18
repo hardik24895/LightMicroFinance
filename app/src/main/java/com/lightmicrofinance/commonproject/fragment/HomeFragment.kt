@@ -4,6 +4,11 @@ package com.lightmicrofinance.commonproject.fragment
 import android.graphics.Color
 import android.os.Bundle
 import android.view.*
+import com.commonProject.extention.getValue
+import com.commonProject.extention.showAlert
+import com.commonProject.network.CallbackObserver
+import com.commonProject.network.Networking
+import com.commonProject.network.addTo
 import com.github.mikephil.charting.components.Description
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
@@ -12,6 +17,11 @@ import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
 import com.lightmicrofinance.commonproject.databinding.FragmentHomeBinding
+import com.lightmicrofinance.commonproject.dialog.ForgotPasswordDailog
+import com.lightmicrofinance.commonproject.modal.LoginModal
+import com.lightmicrofinance.commonproject.modal.TargetModal
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class HomeFragment : BaseFragment() {
@@ -32,15 +42,17 @@ class HomeFragment : BaseFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding =null
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initBarChart()
-        showBarChart()
+        getTargetData()
+        // initBarChart()
+        //showBarChart()
 
     }
+
     private fun showBarChart() {
         val valueList = ArrayList<Double>()
         val entries: ArrayList<BarEntry> = ArrayList()
@@ -94,7 +106,7 @@ class HomeFragment : BaseFragment() {
         _binding?.barChartView?.animateY(1000)
         //setting animation for x-axis, the bar will pop up separately within the time we set
         _binding?.barChartView?.animateX(1000)
-        val xAxis: XAxis =  _binding?.barChartView?.getXAxis()!!
+        val xAxis: XAxis = _binding?.barChartView?.getXAxis()!!
         //change the position of x-axis to the bottom
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         //set the horizontal distance of the grid line
@@ -103,13 +115,13 @@ class HomeFragment : BaseFragment() {
         xAxis.setDrawAxisLine(false)
         //hiding the vertical grid lines, default true if not set
         xAxis.setDrawGridLines(false)
-        val leftAxis: YAxis =  _binding?.barChartView?.getAxisLeft()!!
+        val leftAxis: YAxis = _binding?.barChartView?.getAxisLeft()!!
         //hiding the left y-axis line, default true if not set
         leftAxis.setDrawAxisLine(false)
-        val rightAxis: YAxis =  _binding?.barChartView?.getAxisRight()!!
+        val rightAxis: YAxis = _binding?.barChartView?.getAxisRight()!!
         //hiding the right y-axis line, default true if not set
         rightAxis.setDrawAxisLine(false)
-        val legend: Legend =  _binding?.barChartView?.getLegend()!!
+        val legend: Legend = _binding?.barChartView?.getLegend()!!
         //setting the shape of the legend form to line, default square shape
         legend.form = Legend.LegendForm.LINE
         //setting the text size of the legend
@@ -121,5 +133,36 @@ class HomeFragment : BaseFragment() {
         legend.orientation = Legend.LegendOrientation.HORIZONTAL
         //setting the location of legend outside the chart, default false if not set
         legend.setDrawInside(false)
+    }
+
+    fun getTargetData() {
+
+        val params = HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+
+        Networking
+            .with(requireContext())
+            .getServices()
+            .getTarget(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<TargetModal>() {
+                override fun onSuccess(response: TargetModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        _binding?.txtTargetAmount!!.text = "\u20b9 " + data?.target
+                        _binding?.txtTotalCollectionAmount!!.text = "\u20b9 " + data?.collected
+                        _binding?.txtCollectionPersentageAmount!!.text = data?.percentage
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(message)
+                    hideProgressbar()
+                }
+
+            }).addTo(autoDisposable)
     }
 }
