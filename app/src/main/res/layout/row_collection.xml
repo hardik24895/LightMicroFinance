@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_10sdp"
+    app:cardElevation="0dp"
+    android:layout_margin="@dimen/_5sdp"
+    app:cardMaxElevation="0dp">
+
+    <ImageView
+        android:id="@+id/imgCardBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/blue_card" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_5sdp">
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtloanac"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:text="@string/client_id"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtloanaid"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Loan ID"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="@+id/txtloanac"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txtloanac" />
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtCleintID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="558 9985"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtloanac"
+            app:layout_constraintTop_toBottomOf="@+id/txtloanac" />
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtLoanID"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="9985"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="@+id/txtloanaid"
+            app:layout_constraintTop_toBottomOf="@+id/txtloanaid" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtcentername"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Center Name"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="@+id/txtloanac"
+            app:layout_constraintTop_toBottomOf="@+id/txtCleintID" />
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtCenterName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="Jawan Sinhji ka Khera"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtloanac"
+            app:layout_constraintTop_toBottomOf="@+id/txtcentername" />
+
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtbranchname"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Branch Name"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="@+id/txtloanac"
+            app:layout_constraintTop_toBottomOf="@+id/txtCenterName" />
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtBranchName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="Ameth"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtloanac"
+            app:layout_constraintTop_toBottomOf="@+id/txtbranchname" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:text="Date"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
+            app:layout_constraintTop_toBottomOf="@+id/txtCenterName" />
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="08-03-2021"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
+            app:layout_constraintTop_toBottomOf="@+id/txtdate" />
+
+
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtclientname"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Client Name"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="@+id/txtloanac"
+            app:layout_constraintTop_toBottomOf="@+id/txtBranchName" />
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtClientName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="Mr. Hardik Vala"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintStart_toStartOf="@+id/txtloanac"
+            app:layout_constraintTop_toBottomOf="@+id/txtclientname" />
+
+
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtamount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:text="Outstanding Amount"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
+            app:layout_constraintTop_toBottomOf="@+id/txtDate" />
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtAmount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="₹150000"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
+            app:layout_constraintTop_toBottomOf="@+id/txtamount" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

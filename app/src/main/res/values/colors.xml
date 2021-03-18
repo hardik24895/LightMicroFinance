@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008FD3</color>
+    <color name="colorPrimaryDark">#0062A1</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="txtgray">#777777</color>
+    <color name="orange">#FFA500</color>
+    <color name="light_grey_1">#A3A2A2</color>
+
+    <color name="colorRed">#F41212</color>
+    <color name="colorGreen">#0B9E11</color>
+
+
+    <color name="light_grey">#D1D1D1</color>
+    <color name="swipe_view_bg">#ECEAEA</color>
+
+    <color name="colorCall">#0086c3</color>
+    <color name="colorSms">#005b4f</color>
+    <color name="colorEmail">#004c8c</color>
+    <color name="colorPendingDot">#ff3600</color>
+    <color name="colorSucessDot">#2bb406</color>
+
+    <color name="icon_color">#909090</color>
+
+
+    <!--Status Bar - #1ba5a9-->
+    <!--    Top Header- #19d2d7-->
+    <!--    Call button- #0086c3-->
+    <!--    Sms button- #005b4f-->
+    <!--    Email button- #004c8c-->
+    <!--    pending Dot -#ff3600-->
+    <!--    Success DOt -#2bb406-->
+</resources>
