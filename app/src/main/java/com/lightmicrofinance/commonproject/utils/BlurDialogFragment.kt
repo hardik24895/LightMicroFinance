@@ -1,107 +1,112 @@
-package com.lightmicrofinance.commonproject.utils;
+package com.lightmicrofinance.commonproject.utils
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.Rect;
-import android.util.Log;
-import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.app.Activity
+import android.content.Context
+import android.content.DialogInterface
+import android.graphics.Rect
+import android.os.SystemClock
+import android.util.Log
+import android.view.View
+import android.view.ViewGroup
+import android.view.ViewTreeObserver
+import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
+import android.widget.FrameLayout
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.DialogFragment
+import com.commonProject.extention.dismissAlertDialog
+import com.commonProject.interfaces.SnackbarActionListener
+import com.commonProject.network.AutoDisposable
+import com.commonProject.ui.dialog.ProgressDialog
+import com.commonProject.utils.SessionManager
+import com.google.android.material.snackbar.Snackbar
+import com.lightmicrofinance.commonproject.R
+import com.ms_square.etsyblur.Blur
+import com.ms_square.etsyblur.BlurConfig
+import com.ms_square.etsyblur.ViewUtil
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
-
-import com.ms_square.etsyblur.Blur;
-import com.ms_square.etsyblur.BlurConfig;
-import com.ms_square.etsyblur.BlurEngine;
-import com.ms_square.etsyblur.ViewUtil;
-
-public abstract class BlurDialogFragment extends DialogFragment {
-
-    public static final int DEFAULT_ANIM_DURATION = 400;
-    public static final boolean DEFAULT_BACKGROUND_DIMMING_ENABLED = true;
-    private static final String TAG = BlurDialogFragment.class.getSimpleName();
-    private Blur blur;
-
-    private ViewGroup root;
-
-    private ImageView blurImgView;
-    private final ViewTreeObserver.OnPreDrawListener preDrawListener = new ViewTreeObserver.OnPreDrawListener() {
-        @Override
-        public boolean onPreDraw() {
-            root.getViewTreeObserver().removeOnPreDrawListener(this);
-            // makes sure to get the complete drawing after the layout pass
-            root.post(new Runnable() {
-                @Override
-                public void run() {
-                    setUpBlurringViews();
-                    startEnterAnimation();
+abstract class BlurDialogFragment : DialogFragment() {
+    private var blur: Blur? = null
+    private var root: ViewGroup? = null
+    private var blurImgView: ImageView? = null
+    var mContext: Context? = null
+    var mActivity: Activity? = null
+    private var lastClickTime: Long = 0
+    lateinit var session: SessionManager
+    var progressDialog: ProgressDialog? = null
+    val autoDisposable = AutoDisposable()
+    var snackbar: Snackbar? = null
+    private val preDrawListener: ViewTreeObserver.OnPreDrawListener =
+        object : ViewTreeObserver.OnPreDrawListener {
+            override fun onPreDraw(): Boolean {
+                root!!.viewTreeObserver.removeOnPreDrawListener(this)
+                // makes sure to get the complete drawing after the layout pass
+                root!!.post {
+                    setUpBlurringViews()
+                    startEnterAnimation()
                 }
-            });
-            return true;
+                return true
+            }
         }
-    };
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        blur = Blur(context, blurConfig())
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+        mContext = context
+        mActivity = activity
+        session = SessionManager(context)
+        autoDisposable.bindTo(this.lifecycle)
 
-        blur = new Blur(context, blurConfig());
-
-        if (context instanceof Activity) {
-            final Activity activity = (Activity) context;
-            root = (ViewGroup) activity.getWindow().getDecorView();
-            if (root.isShown()) {
-                setUpBlurringViews();
-                startEnterAnimation();
+        if (context is Activity) {
+            root = context.window.decorView as ViewGroup
+            if (root!!.isShown) {
+                setUpBlurringViews()
+                startEnterAnimation()
             } else {
-                root.getViewTreeObserver().addOnPreDrawListener(preDrawListener);
+                root!!.viewTreeObserver.addOnPreDrawListener(preDrawListener)
             }
         } else {
-            Log.w(TAG, "onAttach(Context context) - context is not type of Activity. Currently Not supported.");
+            Log.w(
+                TAG,
+                "onAttach(Context context) - context is not type of Activity. Currently Not supported."
+            )
         }
     }
 
-    @Override
-    public void onStart() {
-        Dialog dialog = getDialog();
+    override fun onStart() {
+        val dialog = dialog
         if (dialog != null) {
             if (!backgroundDimmingEnabled()) {
-                dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                dialog.window!!.clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
             }
         }
-        super.onStart();
+        super.onStart()
     }
 
-    @Override
-    public void onDismiss(DialogInterface dialog) {
-        startExitAnimation();
-        super.onDismiss(dialog);
+    override fun onDismiss(dialog: DialogInterface) {
+        startExitAnimation()
+        super.onDismiss(dialog)
     }
 
-    @Override
-    public void onDetach() {
-        root.getViewTreeObserver().removeOnPreDrawListener(preDrawListener);
-        blur.destroy();
-        super.onDetach();
+    override fun onDetach() {
+        root!!.viewTreeObserver.removeOnPreDrawListener(preDrawListener)
+        blur!!.destroy()
+        super.onDetach()
     }
 
     /**
      * Configuration object for the blur effect.
-     * If not overwritten, it just returns {@link BlurConfig#DEFAULT_CONFIG} which uses {@link com.ms_square.etsyblur.SimpleAsyncPolicy}.
+     * If not overwritten, it just returns [BlurConfig.DEFAULT_CONFIG] which uses [com.ms_square.etsyblur.SimpleAsyncPolicy].
      *
      * @return blur operation configuration
      */
-    @NonNull
-    protected BlurConfig blurConfig() {
-        return BlurConfig.DEFAULT_CONFIG;
+    protected fun blurConfig(): BlurConfig {
+        return BlurConfig.DEFAULT_CONFIG
     }
 
     /**
@@ -109,8 +114,8 @@ public abstract class BlurDialogFragment extends DialogFragment {
      *
      * @return true if dimming should be enabled
      */
-    protected boolean backgroundDimmingEnabled() {
-        return DEFAULT_BACKGROUND_DIMMING_ENABLED;
+    protected fun backgroundDimmingEnabled(): Boolean {
+        return DEFAULT_BACKGROUND_DIMMING_ENABLED
     }
 
     /**
@@ -118,52 +123,167 @@ public abstract class BlurDialogFragment extends DialogFragment {
      *
      * @return animation duration in ms
      */
-    protected int animDuration() {
-        return DEFAULT_ANIM_DURATION;
+    protected fun animDuration(): Int {
+        return DEFAULT_ANIM_DURATION
     }
 
-    private void setUpBlurringViews() {
-        Rect visibleFrame = new Rect();
-        root.getWindowVisibleDisplayFrame(visibleFrame);
-
-        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(visibleFrame.right - visibleFrame.left,
-                visibleFrame.bottom - visibleFrame.top);
-        params.setMargins(visibleFrame.left, visibleFrame.top, 0, 0);
-
-        blurImgView = new ImageView(root.getContext());
-        blurImgView.setLayoutParams(params);
-        blurImgView.setAlpha(0f);
-
-        root.addView(blurImgView);
+    private fun setUpBlurringViews() {
+        val visibleFrame = Rect()
+        root!!.getWindowVisibleDisplayFrame(visibleFrame)
+        val params = FrameLayout.LayoutParams(
+            visibleFrame.right - visibleFrame.left,
+            visibleFrame.bottom - visibleFrame.top
+        )
+        params.setMargins(visibleFrame.left, visibleFrame.top, 0, 0)
+        blurImgView = ImageView(root!!.context)
+        blurImgView!!.layoutParams = params
+        blurImgView!!.alpha = 0f
+        root!!.addView(blurImgView)
 
         // apply blur effect
-        Bitmap bitmapToBlur = ViewUtil.drawViewToBitmap(root, visibleFrame.right,
-                visibleFrame.bottom, visibleFrame.left, visibleFrame.top, blurConfig().downScaleFactor(),
-                blurConfig().overlayColor());
-        blur.execute(bitmapToBlur, true, new BlurEngine.Callback() {
-            @Override
-            public void onFinished(@Nullable Bitmap blurredBitmap) {
-                blurImgView.setImageBitmap(blurredBitmap);
+        val bitmapToBlur = ViewUtil.drawViewToBitmap(
+            root,
+            visibleFrame.right,
+            visibleFrame.bottom,
+            visibleFrame.left.toFloat(),
+            visibleFrame.top.toFloat(),
+            blurConfig().downScaleFactor(),
+            blurConfig().overlayColor()
+        )
+        blur!!.execute(bitmapToBlur, true) { blurredBitmap ->
+            blurImgView!!.setImageBitmap(
+                blurredBitmap
+            )
+        }
+    }
+
+    private fun startEnterAnimation() {
+        val monitor: Runnable = object : Runnable{
+            override fun run() {
             }
-        });
-    }
+        }
 
-    private void startEnterAnimation() {
+
         if (blurImgView != null) {
-            ViewUtil.animateAlpha(blurImgView, 0f, 1f, animDuration(), null);
+            ViewUtil.animateAlpha(blurImgView!!, 0f, 1f, animDuration(), monitor)
         }
     }
 
-    private void startExitAnimation() {
+    private fun startExitAnimation() {
         if (blurImgView != null) {
-            ViewUtil.animateAlpha(blurImgView, 1f, 0f, animDuration(), new Runnable() {
-                @Override
-                public void run() {
-                    root.removeView(blurImgView);
-                }
-            });
+            ViewUtil.animateAlpha(blurImgView!!, 1f, 0f, animDuration()) {
+                root!!.removeView(
+                    blurImgView
+                )
+            }
         }
     }
 
+    companion object {
+        const val DEFAULT_ANIM_DURATION = 400
+        const val DEFAULT_BACKGROUND_DIMMING_ENABLED = true
+        private val TAG = BlurDialogFragment::class.java.simpleName
+        init {
+            AppCompatDelegate.setCompatVectorFromResourcesEnabled(true)
+        }
+    }
+
+    fun showProgressbar() {
+        showProgressbar(null)
+    }
+
+    fun showProgressbar(message: String? = getString(R.string.please_wait)) {
+        hideProgressbar()
+        progressDialog = ProgressDialog(mContext!!, message)
+        progressDialog?.show()
+    }
+
+    fun hideProgressbar() {
+        if (progressDialog != null && progressDialog?.isShowing!!) progressDialog!!.dismiss()
+    }
+
+    fun showSoftKeyboard(view: EditText) {
+        view.requestFocus(view.text.length)
+        val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+    }
+
+    fun hideSoftKeyboard(): Boolean {
+        try {
+            val imm = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            return imm.hideSoftInputFromWindow(activity?.currentFocus?.windowToken, 0)
+        } catch (e: Exception) {
+            return false
+        }
+    }
+
+    /* fun setupToolbar(view: View, title: String? = null) {
+         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
+         val actionBar = (activity as AppCompatActivity).supportActionBar
+         if (actionBar != null) {
+             actionBar.setDisplayShowTitleEnabled(false)
+             actionBar.setDisplayHomeAsUpEnabled(false)
+             if (title != null) tvTitle.text = title
+         }
+     }
+
+     fun setupToolBarWithMenu(view: View, title: String, icon: Int = R.drawable.v_ic_menu) {
+         (activity as AppCompatActivity).setSupportActionBar(view.findViewById(R.id.toolbar))
+         val actionBar = (activity as AppCompatActivity).supportActionBar
+         if (actionBar != null) {
+             actionBar.setDisplayShowTitleEnabled(false)
+             actionBar.setDisplayHomeAsUpEnabled(true)
+             actionBar.setHomeAsUpIndicator(icon)
+             tvTitle.text = title
+         }
+     }*/
+
+    fun showSnackbar(view: View?, msg: String, LENGTH: Int) {
+        if (view == null) return
+        snackbar = Snackbar.make(view, msg, LENGTH)
+        val sbView = snackbar?.view
+        val textView =
+            sbView?.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        textView?.setTextColor(ContextCompat.getColor(mContext!!, R.color.colorAccent))
+        snackbar?.show()
+    }
+
+    fun showSnackbar(
+        view: View?,
+        msg: String,
+        LENGTH: Int,
+        action: String,
+        actionListener: SnackbarActionListener?
+    ) {
+        if (view == null) return
+        snackbar = Snackbar.make(view, msg, LENGTH)
+        snackbar?.setActionTextColor(ContextCompat.getColor(mContext!!, R.color.colorAccent))
+        if (actionListener != null) {
+            snackbar?.setAction(action) { view1 ->
+                snackbar?.dismiss()
+                actionListener.onAction()
+            }
+        }
+        val sbView = snackbar?.view
+        val textView =
+            sbView?.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        textView?.setTextColor(ContextCompat.getColor(mContext!!, R.color.colorAccent))
+        snackbar?.show()
+    }
+
+    fun preventDoubleClick(view: View) {
+        // preventing double, using threshold of 1000 ms
+        if (SystemClock.elapsedRealtime() - lastClickTime < 1000) {
+            return
+        }
+        lastClickTime = SystemClock.elapsedRealtime()
+    }
+
+    override fun onDestroy() {
+        snackbar?.dismiss()
+        dismissAlertDialog()
+        hideProgressbar()
+        super.onDestroy()
+    }
 
 }

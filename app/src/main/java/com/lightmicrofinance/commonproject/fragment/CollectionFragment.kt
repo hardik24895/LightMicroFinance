@@ -24,8 +24,6 @@ import com.lightmicrofinance.commonproject.modal.CollectionDataItem
 import com.lightmicrofinance.commonproject.modal.CollectionListModal
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import org.json.JSONException
-import org.json.JSONObject
 
 
 class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
@@ -201,12 +199,10 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
 
 
      fun getCollectionList(page: Int) {
-
-
          val params = HashMap<String, Any>()
          params["PageSize"] =  Constant.PAGE_SIZE
          params["CurrentPage"] = page
-         params["FECode"] = "LMF03103"
+         params["FECode"] = session.user.data?.fECode.toString()
          params["CenterName"] = CenterName
          params["LoanID"] = LoanID
          params["ClientID"] = ClientID
@@ -261,9 +257,9 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         } else {
             _binding?.rvSwipe?.imgNodata?.visible()
             if (code == 0)
-                _binding?.rvSwipe?.imgNodata?.setImageResource(R.drawable.ic_login_logo)
+                _binding?.rvSwipe?.imgNodata?.setImageResource(R.drawable.no_internet_bg)
             else
-                _binding?.rvSwipe?.imgNodata?.setImageResource(R.drawable.ic_login_logo)
+                _binding?.rvSwipe?.imgNodata?.setImageResource(R.drawable.nodata)
             _binding?.rvSwipe?.recyclerView?.invisible()
         }
     }

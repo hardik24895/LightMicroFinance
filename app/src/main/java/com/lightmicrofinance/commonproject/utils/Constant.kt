@@ -9,6 +9,7 @@ object Constant {
     const val PARTIALY ="Partialy"
     const val COLLECTED ="Collected"
     const val TYPE ="type"
+    const val PASSWORD="password"
     const val SITE = "site"
     const val TICKET = "ticket"
     const val CUSTOMER = "customer"

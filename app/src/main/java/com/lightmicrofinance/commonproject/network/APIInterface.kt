@@ -3,6 +3,8 @@ package com.commonProject.network
 
 import com.lightmicrofinance.commonproject.modal.CenternameListModal
 import com.lightmicrofinance.commonproject.modal.CollectionListModal
+import com.lightmicrofinance.commonproject.modal.LoginModal
+import com.lightmicrofinance.commonproject.modal.ParListModal
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -14,10 +16,15 @@ import retrofit2.http.Part
 
 interface APIInterface {
 
-    /*@POST("service/")
+    @POST("user/login")
     fun login(@Body body: RequestBody): Observable<Response<LoginModal>>
 
-    @Multipart
+    @POST("user/resetPassword")
+    fun resetPassword(@Body body: RequestBody): Observable<Response<LoginModal>>
+
+
+
+   /* @Multipart
     @POST("service/")
     fun AddCustomerSiteDocument(
         @Part ImageData: MultipartBody.Part,
@@ -29,6 +36,9 @@ interface APIInterface {
 
     @POST("collection/getCollection")
     fun getCollection(@Body body: RequestBody): Observable<Response<CollectionListModal>>
+
+    @POST("par/getPar")
+    fun getPar(@Body body: RequestBody): Observable<Response<ParListModal>>
 
     @POST("collection/GetCenters")
     fun getCenterName(@Body body: RequestBody): Observable<Response<CenternameListModal>>

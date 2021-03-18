@@ -5,6 +5,7 @@ import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.lightmicrofinance.commonproject.R
+import com.lightmicrofinance.commonproject.modal.LoginModal
 
 import java.lang.reflect.Type
 
@@ -21,7 +22,8 @@ class SessionManager(val context: Context) {
         get() = pref.contains(KEY_IS_REGISTER) && pref.getBoolean(KEY_IS_REGISTER, false)
         set(isRegester) = storeDataByKey(KEY_IS_REGISTER, isRegester)
 
-/*    var user: LoginModal
+
+    var user: LoginModal
         get() {
             val gson = Gson()
             val json = getDataByKey(KEY_USER_INFO, "")
@@ -33,6 +35,8 @@ class SessionManager(val context: Context) {
             pref.edit().putString(KEY_USER_INFO, json).apply()
             isLoggedIn = true
         }
+
+/*
 
     var configData: ConfigDataModel
         get() {

@@ -21,8 +21,7 @@ import com.lightmicrofinance.commonproject.utils.BlurDialogFragment
 
 
 class LogoutDailog(context: Context) : BlurDialogFragment(), LifecycleOwner {
-    private val autoDisposable = AutoDisposable()
-    private lateinit var session: SessionManager
+
     private var _binding: DialogLogoutBinding? = null
 
     private val binding get() = _binding!!
@@ -49,8 +48,6 @@ class LogoutDailog(context: Context) : BlurDialogFragment(), LifecycleOwner {
         savedInstanceState: Bundle?
     ): View? {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        session = SessionManager(requireContext())
-        autoDisposable.bindTo(this.lifecycle)
         _binding = DialogLogoutBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -62,8 +59,15 @@ class LogoutDailog(context: Context) : BlurDialogFragment(), LifecycleOwner {
         populateData()
         dialog?.setCancelable(false)
         dialog?.setCanceledOnTouchOutside(false)
-        _binding?.linOK?.invisible()
-        _binding?.linYseNo?.visible()
+        if (arguments?.containsKey(Constant.PASSWORD) == true) {
+            _binding?.linOK?.visible()
+            _binding?.linYseNo?.invisible()
+        } else {
+            _binding?.linOK?.invisible()
+            _binding?.linYseNo?.visible()
+        }
+
+
         _binding?.tvOk?.setOnClickListener {
             listener.onItemCLicked()
             dismissAllowingStateLoss()
@@ -102,7 +106,7 @@ class LogoutDailog(context: Context) : BlurDialogFragment(), LifecycleOwner {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding =null
+        _binding = null
     }
 }
 

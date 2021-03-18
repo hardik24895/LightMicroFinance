@@ -21,6 +21,7 @@
 
     <string name="msg_logout">Would you like to exit from the App?</string>
     <string name="otp_verify">OTP Verification</string>
+    <string name="reset_text">We will send you New Auto Generate Password</string>
     <string name="otp_text">We will send you an OTP on your Registered mobile number</string>
     <string name="emp_id">Employee ID</string>
     <string name="getotp">Get otp</string>
@@ -29,6 +30,7 @@
     <string name="new_password">New Password</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="reset_password">Reset Password</string>
     <string name="login">Login</string>
     <string name="sign_in">Sign In</string>
     <string name="loan_ac_number">Loan Ac. Number</string>
@@ -56,5 +58,8 @@
     <string name="search">Search</string>
     <string name="no_data_found">No Data Found!</string>
     <string name="show_server_error">Server Connetion Failed.</string>
+    <string name="enter_empid">Enter EmployeeID</string>
+    <string name="enter_valid_empid">Enter Valid EmployeeID</string>
+    <string name="enter_valid_password">Enter Valid Password</string>
 
 </resources>
