@@ -3,13 +3,10 @@ package com.commonProject.network
 
 import com.lightmicrofinance.commonproject.modal.*
 import io.reactivex.Observable
-import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.Multipart
 import retrofit2.http.POST
-import retrofit2.http.Part
 
 interface APIInterface {
 
@@ -40,6 +37,9 @@ interface APIInterface {
 
     @POST("par/getPar")
     fun getPar(@Body body: RequestBody): Observable<Response<ParListModal>>
+
+    @POST("business/getBusiness")
+    fun getBusiness(@Body body: RequestBody): Observable<Response<BusinessListModal>>
 
     @POST("collection/GetCenters")
     fun getCenterName(@Body body: RequestBody): Observable<Response<CenternameListModal>>

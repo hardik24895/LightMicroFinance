@@ -1,22 +1,18 @@
 package com.lightmicrofinance.commonproject.adapter
 
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-
-
 import com.commonProject.utils.SessionManager
-import com.lightmicrofinance.commonproject.R
 import com.lightmicrofinance.commonproject.databinding.RowBusinessBinding
-import com.lightmicrofinance.commonproject.databinding.RowCollectionBinding
-import com.lightmicrofinance.commonproject.databinding.RowParBinding
-import com.lightmicrofinance.commonproject.modal.ParDataItem
+import com.lightmicrofinance.commonproject.modal.BusinessListDataItem
 
 
 class BusinessAdapter(
     private val mContext: Context,
-    var list: MutableList<ParDataItem> = mutableListOf(),
+    var list: MutableList<BusinessListDataItem> = mutableListOf(),
     var session: SessionManager,
     var status: String,
     private val listener: BusinessAdapter.OnItemSelected,
@@ -40,22 +36,41 @@ class BusinessAdapter(
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val data = list[position]
-        holder.bindData(mContext, data, listener, session, binding, status)
+        holder.bindData(mContext, data, listener, session)
     }
 
     interface OnItemSelected {
-        fun onItemSelect(position: Int, data: ParDataItem, action: String)
+        fun onItemSelect(position: Int, data: BusinessListDataItem, action: String)
     }
 
     class ItemHolder(containerView: RowBusinessBinding) :
         RecyclerView.ViewHolder(containerView.root) {
+        val binding = containerView
         fun bindData(
             context: Context,
-            data: ParDataItem,
-            listener: OnItemSelected, session: SessionManager,
-            binding: RowBusinessBinding,
-            status: String
+            data: BusinessListDataItem,
+            listener: OnItemSelected, session: SessionManager
         ) {
+
+            binding.txtDate.text = data.date
+            binding.txtBranchName.text = data.branch
+            binding.txLeNewTarget.text = data.lENew
+            binding.txtLeNewAchived.text = data.achLENew
+            binding.txtLeReNewAchived.text = data.achLERenew
+            binding.txLeReNewTarget.text = data.lERenew
+            binding.txTotalLETarget.text = data.totalLE
+            binding.txtTotalLEAchived.text = data.achTotalLE
+            binding.txDDDoneTarget.text = data.dDDone
+            binding.txtDDDOneAchived.text = data.achDDDone
+            binding.txtDDPosAchived.text = data.achDDPositive
+            binding.txDDPosTarget.text = data.dDPositive
+            binding.txtGRTAchived.text = data.gRT
+            binding.txGRTTarget.text = data.achGRT
+            binding.txtDSBAchived.text = data.achDisbClient
+            binding.txDSBTarget.text = data.disbClient
+            binding.txDSBAmountTarget.text = data.disbAmount
+            binding.txtDSBAmountAchived.text = data.achDisbAmount
+
 
 
             itemView.setOnClickListener { listener.onItemSelect(adapterPosition, data, "MainView") }

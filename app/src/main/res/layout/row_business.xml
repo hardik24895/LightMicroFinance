@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/_5sdp"
@@ -71,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".5"
             android:background="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
             app:layout_constraintStart_toStartOf="@+id/txtDate"
@@ -167,7 +167,7 @@
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_3sdp"
             android:background="@color/colorWhite"
-            android:alpha=".5"
+            android:alpha=".2"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
             app:layout_constraintStart_toStartOf="@+id/txtDate"
             app:layout_constraintTop_toBottomOf="@+id/txLE" />
@@ -219,7 +219,7 @@
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_3sdp"
             android:background="@color/colorWhite"
-            android:alpha=".5"
+            android:alpha=".2"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
             app:layout_constraintStart_toStartOf="@+id/txtDate"
             app:layout_constraintTop_toBottomOf="@+id/txLERenew" />
@@ -265,13 +265,14 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
             app:layout_constraintTop_toBottomOf="@+id/view2" />
+
         <View
             android:id="@+id/view3"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".2"
             android:background="@color/colorWhite"
-            android:alpha=".5"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
             app:layout_constraintStart_toStartOf="@+id/txtDate"
             app:layout_constraintTop_toBottomOf="@+id/txTotalLE" />
@@ -316,13 +317,14 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
+
         <View
             android:id="@+id/view4"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".2"
             android:background="@color/colorWhite"
-            android:alpha=".5"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
             app:layout_constraintStart_toStartOf="@+id/txtDate"
             app:layout_constraintTop_toBottomOf="@+id/txDddone" />
@@ -367,13 +369,14 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
             app:layout_constraintTop_toBottomOf="@+id/view4" />
+
         <View
             android:id="@+id/view5"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".2"
             android:background="@color/colorWhite"
-            android:alpha=".5"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
             app:layout_constraintStart_toStartOf="@+id/txtDate"
             app:layout_constraintTop_toBottomOf="@+id/txDdpos" />
@@ -418,13 +421,14 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
+
         <View
             android:id="@+id/view6"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".2"
             android:background="@color/colorWhite"
-            android:alpha=".5"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
             app:layout_constraintStart_toStartOf="@+id/txtDate"
             app:layout_constraintTop_toBottomOf="@+id/txgrt" />
@@ -470,13 +474,14 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
             app:layout_constraintTop_toBottomOf="@+id/view6" />
+
         <View
             android:id="@+id/view7"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".2"
             android:background="@color/colorWhite"
-            android:alpha=".5"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
             app:layout_constraintStart_toStartOf="@+id/txtDate"
             app:layout_constraintTop_toBottomOf="@+id/txdsb" />

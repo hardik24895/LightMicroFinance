@@ -1,14 +1,11 @@
 package com.lightmicrofinance.commonproject.adapter
 
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-
-
 import com.commonProject.utils.SessionManager
-import com.lightmicrofinance.commonproject.R
-import com.lightmicrofinance.commonproject.databinding.RowCollectionBinding
 import com.lightmicrofinance.commonproject.databinding.RowParBinding
 import com.lightmicrofinance.commonproject.modal.ParDataItem
 
@@ -39,21 +36,20 @@ class ParAdapter(
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val data = list[position]
-        holder.bindData(mContext, data, listener, session, binding, status)
+        holder.bindData(mContext, data, listener, session)
     }
 
     interface OnItemSelected {
         fun onItemSelect(position: Int, data: ParDataItem, action: String)
     }
 
-    class ItemHolder(containerView: RowParBinding) :
-        RecyclerView.ViewHolder(containerView.root) {
+    class ItemHolder(containerView: RowParBinding) : RecyclerView.ViewHolder(containerView.root) {
+        val binding = containerView
+
         fun bindData(
             context: Context,
             data: ParDataItem,
-            listener: OnItemSelected, session: SessionManager,
-            binding: RowParBinding,
-            status: String
+            listener: OnItemSelected, session: SessionManager
         ) {
 
             binding.txtFeCodeNo.text = data.fECode
