@@ -63,7 +63,20 @@
     <string name="enter_valid_password">Enter Minimum Six Character Password</string>
     <string name="change_pwd">Change Password</string>
     <string name="enter_old_pwd">Enter OLD Password</string>
+    <string name="password_same_old_new">New Password Can Not Be Same As Old Password</string>
     <string name="password_not_matched">Password Not Matched</string>
+    <string name="target">Target</string>
+    <string name="achived">Achived</string>
+    <string name="le_new">LE New</string>
+    <string name="le_renewl">LE Renewal</string>
+    <string name="total_le">Total LE</string>
+    <string name="dd_done">DD Done</string>
+    <string name="dd_pos">DD +ve</string>
+    <string name="grt">GRT</string>
+    <string name="dsb_cleint">Disb Client</string>
+    <string name="dsb_amount">Disb Amount</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
 
 
 </resources>

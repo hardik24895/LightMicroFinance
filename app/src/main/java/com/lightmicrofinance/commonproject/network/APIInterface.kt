@@ -22,6 +22,9 @@ interface APIInterface {
     @POST("collection/getTarget")
     fun getTarget(@Body body: RequestBody): Observable<Response<TargetModal>>
 
+    @POST("user/changePassword")
+    fun changePassword(@Body body: RequestBody): Observable<Response<LoginModal>>
+
    /* @Multipart
     @POST("service/")
     fun AddCustomerSiteDocument(

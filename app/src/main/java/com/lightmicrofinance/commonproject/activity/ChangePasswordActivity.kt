@@ -45,6 +45,9 @@ class ChangePasswordActivity : BaseActivity() {
                 binding.mainView.showSnackBar(getString(R.string.password_not_matched))
             }
 
+            binding.edtOldPwd.getValue() == binding.edtNewPassword.getValue() -> {
+                binding.mainView.showSnackBar(getString(R.string.password_same_old_new))
+            }
             else -> {
                 changePassword()
             }
@@ -62,7 +65,7 @@ class ChangePasswordActivity : BaseActivity() {
         Networking
             .with(this)
             .getServices()
-            .login(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .changePassword(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CallbackObserver<LoginModal>() {

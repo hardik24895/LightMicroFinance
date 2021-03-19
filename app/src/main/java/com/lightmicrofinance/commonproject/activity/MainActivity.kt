@@ -13,11 +13,7 @@ import com.commonProject.utils.SessionManager
 import com.lightmicrofinance.commonproject.R
 import com.lightmicrofinance.commonproject.databinding.ActivityMainBinding
 import com.lightmicrofinance.commonproject.dialog.LogoutDailog
-
-import com.lightmicrofinance.commonproject.fragment.CollectionFragment
-import com.lightmicrofinance.commonproject.fragment.HomeFragment
-import com.lightmicrofinance.commonproject.fragment.ParFragment
-import com.lightmicrofinance.commonproject.fragment.SettingFragment
+import com.lightmicrofinance.commonproject.fragment.*
 
 class MainActivity : BaseActivity() {
 
@@ -100,6 +96,12 @@ class MainActivity : BaseActivity() {
             toggleLeftDrawer()
             binding.appbarMain.tvTitle.text = getString(R.string.par)
             replaceFragment(ParFragment(), R.id.framLayout)
+        }
+
+        binding.leftDrawerMenu.linBusiness.setOnClickListener {
+            toggleLeftDrawer()
+            binding.appbarMain.tvTitle.text = getString(R.string.bussiness)
+            replaceFragment(BusinessFragment(), R.id.framLayout)
         }
 
         binding.leftDrawerMenu.linSetting.setOnClickListener {

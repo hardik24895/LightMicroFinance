@@ -40,8 +40,11 @@
         android:layout_height="wrap_content"
         android:paddingHorizontal="@dimen/_8sdp"
         android:text="Nisha Patel"
+        android:gravity="end"
+
         app:layout_constraintBottom_toBottomOf="@+id/roundedImageView"
         app:layout_constraintEnd_toStartOf="@+id/roundedImageView"
+        app:layout_constraintStart_toEndOf="@+id/img_back"
         app:layout_constraintTop_toTopOf="@+id/roundedImageView" />
 
 

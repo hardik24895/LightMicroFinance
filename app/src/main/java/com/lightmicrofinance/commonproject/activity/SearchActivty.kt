@@ -5,7 +5,9 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.commonProject.extention.getValue
+import com.commonProject.extention.invisible
 import com.commonProject.extention.showAlert
+import com.commonProject.extention.visible
 import com.commonProject.network.CallbackObserver
 import com.commonProject.network.Networking
 import com.commonProject.network.addTo
@@ -45,9 +47,14 @@ class SearchActivty : BaseActivity() {
 
         binding.includes.imgBack.setOnClickListener { finish() }
 
-        /* if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION)) {
-
-         }*/
+         if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS)) {
+             binding.inStartDate.visible()
+             binding.inEndDate.visible()
+             binding.linlayCenterName.invisible()
+             binding.inCleintID.invisible()
+             binding.inCleintName.invisible()
+             binding.inLoanID.invisible()
+         }
 
         binding.btnSearch.setOnClickListener { SearchData() }
 
