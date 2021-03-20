@@ -5,9 +5,8 @@ import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.drawerlayout.widget.DrawerLayout
-import com.bumptech.glide.Glide
-
-import com.commonProject.extention.*
+import com.commonProject.extention.goToActivityAndClearTask
+import com.commonProject.extention.replaceFragment
 import com.commonProject.utils.Constant
 import com.commonProject.utils.SessionManager
 import com.lightmicrofinance.commonproject.R
@@ -105,10 +104,9 @@ class MainActivity : BaseActivity() {
         }
 
         binding.leftDrawerMenu.linReport.setOnClickListener {
-
             toggleLeftDrawer()
             binding.appbarMain.tvTitle.text =getString(R.string.report)
-            replaceFragment(BusinessSummaryFragment(), R.id.framLayout)
+            replaceFragment(ReportFragment(), R.id.framLayout)
         }
         binding.leftDrawerMenu.linSetting.setOnClickListener {
 

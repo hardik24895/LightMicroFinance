@@ -46,4 +46,7 @@ interface APIInterface {
 
     @POST("cms/getPage")
     fun getCMS(@Body body: RequestBody): Observable<Response<CMSDataModal>>
+
+    @POST("business/getSummery")
+    fun getBusinessSammary(@Body body: RequestBody): Observable<Response<BusinessSummaryModal>>
 }
