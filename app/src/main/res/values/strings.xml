@@ -61,5 +61,8 @@
     <string name="enter_empid">Enter EmployeeID</string>
     <string name="enter_valid_empid">Enter Valid EmployeeID</string>
     <string name="enter_valid_password">Enter Valid Password</string>
+    <string name="target">Target</string>
+    <string name="total_collection">Total Collection</string>
+    <string name="collection_percentage">Collection Percentage</string>
 
 </resources>
