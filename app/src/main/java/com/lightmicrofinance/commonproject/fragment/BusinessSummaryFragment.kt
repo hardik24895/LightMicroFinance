@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.commonProject.extention.getCurrentDate
 import com.commonProject.extention.showAlert
 import com.commonProject.network.CallbackObserver
 import com.commonProject.network.Networking
 import com.commonProject.network.addTo
+import com.commonProject.utils.TimeStamp
 import com.lightmicrofinance.commonproject.databinding.FragementSummaryBusinessBinding
 import com.lightmicrofinance.commonproject.modal.TargetModal
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -21,6 +23,11 @@ class BusinessSummaryFragment : BaseFragment() {
 
     private val binding get() = _binding!!
 
+    companion object {
+        var StartDate: String = TimeStamp.getStartDateRange()
+        var EndDate: String = getCurrentDate()
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,6 +46,13 @@ class BusinessSummaryFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.txtSelectedDate.text = StartDate + " To " + EndDate
+
+    }
+
+    override fun onResume() {
+        super.onResume()
         getSummaryData()
     }
 
@@ -46,6 +60,8 @@ class BusinessSummaryFragment : BaseFragment() {
         showProgressbar()
         val params = HashMap<String, Any>()
         params["FECode"] = session.user.data?.fECode.toString()
+        params["StartDate"] = StartDate
+        params["EndDate"] = EndDate
 
         Networking
             .with(requireContext())
