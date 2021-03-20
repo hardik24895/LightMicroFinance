@@ -100,12 +100,11 @@
             android:layout_width="0dp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_height="wrap_content"
-
             android:background="@drawable/bg_spinner"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/inLoanID">
+            app:layout_constraintTop_toBottomOf="@+id/inEndDate">
 
 
             <tech.hibk.searchablespinnerlibrary.SearchableSpinner
@@ -135,6 +134,61 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/spCenterName" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inStartDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:dividerPadding="@dimen/_2sdp"
+            android:hint="@string/start_date"
+            android:textColorHint="@color/icon_color"
+            app:boxBackgroundColor="#FFF"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inLoanID">
+
+            <EditText
+                android:id="@+id/edtStartDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="date"
+                android:focusable="false"
+                android:maxLength="100"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/inEndDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:dividerPadding="@dimen/_2sdp"
+            android:hint="@string/end_date"
+            android:textColorHint="@color/icon_color"
+            app:boxBackgroundColor="#FFF"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/inStartDate">
+
+            <EditText
+                android:id="@+id/edtEndDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@android:color/transparent"
+                android:fontFamily="@font/poppins_regular"
+                android:inputType="date"
+                android:focusable="false"
+                android:maxLength="100"
+                android:singleLine="true"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.commonProject.customview.ButtonReguler
             android:id="@+id/btnSearch"

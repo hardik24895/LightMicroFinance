@@ -1,8 +1,22 @@
 package com.lightmicrofinance.commonproject.activity
 
+import android.os.Build
 import android.os.Bundle
+import android.text.Html
+import android.text.Spanned
+import androidx.core.text.HtmlCompat
+import com.commonProject.extention.getValue
+import com.commonProject.extention.showAlert
+import com.commonProject.network.CallbackObserver
+import com.commonProject.network.Networking
+import com.commonProject.network.addTo
 import com.commonProject.utils.Constant
+import com.lightmicrofinance.commonproject.R
 import com.lightmicrofinance.commonproject.databinding.ActivityCmsBinding
+import com.lightmicrofinance.commonproject.modal.CMSDataModal
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import org.json.JSONObject
 
 
 class InformationActivity : BaseActivity() {
@@ -20,58 +34,46 @@ class InformationActivity : BaseActivity() {
         } else {
             binding.txtTitle.text = "PRIVACY POLICY"
         }
-       // intent.getStringExtra("Desc")?.let { getCMSData(it) }
+        intent.getStringExtra("Desc")?.let { getCMSData(it) }
         binding.imgBack.setOnClickListener { onBackPressed() }
 
     }
 
-   /* fun getCMSData(pageID: String) {
-        var result = ""
+    fun getCMSData(pageID: String) {
+
         showProgressbar()
-        try {
-            val jsonBody = JSONObject()
-            jsonBody.put("PageName", pageID)
+        val params = HashMap<String, Any>()
+        params["PageName"] = pageID
 
-            result = Networking.setParentJsonData(
-                Constant.METHOD_GET_PAGE,
-                jsonBody
-            )
-
-        } catch (e: JSONException) {
-            e.printStackTrace()
-        }
         Networking
             .with(this)
             .getServices()
-            .getCMS(Networking.wrapParams(result))//wrapParams Wraps parameters in to Request body Json format
+            .getCMS(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : CallbackObserver<CMSModal>() {
-                override fun onSuccess(response: CMSModal) {
+            .subscribeWith(object : CallbackObserver<CMSDataModal>() {
+                override fun onSuccess(response: CMSDataModal) {
                     hideProgressbar()
 
-                    if (response.error == 200) {
-                        val htmlStrig = response.data
+                    if (response.error==false) {
+                        val htmlStrig = response.data?.content
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             val htmlAsSpanned: Spanned =
-                                Html.fromHtml(htmlStrig, HtmlCompat.FROM_HTML_MODE_LEGACY)
-                            txtDesc.setText(htmlAsSpanned);
+                                Html.fromHtml(htmlStrig.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
+                           binding.txtDesc.setText(htmlAsSpanned);
                         } else {
-                            val htmlAsSpanned: Spanned = Html.fromHtml(htmlStrig)
-                            txtDesc.setText(htmlAsSpanned);
+                            val htmlAsSpanned: Spanned = Html.fromHtml(htmlStrig.toString())
+                            binding.txtDesc.setText(htmlAsSpanned);
                         }
                     }
                 }
 
                 override fun onFailed(code: Int, message: String) {
-
                     hideProgressbar()
-
-                    // showAlert(message)
                     showAlert(getString(R.string.show_server_error))
                 }
 
             }).addTo(autoDisposable)
-    }*/
+    }
 }

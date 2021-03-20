@@ -1,19 +1,23 @@
 package com.lightmicrofinance.commonproject.activity
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.commonProject.extention.getValue
-import com.commonProject.extention.showAlert
+import com.commonProject.extention.*
 import com.commonProject.network.CallbackObserver
 import com.commonProject.network.Networking
 import com.commonProject.network.addTo
 import com.commonProject.utils.Constant
 import com.commonProject.utils.Logger
+import com.commonProject.utils.TimeStamp
+import com.commonProject.utils.TimeStamp.formatDateFromString
 import com.lightmicrofinance.commonproject.R
-
 import com.lightmicrofinance.commonproject.databinding.ActivitySearchBinding
+import com.lightmicrofinance.commonproject.fragment.BusinessFragment.Companion.EndDate
+import com.lightmicrofinance.commonproject.fragment.BusinessFragment.Companion.StartDate
 import com.lightmicrofinance.commonproject.fragment.CollectionFragment.Companion.CenterName
 import com.lightmicrofinance.commonproject.fragment.CollectionFragment.Companion.ClientID
 import com.lightmicrofinance.commonproject.fragment.CollectionFragment.Companion.ClientName
@@ -22,8 +26,6 @@ import com.lightmicrofinance.commonproject.modal.CenternameDataItem
 import com.lightmicrofinance.commonproject.modal.CenternameListModal
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import org.json.JSONException
-import org.json.JSONObject
 import tech.hibk.searchablespinnerlibrary.SearchableDialog
 import tech.hibk.searchablespinnerlibrary.SearchableItem
 
@@ -45,15 +47,49 @@ class SearchActivty : BaseActivity() {
 
         binding.includes.imgBack.setOnClickListener { finish() }
 
-        /* if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION)) {
-
-         }*/
+         if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS)) {
+             binding.inStartDate.visible()
+             binding.inEndDate.visible()
+             binding.linlayCenterName.invisible()
+             binding.inCleintID.invisible()
+             binding.inCleintName.invisible()
+             binding.inLoanID.invisible()
+         }
 
         binding.btnSearch.setOnClickListener { SearchData() }
 
         getCenterNameList()
         centerNameSpinnerListner()
         centerNameViewClick()
+
+
+        binding.edtStartDate.setOnClickListener {
+            showDateTimePicker(this@SearchActivty, binding.edtStartDate)
+        }
+
+
+        binding.edtEndDate.setOnClickListener {
+            showNextFromStartDateTimePicker(
+                this@SearchActivty,
+                binding.edtEndDate,
+                binding.edtStartDate.getValue()
+            )
+        }
+
+        binding.edtStartDate.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                binding.edtEndDate.setText(binding.edtStartDate.getValue())
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+
+        binding.edtStartDate.setText(TimeStamp.getStartDateRange())
+        binding.edtEndDate.setText(getCurrentDate())
 
     }
 
@@ -62,6 +98,8 @@ class SearchActivty : BaseActivity() {
         ClientID = binding.edtCleintID.getValue()
         LoanID = binding.edtLoanID.getValue()
         CenterName = centerName
+        StartDate = formatDateFromString(binding.edtStartDate.getValue())
+        EndDate = formatDateFromString(binding.edtEndDate.getValue())
         finish()
         // CenterName = binding.
 

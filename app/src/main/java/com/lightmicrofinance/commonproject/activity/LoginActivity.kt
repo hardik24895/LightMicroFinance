@@ -59,7 +59,6 @@ class LoginActivity : BaseActivity() {
             this,
             object : LogoutDailog.onItemClick {
                 override fun onItemCLicked() {
-
                 }
             })
         val bundle = Bundle()
@@ -78,7 +77,7 @@ class LoginActivity : BaseActivity() {
             binding.edtEmpId.getValue().length != 8 -> {
                 binding.mainView.showSnackBar(getString(R.string.enter_valid_empid))
             }
-            binding.edtPassword.getValue().length != 6 -> {
+            binding.edtPassword.getValue().length < 6 -> {
                 binding.mainView.showSnackBar(getString(R.string.enter_valid_password))
             }
 

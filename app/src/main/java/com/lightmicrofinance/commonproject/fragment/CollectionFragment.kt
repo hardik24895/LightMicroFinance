@@ -41,15 +41,15 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         var ClientName: String = ""
     }
 
-    private var _binding: FragmentCollectionBinding? = null
+    private lateinit var _binding: FragmentCollectionBinding
 
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentCollectionBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -59,46 +59,39 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //setupRecyclerView()
-
-
-        
-        _binding?.txtPending?.setOnClickListener {
-            _binding?.txtPending?.isSelected = true
-            _binding?.txtPartialy?.isSelected = false
-            _binding?.txtCollected?.isSelected = false
+        _binding.txtPending.setOnClickListener {
+            _binding.txtPending.isSelected = true
+            _binding.txtPartialy.isSelected = false
+            _binding.txtCollected.isSelected = false
             status = Constant.PENDING
-           // setupRecyclerView()
             getRefreshData()
         }
-        _binding?.txtPartialy?.setOnClickListener {
-            _binding?.txtPending?.isSelected = false
-            _binding?.txtPartialy?.isSelected = true
-            _binding?.txtCollected?.isSelected = false
+        _binding.txtPartialy.setOnClickListener {
+            _binding.txtPending.isSelected = false
+            _binding.txtPartialy.isSelected = true
+            _binding.txtCollected.isSelected = false
             status =Constant.PARTIALY
-
             getRefreshData()
          
         }
-        _binding?.txtCollected?.setOnClickListener {
-            _binding?.txtPending?.isSelected = false
-            _binding?.txtPartialy?.isSelected = false
-            _binding?.txtCollected?.isSelected = true
+        _binding.txtCollected.setOnClickListener {
+            _binding.txtPending.isSelected = false
+            _binding.txtPartialy.isSelected = false
+            _binding.txtCollected.isSelected = true
             status =Constant.COLLECTED
-           // setupRecyclerView()
             getRefreshData()
         }
 
-              _binding?.rvSwipe?.recyclerView?.setLoadMoreListener(object : LoadMoreListener {
+              _binding.rvSwipe.recyclerView.setLoadMoreListener(object : LoadMoreListener {
                   override fun onLoadMore() {
-                      if (hasNextPage && !   _binding?.rvSwipe?.recyclerView?.isLoading!!) {
-                          _binding?.rvSwipe?.progressbar?.visible()
+                      if (hasNextPage && !   _binding.rvSwipe.recyclerView.isLoading) {
+                          _binding.rvSwipe.progressbar.visible()
                           getCollectionList(++page)
                       }
                   }
               })
 
-        _binding?.rvSwipe?.swipeRefreshLayout?.setOnRefreshListener {
+        _binding.rvSwipe.swipeRefreshLayout.setOnRefreshListener {
                 CenterName = ""
                 ClientID = ""
                 LoanID = ""
@@ -106,7 +99,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                 page = 1
                 list.clear()
                 hasNextPage = true
-                _binding?.rvSwipe?.recyclerView?.isLoading = true
+                _binding.rvSwipe.recyclerView.isLoading = true
                 adapter?.notifyDataSetChanged()
                 getCollectionList(page)
             }
@@ -122,8 +115,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         list.clear()
         setupRecyclerView()
         hasNextPage = true
-        _binding?.rvSwipe?.swipeRefreshLayout?.isRefreshing = true
-        _binding?.rvSwipe?.recyclerView?.isLoading = true
+        _binding.rvSwipe.swipeRefreshLayout.isRefreshing = true
+        _binding.rvSwipe.recyclerView.isLoading = true
         adapter?.notifyDataSetChanged()
         getCollectionList(page)
     }
@@ -131,9 +124,9 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
     fun setupRecyclerView() {
 
         val layoutManager = LinearLayoutManager(requireContext())
-        _binding?.rvSwipe?.recyclerView?.layoutManager = layoutManager
+        _binding.rvSwipe.recyclerView.layoutManager = layoutManager
         adapter = CollectionAdapter(requireContext(), list, session, status, this)
-        _binding?.rvSwipe?.recyclerView?.adapter = adapter
+        _binding.rvSwipe.recyclerView.adapter = adapter
 
     }
 
@@ -152,7 +145,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         return when (item.itemId) {
             /* R.id.action_add -> {
                  if (checkUserRole(
-                         session.roleData.data?.visitor?.isEdit.toString(),
+                         session.roleData.data.visitor.isEdit.toString(),
                          requireContext()
                      )
                  )
@@ -178,20 +171,19 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
 
     override fun onResume() {
         if (status==Constant.PENDING){
-            _binding?.txtPending?.isSelected = true
+            _binding.txtPending.isSelected = true
         }else if (status == Constant.PARTIALY){
-            _binding?.txtPartialy?.isSelected = true
+            _binding.txtPartialy.isSelected = true
         }else{
-            _binding?.txtCollected?.isSelected = true
+            _binding.txtCollected.isSelected = true
         }
         page = 1
         list.clear()
         hasNextPage = true
-        _binding?.rvSwipe?.swipeRefreshLayout?.isRefreshing = true
+        _binding.rvSwipe.swipeRefreshLayout.isRefreshing = true
         setupRecyclerView()
-        _binding?.rvSwipe?.recyclerView?.isLoading = true
+        _binding.rvSwipe.recyclerView.isLoading = true
         getCollectionList(page)
-
 
         super.onResume()
 
@@ -218,9 +210,9 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
              .subscribeWith(object : CallbackObserver<CollectionListModal>() {
                  override fun onSuccess(response: CollectionListModal) {
                      if (list.size > 0) {
-                         _binding?.rvSwipe?.progressbar?.invisible()
+                         _binding.rvSwipe.progressbar.invisible()
                      }
-                     _binding?.rvSwipe?.swipeRefreshLayout?.isRefreshing = false
+                     _binding.rvSwipe.swipeRefreshLayout.isRefreshing = false
 
                      if (response.error==false){
                          list.addAll(response.data)
@@ -236,7 +228,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
 
                  override fun onFailed(code: Int, message: String) {
                      if (list.size > 0) {
-                         _binding?.rvSwipe?.progressbar?.invisible()
+                         _binding.rvSwipe.progressbar.invisible()
                      }
                      showAlert(getString(R.string.show_server_error))
                      refreshData(message, code)
@@ -247,20 +239,20 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
 
 
     private fun refreshData(msg: String?, code: Int) {
-        _binding?.rvSwipe?.recyclerView?.setLoadedCompleted()
-        _binding?.rvSwipe?.swipeRefreshLayout?.isRefreshing = false
+        _binding.rvSwipe.recyclerView.setLoadedCompleted()
+        _binding.rvSwipe.swipeRefreshLayout.isRefreshing = false
         adapter?.notifyDataSetChanged()
 
         if (list.size > 0) {
-            _binding?.rvSwipe?.imgNodata?.invisible()
-            _binding?.rvSwipe?.recyclerView?.visible()
+            _binding.rvSwipe.imgNodata.invisible()
+            _binding.rvSwipe.recyclerView.visible()
         } else {
-            _binding?.rvSwipe?.imgNodata?.visible()
+            _binding.rvSwipe.imgNodata.visible()
             if (code == 0)
-                _binding?.rvSwipe?.imgNodata?.setImageResource(R.drawable.no_internet_bg)
+                _binding.rvSwipe.imgNodata.setImageResource(R.drawable.no_internet_bg)
             else
-                _binding?.rvSwipe?.imgNodata?.setImageResource(R.drawable.nodata)
-            _binding?.rvSwipe?.recyclerView?.invisible()
+                _binding.rvSwipe.imgNodata.setImageResource(R.drawable.nodata)
+            _binding.rvSwipe.recyclerView.invisible()
         }
     }
 
@@ -269,7 +261,6 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         ClientID = ""
         LoanID = ""
         ClientName = ""
-        _binding = null
         super.onDestroyView()
     }
 

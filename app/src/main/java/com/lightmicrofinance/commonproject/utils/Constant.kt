@@ -5,6 +5,7 @@ object Constant {
     const val ISCHECKED = "isChecked"
     const val LEAD = "lead"
     const val COLLECTION ="collection"
+    const val BUSINESS ="business"
     const val PENDING ="pending"
     const val PARTIALY ="Partialy"
     const val COLLECTED ="Collected"
