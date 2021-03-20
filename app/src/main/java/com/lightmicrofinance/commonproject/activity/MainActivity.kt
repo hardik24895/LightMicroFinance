@@ -104,6 +104,12 @@ class MainActivity : BaseActivity() {
             replaceFragment(BusinessFragment(), R.id.framLayout)
         }
 
+        binding.leftDrawerMenu.linReport.setOnClickListener {
+
+            toggleLeftDrawer()
+            binding.appbarMain.tvTitle.text =getString(R.string.report)
+            replaceFragment(BusinessSummaryFragment(), R.id.framLayout)
+        }
         binding.leftDrawerMenu.linSetting.setOnClickListener {
 
             toggleLeftDrawer()

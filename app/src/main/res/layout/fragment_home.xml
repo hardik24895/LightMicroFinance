@@ -70,7 +70,7 @@
                 android:id="@+id/txtTargetTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Target"
+                android:text="@string/target"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16ssp" />
         </LinearLayout>
@@ -133,7 +133,7 @@
                 android:id="@+id/txtTotalCollectionTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Collection"
+                android:text="@string/total_collection"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16ssp" />
         </LinearLayout>
@@ -195,7 +195,7 @@
                 android:id="@+id/txtCollectionPersentageTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Collection Percentage"
+                android:text="@string/collection_percentage"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16ssp" />
         </LinearLayout>
