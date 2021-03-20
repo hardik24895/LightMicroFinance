@@ -39,10 +39,11 @@ class BusinessSummaryFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getSummaryData()
     }
 
     fun getSummaryData() {
-
+        showProgressbar()
         val params = HashMap<String, Any>()
         params["FECode"] = session.user.data?.fECode.toString()
 
@@ -55,6 +56,7 @@ class BusinessSummaryFragment : BaseFragment() {
             .subscribeWith(object : CallbackObserver<TargetModal>() {
                 override fun onSuccess(response: TargetModal) {
                     val data = response.data
+                    hideProgressbar()
                     if (response.error == false) {
 
                     } else {
