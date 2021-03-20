@@ -1,6 +1,7 @@
 package com.lightmicrofinance.commonproject.modal
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class CollectionListModal(
 
@@ -93,4 +94,5 @@ data class CollectionDataItem(
 
 	@field:SerializedName("Pending")
 	val pending: String? = null
-)
+
+) : Serializable

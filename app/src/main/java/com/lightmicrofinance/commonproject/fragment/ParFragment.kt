@@ -132,8 +132,7 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
              }*/
             R.id.action_filter -> {
                 val intent = Intent(context, SearchActivty::class.java)
-                intent.putExtra(Constant.DATA, Constant.COLLECTION)
-                intent.putExtra(Constant.TYPE, status)
+                intent.putExtra(Constant.DATA, Constant.PAR)
                 startActivity(intent)
                 Animatoo.animateCard(context)
                 return true
@@ -170,7 +169,6 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
          params["LoanID"] = LoanID
          params["ClientID"] = ClientID
          params["ClientName"] = ClientName
-         params["CollectionType"] = status
 
          Networking
              .with(requireContext())

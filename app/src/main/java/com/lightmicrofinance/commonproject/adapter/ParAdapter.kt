@@ -55,13 +55,13 @@ class ParAdapter(
             binding.txtFeCodeNo.text = data.fECode
             binding.txtLoanID.text = data.loanID
             binding.txtBranchName.text = data.branch
-            binding.txtDPD.text  = data.dPD
+            binding.txtDPD.text = data.dPD
             binding.txtCenterName.text = data.centerName
             binding.txtBucket.text = data.bucket
             binding.txtClientName.text = data.clientName
             binding.txtCleintID.text = data.clientID
-            binding.txtAmount.text = data.amount
-            binding.txtOverDue.text = data.overdueAmount
+            binding.txtAmount.text = "₹ " + data.amount
+            binding.txtOverDue.text = "₹ " + data.overdueAmount
 
 
             itemView.setOnClickListener { listener.onItemSelect(adapterPosition, data, "MainView") }

@@ -18,10 +18,8 @@ import com.lightmicrofinance.commonproject.R
 import com.lightmicrofinance.commonproject.databinding.ActivitySearchBinding
 import com.lightmicrofinance.commonproject.fragment.BusinessFragment.Companion.EndDate
 import com.lightmicrofinance.commonproject.fragment.BusinessFragment.Companion.StartDate
-import com.lightmicrofinance.commonproject.fragment.CollectionFragment.Companion.CenterName
-import com.lightmicrofinance.commonproject.fragment.CollectionFragment.Companion.ClientID
-import com.lightmicrofinance.commonproject.fragment.CollectionFragment.Companion.ClientName
-import com.lightmicrofinance.commonproject.fragment.CollectionFragment.Companion.LoanID
+import com.lightmicrofinance.commonproject.fragment.CollectionFragment
+import com.lightmicrofinance.commonproject.fragment.ParFragment
 import com.lightmicrofinance.commonproject.modal.CenternameDataItem
 import com.lightmicrofinance.commonproject.modal.CenternameListModal
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -47,14 +45,16 @@ class SearchActivty : BaseActivity() {
 
         binding.includes.imgBack.setOnClickListener { finish() }
 
-         if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS)) {
-             binding.inStartDate.visible()
-             binding.inEndDate.visible()
-             binding.linlayCenterName.invisible()
-             binding.inCleintID.invisible()
-             binding.inCleintName.invisible()
-             binding.inLoanID.invisible()
-         }
+        if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS)) {
+            binding.inStartDate.visible()
+            binding.inEndDate.visible()
+            binding.linlayCenterName.invisible()
+            binding.inCleintID.invisible()
+            binding.inCleintName.invisible()
+            binding.inLoanID.invisible()
+        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION)) {
+            binding.linlayCenterName.invisible()
+        }
 
         binding.btnSearch.setOnClickListener { SearchData() }
 
@@ -78,7 +78,7 @@ class SearchActivty : BaseActivity() {
 
         binding.edtStartDate.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                binding.edtEndDate.setText(binding.edtStartDate.getValue())
+                //  binding.edtEndDate.setText(getCurrentDate())
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -94,10 +94,18 @@ class SearchActivty : BaseActivity() {
     }
 
     fun SearchData() {
-        ClientName = binding.edtCleintName.getValue()
-        ClientID = binding.edtCleintID.getValue()
-        LoanID = binding.edtLoanID.getValue()
-        CenterName = centerName
+        if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.PAR)) {
+            ParFragment.CenterName = centerName
+            ParFragment.ClientID = binding.edtCleintID.getValue()
+            ParFragment.CenterName = centerName
+            ParFragment.LoanID = binding.edtLoanID.getValue()
+        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION)) {
+            CollectionFragment.ClientName = binding.edtCleintName.getValue()
+            CollectionFragment.ClientID = binding.edtCleintID.getValue()
+            CollectionFragment.LoanID = binding.edtLoanID.getValue()
+            CollectionFragment.CenterName = centerName
+        }
+
         StartDate = formatDateFromString(binding.edtStartDate.getValue())
         EndDate = formatDateFromString(binding.edtEndDate.getValue())
         finish()
@@ -109,7 +117,7 @@ class SearchActivty : BaseActivity() {
 
         binding.view2.setOnClickListener {
             SearchableDialog(this@SearchActivty,
-               itemCenterNameType!!,
+                itemCenterNameType!!,
                 getString(R.string.center_name), { item, _ ->
                     binding.spCenterName.setSelection(item.id.toInt())
                 }).show()
@@ -145,7 +153,7 @@ class SearchActivty : BaseActivity() {
 
     fun getCenterNameList() {
         val params = HashMap<String, Any>()
-        params[""] =  ""
+        params[""] = ""
         Networking
             .with(this@SearchActivty)
             .getServices()
