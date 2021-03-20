@@ -251,7 +251,7 @@
                 android:layout_marginTop="@dimen/_3sdp"
                 android:paddingVertical="@dimen/_5sdp"
                 android:singleLine="true"
-                android:text="@string/_le_new"
+                android:text="@string/_le_re_new"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toStartOf="@+id/txtLEReNewPlan"

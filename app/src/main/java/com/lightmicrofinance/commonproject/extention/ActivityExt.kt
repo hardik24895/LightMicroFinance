@@ -15,8 +15,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
-import com.lightmicrofinance.commonproject.R
 import com.commonProject.utils.Constant
+import com.lightmicrofinance.commonproject.R
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -181,6 +181,35 @@ fun getCurrentDate(): String {
 }
 
 
+fun getYesterdayDate(): String {
+
+    var date: String? = ""
+    var selectedMonth: String = ""
+    var selectedDay: String = ""
+
+    val c = Calendar.getInstance()
+    val year = c.get(Calendar.YEAR)
+    val month = c.get(Calendar.MONTH)
+    val day = c.get(Calendar.DAY_OF_MONTH)
+
+
+    if (day < 10) {
+        selectedDay = "0" + (day - 1)
+    } else
+        selectedDay = (day - 1).toString()
+
+
+    if (month < 10) {
+        selectedMonth = "0" + (month + 1)
+    } else
+        selectedMonth = month.toString()
+
+    date = "" + selectedDay + "/" + selectedMonth + "/" + year
+
+    return date.toString()
+}
+
+
 fun getCurrentDateTime(): String {
 
     val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
@@ -267,8 +296,31 @@ fun showPastDateTimePicker(requireActivity: Activity, edittext: EditText) {
         month,
         day
     )
-    dpd.getDatePicker().setMaxDate(c.getTimeInMillis())
+
+    val c1 = Calendar.getInstance()
+    val year1 = c.get(Calendar.YEAR)
+    val month1 = c.get(Calendar.MONTH)
+    val day1 = c.get(Calendar.DAY_OF_MONTH)
+
+    c1.set(Calendar.YEAR, year1)
+    c1.set(Calendar.MONTH, month1)
+    c1.set(Calendar.DAY_OF_MONTH, day1 - 1)
+
+    /* val f = SimpleDateFormat("dd/MM/yyyy")
+     val d = f.parse((day - 1).toString() + "/" + month + "/" + year)*/
+    dpd.getDatePicker().setMaxDate(c1.timeInMillis)
     //  dpd.getDatePicker().setMinDate(c.getTimeInMillis())
+
+    /* val dateParts: List<String> = edittext.getValue().split("/")
+     val day11 = dateParts[0]
+     val month11 = dateParts[1]
+     val year11 = dateParts[2]
+
+     val c2 = Calendar.getInstance()
+     c2.set(Calendar.YEAR, year11.toInt())
+     c2.set(Calendar.MONTH, month11.toInt())
+     c2.set(Calendar.DAY_OF_MONTH, day11.toInt())
+     dpd.getDatePicker().setMinDate(c2.timeInMillis)*/
     dpd.show()
 }
 

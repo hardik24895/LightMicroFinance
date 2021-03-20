@@ -1,11 +1,13 @@
 package com.lightmicrofinance.commonproject.activity
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.DatePicker
 import com.commonProject.extention.*
 import com.commonProject.network.CallbackObserver
 import com.commonProject.network.Networking
@@ -16,8 +18,8 @@ import com.commonProject.utils.TimeStamp
 import com.commonProject.utils.TimeStamp.formatDateFromString
 import com.lightmicrofinance.commonproject.R
 import com.lightmicrofinance.commonproject.databinding.ActivitySearchBinding
-import com.lightmicrofinance.commonproject.fragment.BusinessFragment.Companion.EndDate
-import com.lightmicrofinance.commonproject.fragment.BusinessFragment.Companion.StartDate
+import com.lightmicrofinance.commonproject.fragment.BusinessFragment
+import com.lightmicrofinance.commonproject.fragment.BusinessSummaryFragment
 import com.lightmicrofinance.commonproject.fragment.CollectionFragment
 import com.lightmicrofinance.commonproject.fragment.ParFragment
 import com.lightmicrofinance.commonproject.modal.CenternameDataItem
@@ -26,10 +28,15 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import tech.hibk.searchablespinnerlibrary.SearchableDialog
 import tech.hibk.searchablespinnerlibrary.SearchableItem
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 class SearchActivty : BaseActivity() {
     lateinit var binding: ActivitySearchBinding
-
+    val myCalendar1 = Calendar.getInstance()
+    val myCalendar2 = Calendar.getInstance()
     var centerNameList: ArrayList<String> = ArrayList()
     var adaptercenterName: ArrayAdapter<String>? = null
     var centerNameListArray: ArrayList<CenternameDataItem> = ArrayList()
@@ -43,9 +50,45 @@ class SearchActivty : BaseActivity() {
         setContentView(view)
         binding.includes.txtTitle.text = getString(R.string.search)
 
+        binding.edtStartDate.setText(TimeStamp.getSpesificStartDateRange())
+        binding.edtEndDate.setText(getYesterdayDate())
+
+
+        val date: DatePickerDialog.OnDateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(
+                view: DatePicker?, year: Int, monthOfYear: Int,
+                dayOfMonth: Int
+            ) {
+                myCalendar1.set(Calendar.YEAR, year)
+                myCalendar1.set(Calendar.MONTH, monthOfYear)
+                myCalendar1.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val myFormat = "dd/MM/yyyy" //In which you need put here
+                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                binding.edtStartDate.setText(sdf.format(myCalendar1.time))
+            }
+        }
+
+        val date2: DatePickerDialog.OnDateSetListener =
+            object : DatePickerDialog.OnDateSetListener {
+                override fun onDateSet(
+                    view: DatePicker?, year: Int, monthOfYear: Int,
+                    dayOfMonth: Int
+                ) {
+                    myCalendar2.set(Calendar.YEAR, year)
+                    myCalendar2.set(Calendar.MONTH, monthOfYear)
+                    myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                    val myFormat = "dd/MM/yyyy" //In which you need put here
+                    val sdf = SimpleDateFormat(myFormat, Locale.US)
+                    binding.edtEndDate.setText(sdf.format(myCalendar2.time))
+                }
+            }
+
         binding.includes.imgBack.setOnClickListener { finish() }
 
-        if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS)) {
+        if (intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.BUSINESS) || intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.BUSINESS_SUMMARY)
+        ) {
             binding.inStartDate.visible()
             binding.inEndDate.visible()
             binding.linlayCenterName.invisible()
@@ -63,17 +106,39 @@ class SearchActivty : BaseActivity() {
         centerNameViewClick()
 
 
+
         binding.edtStartDate.setOnClickListener {
-            showDateTimePicker(this@SearchActivty, binding.edtStartDate)
+            val dialog = DatePickerDialog(
+                this@SearchActivty,
+                date,
+                myCalendar1[Calendar.YEAR],
+                myCalendar1[Calendar.MONTH],
+                myCalendar1[Calendar.DAY_OF_MONTH]
+            )
+            dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis - 86400000L)
+            dialog.show()
+            //  showPastDateTimePicker(this@SearchActivty, binding.edtStartDate)
         }
 
 
         binding.edtEndDate.setOnClickListener {
-            showNextFromStartDateTimePicker(
+            /*  showPastDateTimePicker(
+                  this@SearchActivty,
+                  binding.edtEndDate
+              )*/
+            val dialog = DatePickerDialog(
                 this@SearchActivty,
-                binding.edtEndDate,
-                binding.edtStartDate.getValue()
+                date2,
+                myCalendar2[Calendar.YEAR],
+                myCalendar2[Calendar.MONTH],
+                myCalendar2[Calendar.DAY_OF_MONTH]
             )
+
+            val f = SimpleDateFormat("dd/MM/yyyy")
+            val d = f.parse(binding.edtStartDate.getValue())
+            dialog.getDatePicker().setMinDate(d.time)
+            dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis - 86400000L)
+            dialog.show()
         }
 
         binding.edtStartDate.addTextChangedListener(object : TextWatcher {
@@ -88,10 +153,9 @@ class SearchActivty : BaseActivity() {
             }
         })
 
-        binding.edtStartDate.setText(TimeStamp.getStartDateRange())
-        binding.edtEndDate.setText(getCurrentDate())
 
     }
+
 
     fun SearchData() {
         if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.PAR)) {
@@ -104,10 +168,16 @@ class SearchActivty : BaseActivity() {
             CollectionFragment.ClientID = binding.edtCleintID.getValue()
             CollectionFragment.LoanID = binding.edtLoanID.getValue()
             CollectionFragment.CenterName = centerName
+        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS)) {
+            BusinessFragment.StartDate = formatDateFromString(binding.edtStartDate.getValue())
+            BusinessFragment.EndDate = formatDateFromString(binding.edtEndDate.getValue())
+        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS_SUMMARY)) {
+            BusinessSummaryFragment.StartDate =
+                formatDateFromString(binding.edtStartDate.getValue())
+            BusinessSummaryFragment.EndDate = formatDateFromString(binding.edtEndDate.getValue())
         }
 
-        StartDate = formatDateFromString(binding.edtStartDate.getValue())
-        EndDate = formatDateFromString(binding.edtEndDate.getValue())
+
         finish()
         // CenterName = binding.
 

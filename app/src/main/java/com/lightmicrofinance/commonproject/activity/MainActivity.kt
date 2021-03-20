@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.commonProject.extention.goToActivityAndClearTask
 import com.commonProject.extention.replaceFragment
@@ -18,11 +19,15 @@ class MainActivity : BaseActivity() {
 
     lateinit var binding: ActivityMainBinding
 
+    lateinit var toolbar1: Toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
+
         val view = binding.root
-      //  val includedView: ImageView = binding.contentMain.includes.imgBack
+        toolbar1 = binding.appbarMain.toolbar
+        //  val includedView: ImageView = binding.contentMain.includes.imgBack
         setContentView(view)
         setSupportActionBar(binding.appbarMain.toolbar)
 
@@ -72,13 +77,11 @@ class MainActivity : BaseActivity() {
 
     fun drawerClickIteam() {
 
-
         binding.leftDrawerMenu.imgBack.setOnClickListener {
             toggleLeftDrawer()
         }
 
         binding.leftDrawerMenu.linHome.setOnClickListener {
-
             toggleLeftDrawer()
             binding.appbarMain.tvTitle.text = getString(R.string.home)
             replaceFragment(HomeFragment(), R.id.framLayout)
