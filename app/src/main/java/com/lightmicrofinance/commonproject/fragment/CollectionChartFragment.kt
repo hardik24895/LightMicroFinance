@@ -6,13 +6,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.commonProject.extention.showAlert
+import com.commonProject.network.CallbackObserver
+import com.commonProject.network.Networking
+import com.commonProject.network.addTo
 import com.github.mikephil.charting.charts.CombinedChart
 import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.lightmicrofinance.commonproject.R
 import com.lightmicrofinance.commonproject.databinding.FragmentChartBinding
+import com.lightmicrofinance.commonproject.modal.CollectionChartDataItem
+import com.lightmicrofinance.commonproject.modal.CollectionChartModal
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class CollectionChartFragment : BaseFragment() {
@@ -23,7 +32,9 @@ class CollectionChartFragment : BaseFragment() {
 
 
     private lateinit var chart: CombinedChart
-    private val count = 12
+
+
+    private var list: MutableList<CollectionChartDataItem> = mutableListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,7 +54,7 @@ class CollectionChartFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         chart = _binding?.barChartView!!
-        initCHart()
+
 
     }
 
@@ -89,7 +100,7 @@ class CollectionChartFragment : BaseFragment() {
 
         xAxis.valueFormatter = object : ValueFormatter() {
             override fun getFormattedValue(value: Float): String {
-                return "Day"
+                return firstTwo(list.get(value.toInt()).dueDate.toString())
             }
         }
 
@@ -110,15 +121,20 @@ class CollectionChartFragment : BaseFragment() {
         chart.invalidate()
     }
 
+    fun firstTwo(str: String): String {
+        return if (str.length < 2) str else str.substring(0, 2)
+    }
+
     private fun generateLineData(): LineData? {
         val d = LineData()
         val entries: ArrayList<Entry> = ArrayList()
-        for (index in 0 until count) entries.add(
-            Entry(
-                index + 0.5f,
-                getRandom(15f, 5f)
+        for (index in list.indices)
+            entries.add(
+                Entry(
+                    index.toFloat(),
+                    list.get(index).totalCollection?.toFloat()!!
+                )
             )
-        )
         val set = LineDataSet(entries, "Line DataSet")
         set.color = Color.rgb(240, 238, 70)
         set.lineWidth = 2.5f
@@ -137,8 +153,8 @@ class CollectionChartFragment : BaseFragment() {
     private fun generateBarData(): BarData? {
         val entries1: ArrayList<BarEntry> = ArrayList()
         //   val entries2: ArrayList<BarEntry> = ArrayList()
-        for (index in 0 until count) {
-            entries1.add(BarEntry(index.toFloat(), getRandom(25f, 25f)))
+        for (index in list.indices) {
+            entries1.add(BarEntry(index.toFloat(), list.get(index).originalDemand?.toFloat()!!))
 
             // stacked
             // entries2.add(BarEntry(0f, floatArrayOf(getRandom(13f, 12f), getRandom(13f, 12f))))
@@ -167,8 +183,41 @@ class CollectionChartFragment : BaseFragment() {
     }
 
 
-    protected fun getRandom(range: Float, start: Float): Float {
-        return (Math.random() * range).toFloat() + start
+    override fun onResume() {
+        super.onResume()
+        getCollectionChart()
+    }
+
+
+    fun getCollectionChart() {
+        list.clear()
+        showProgressbar()
+        val params = HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+
+        Networking
+            .with(requireContext())
+            .getServices()
+            .getCollectionChart(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<CollectionChartModal>() {
+                override fun onSuccess(response: CollectionChartModal) {
+                    hideProgressbar()
+                    if (response.error == false) {
+                        list.addAll(response.data)
+                        initCHart()
+                    }
+
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(getString(R.string.show_server_error))
+                    //  refreshData(message, code)
+                }
+
+            }).addTo(autoDisposable)
     }
 
 

@@ -8,6 +8,7 @@ object Constant {
     const val COLLECTION = "collection"
     const val BUSINESS = "business"
     const val BUSINESS_SUMMARY = "business_summary"
+    const val PAR_SUMMARY = "par_summary"
     const val PENDING = "pending"
     const val PARTIALY ="Partialy"
     const val COLLECTED ="Collected"

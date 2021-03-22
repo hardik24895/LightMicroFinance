@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.commonProject.extention.goToActivityAndClearTask
 import com.commonProject.extention.replaceFragment
@@ -20,6 +22,7 @@ class MainActivity : BaseActivity() {
     lateinit var binding: ActivityMainBinding
 
     lateinit var toolbar1: Toolbar
+    lateinit var txtTitle: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +30,7 @@ class MainActivity : BaseActivity() {
 
         val view = binding.root
         toolbar1 = binding.appbarMain.toolbar
+        txtTitle = binding.appbarMain.tvTitle
         //  val includedView: ImageView = binding.contentMain.includes.imgBack
         setContentView(view)
         setSupportActionBar(binding.appbarMain.toolbar)
@@ -40,7 +44,7 @@ class MainActivity : BaseActivity() {
 
         drawerClickIteam()
 
-        binding.appbarMain.tvTitle.text = getString(R.string.home)
+        // binding.appbarMain.tvTitle.text = getString(R.string.home)
         replaceFragment(HomeFragment(), R.id.framLayout)
 
         binding.leftDrawerMenu.txtName.text = session.user.data?.name
@@ -83,12 +87,16 @@ class MainActivity : BaseActivity() {
 
         binding.leftDrawerMenu.linHome.setOnClickListener {
             toggleLeftDrawer()
-            binding.appbarMain.tvTitle.text = getString(R.string.home)
+            //  binding.appbarMain.tvTitle.text = getString(R.string.home)
             replaceFragment(HomeFragment(), R.id.framLayout)
         }
 
        binding.leftDrawerMenu.linCollection.setOnClickListener {
 
+           toolbar1.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+           if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+               window?.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+           }
            toggleLeftDrawer()
            binding.appbarMain.tvTitle.text = getString(R.string.collection)
            replaceFragment(CollectionFragment(), R.id.framLayout)
@@ -96,25 +104,40 @@ class MainActivity : BaseActivity() {
 
         binding.leftDrawerMenu.linPar.setOnClickListener {
             toggleLeftDrawer()
+            toolbar1.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                window?.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+            }
             binding.appbarMain.tvTitle.text = getString(R.string.par)
             replaceFragment(ParFragment(), R.id.framLayout)
         }
 
         binding.leftDrawerMenu.linBusiness.setOnClickListener {
             toggleLeftDrawer()
+            toolbar1.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                window?.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+            }
             binding.appbarMain.tvTitle.text = getString(R.string.bussiness)
             replaceFragment(BusinessFragment(), R.id.framLayout)
         }
 
         binding.leftDrawerMenu.linReport.setOnClickListener {
             toggleLeftDrawer()
-            binding.appbarMain.tvTitle.text =getString(R.string.report)
+            toolbar1.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                window?.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+            }
+            binding.appbarMain.tvTitle.text = getString(R.string.report)
             replaceFragment(ReportFragment(), R.id.framLayout)
         }
         binding.leftDrawerMenu.linSetting.setOnClickListener {
-
+            toolbar1.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                window?.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+            }
             toggleLeftDrawer()
-            binding.appbarMain.tvTitle.text =getString(R.string.setting)
+            binding.appbarMain.tvTitle.text = getString(R.string.setting)
             replaceFragment(SettingFragment(), R.id.framLayout)
         }
 

@@ -18,10 +18,7 @@ import com.commonProject.utils.TimeStamp
 import com.commonProject.utils.TimeStamp.formatDateFromString
 import com.lightmicrofinance.commonproject.R
 import com.lightmicrofinance.commonproject.databinding.ActivitySearchBinding
-import com.lightmicrofinance.commonproject.fragment.BusinessFragment
-import com.lightmicrofinance.commonproject.fragment.BusinessSummaryFragment
-import com.lightmicrofinance.commonproject.fragment.CollectionFragment
-import com.lightmicrofinance.commonproject.fragment.ParFragment
+import com.lightmicrofinance.commonproject.fragment.*
 import com.lightmicrofinance.commonproject.modal.CenternameDataItem
 import com.lightmicrofinance.commonproject.modal.CenternameListModal
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -87,7 +84,8 @@ class SearchActivty : BaseActivity() {
 
         if (intent.getStringExtra(Constant.DATA)!!
                 .equals(Constant.BUSINESS) || intent.getStringExtra(Constant.DATA)!!
-                .equals(Constant.BUSINESS_SUMMARY)
+                .equals(Constant.BUSINESS_SUMMARY) || intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.PAR_SUMMARY)
         ) {
             binding.inStartDate.visible()
             binding.inEndDate.visible()
@@ -175,6 +173,10 @@ class SearchActivty : BaseActivity() {
             BusinessSummaryFragment.StartDate =
                 formatDateFromString(binding.edtStartDate.getValue())
             BusinessSummaryFragment.EndDate = formatDateFromString(binding.edtEndDate.getValue())
+        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.PAR_SUMMARY)) {
+            ParSummaryFragment.StartDate =
+                formatDateFromString(binding.edtStartDate.getValue())
+            ParSummaryFragment.EndDate = formatDateFromString(binding.edtEndDate.getValue())
         }
 
 

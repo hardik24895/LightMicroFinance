@@ -4,6 +4,7 @@
     <string name="you_dont_have_a_rights">You dont have a rights</string>
     <string name="please_wait">Please wait..</string>
     <string name="pending">Pending</string>
+    <string name="g_total">G TOtal</string>
     <string name="partialy">Partially</string>
     <string name="collected">Collected</string>
     <string name="center_name">Center Name</string>
@@ -95,6 +96,15 @@
     <string name="actual_amount">0</string>
     <string name="diff_amount">0</string>
     <string name="per_achived_amount">0%</string>
+    <string name="clients">Clients</string>
+    <string name="buckets">Buckets</string>
+
+    <string name="od_amount">OD Amount</string>
+    <string name="_1_to_30">1 to 30</string>
+    <string name="_31_to_60">31 to 60</string>
+    <string name="_61_to_90">61 to 90</string>
+    <string name="_91_to_180">91 to 180</string>
+    <string name="_180_above">180 above</string>
 
 
 </resources>

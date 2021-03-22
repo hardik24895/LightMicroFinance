@@ -147,6 +147,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-crashlytics-ktx'
 
+
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
+
     //graph view
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
