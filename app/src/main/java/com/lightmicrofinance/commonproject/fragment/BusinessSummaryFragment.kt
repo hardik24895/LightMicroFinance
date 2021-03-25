@@ -2,10 +2,11 @@ package com.lightmicrofinance.commonproject.fragment
 
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.*
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
-import com.commonProject.extention.getCurrentDate
+import com.commonProject.extention.getYesterdayDate
 import com.commonProject.extention.showAlert
 import com.commonProject.network.CallbackObserver
 import com.commonProject.network.Networking
@@ -27,8 +28,8 @@ class BusinessSummaryFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     companion object {
-        var StartDate: String = TimeStamp.getStartDateRange()
-        var EndDate: String = getCurrentDate()
+        var StartDate: String = TimeStamp.getSpesificStartDateRange()
+        var EndDate: String = getYesterdayDate()
 
     }
 
@@ -50,13 +51,15 @@ class BusinessSummaryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.txtSelectedDate.text = StartDate + " To " + EndDate
+
 
     }
 
     override fun onResume() {
         super.onResume()
+        binding.txtSelectedDate.text = StartDate + " To " + EndDate
         getSummaryData()
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -112,41 +115,57 @@ class BusinessSummaryFragment : BaseFragment() {
                         binding.txtLENewPlan.text = data?.lENew?.lENew
                         binding.txtLENewActual.text = data?.lENew?.achLENew
                         binding.txtLENewDifferent.text = data?.lENew?.diff
+                        binding.txtLENewDifferent.setTextColor(Color.parseColor(data?.lENew?.color.toString()))
+                        binding.txtLENewAchived.setTextColor(Color.parseColor(data?.lENew?.color.toString()))
                         binding.txtLENewAchived.text = data?.lENew?.percentage
 
                         binding.txtLEReNewPlan.text = data?.lERenew?.lERenew
                         binding.txtLEReNewActual.text = data?.lERenew?.achLERenew
                         binding.txtLEReNewDifferent.text = data?.lERenew?.diff
+                        binding.txtLEReNewDifferent.setTextColor(Color.parseColor(data?.lERenew?.color.toString()))
+                        binding.txtLEReNewAchived.setTextColor(Color.parseColor(data?.lERenew?.color.toString()))
                         binding.txtLEReNewAchived.text = data?.lERenew?.percentage
 
                         binding.txtTotalLEPlan.text = data?.totalLE?.totalLE
                         binding.txtTotalLEActual.text = data?.totalLE?.achTotalLE
                         binding.txtTotalLEDifferent.text = data?.totalLE?.diff
+                        binding.txtTotalLEDifferent.setTextColor(Color.parseColor(data?.totalLE?.color.toString()))
+                        binding.txtTotalLEAchived.setTextColor(Color.parseColor(data?.totalLE?.color.toString()))
                         binding.txtTotalLEAchived.text = data?.lENew?.percentage
 
                         binding.txtDDPlan.text = data?.dDDone?.dDDone
                         binding.txtDDActual.text = data?.dDDone?.achDDDone
                         binding.txtDDDifferent.text = data?.dDDone?.diff
+                        binding.txtDDDifferent.setTextColor(Color.parseColor(data?.dDDone?.color.toString()))
+                        binding.txtDDAchived.setTextColor(Color.parseColor(data?.dDDone?.color.toString()))
                         binding.txtDDAchived.text = data?.dDDone?.percentage
 
                         binding.txtDDvePlan.text = data?.dDPositive?.dDPositive
                         binding.txtDDveActual.text = data?.dDPositive?.achDDPositive
                         binding.txtDDveDifferent.text = data?.dDPositive?.diff
+                        binding.txtDDveDifferent.setTextColor(Color.parseColor(data?.dDPositive?.color.toString()))
+                        binding.txtDDveAchived.setTextColor(Color.parseColor(data?.dDPositive?.color.toString()))
                         binding.txtDDveAchived.text = data?.dDPositive?.percentage
 
                         binding.txtGRTPlan.text = data?.gRT?.gRT
                         binding.txtGRTActual.text = data?.gRT?.achGRT
                         binding.txtGRTDifferent.text = data?.gRT?.diff
+                        binding.txtGRTDifferent.setTextColor(Color.parseColor(data?.gRT?.color.toString()))
+                        binding.txtGRTAchived.setTextColor(Color.parseColor(data?.gRT?.color.toString()))
                         binding.txtGRTAchived.text = data?.gRT?.percentage
 
                         binding.textDistClientPlan.text = data?.disbClient?.disbClient
                         binding.textDistClientActual.text = data?.disbClient?.achDisbClient
                         binding.textDistClientDifferent.text = data?.disbClient?.diff
+                        binding.textDistClientDifferent.setTextColor(Color.parseColor(data?.disbClient?.color.toString()))
+                        binding.textDistClientAchived.setTextColor(Color.parseColor(data?.disbClient?.color.toString()))
                         binding.textDistClientAchived.text = data?.disbClient?.percentage
 
                         binding.textDistAmountPlan.text = data?.disbAmount?.disbAmount
                         binding.textDistAmountActual.text = data?.disbAmount?.achDisbAmount
                         binding.textDistAmountDifferent.text = data?.disbAmount?.diff
+                        binding.textDistAmountDifferent.setTextColor(Color.parseColor(data?.disbAmount?.color.toString()))
+                        binding.textDistAmountAchived.setTextColor(Color.parseColor(data?.disbAmount?.color.toString()))
                         binding.textDistAmountAchived.text = data?.disbAmount?.percentage
 
                     } else {

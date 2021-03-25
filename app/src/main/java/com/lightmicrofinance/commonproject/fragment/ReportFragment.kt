@@ -40,10 +40,10 @@ class ReportFragment : BaseFragment() {
 
     private fun setStatePageAdapter() {
         viewPageradapter = ViewPagerPagerAdapter(childFragmentManager)
-        viewPageradapter.addFragment(CollectionChartFragment(), "Chart")
+       // viewPageradapter.addFragment(CollectionChartFragment(), "Chart")
         viewPageradapter.addFragment(BusinessSummaryFragment(), "B Summary")
         viewPageradapter.addFragment(ParSummaryFragment(), "Par Summary")
-        //  viewPageradapter.addFragment(InvoiceUnPaidFragment(), "Unpaid")
+        viewPageradapter.addFragment(CollectionSummaryFragment(), "C Summary")
         _binding?.viewPager?.adapter = viewPageradapter
         _binding?.tabs?.setupWithViewPager(_binding?.viewPager!!, true)
 

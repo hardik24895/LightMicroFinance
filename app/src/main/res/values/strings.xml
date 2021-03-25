@@ -105,6 +105,7 @@
     <string name="_61_to_90">61 to 90</string>
     <string name="_91_to_180">91 to 180</string>
     <string name="_180_above">180 above</string>
+    <string name="demand">Demand</string>
 
 
 </resources>

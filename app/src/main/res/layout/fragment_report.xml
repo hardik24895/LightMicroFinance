@@ -15,7 +15,7 @@
         app:tabMode="fixed"
         app:tabTextAppearance="@style/CustomTextAppearanceTab" />
 
-    <com.lightmicrofinance.commonproject.utils.NonSwipeableViewPager
+    <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -24,6 +24,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabs">
 
-    </com.lightmicrofinance.commonproject.utils.NonSwipeableViewPager>
+    </androidx.viewpager.widget.ViewPager>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

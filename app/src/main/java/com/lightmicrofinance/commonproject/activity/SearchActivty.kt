@@ -141,7 +141,7 @@ class SearchActivty : BaseActivity() {
 
         binding.edtStartDate.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                //  binding.edtEndDate.setText(getCurrentDate())
+
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -174,8 +174,7 @@ class SearchActivty : BaseActivity() {
                 formatDateFromString(binding.edtStartDate.getValue())
             BusinessSummaryFragment.EndDate = formatDateFromString(binding.edtEndDate.getValue())
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.PAR_SUMMARY)) {
-            ParSummaryFragment.StartDate =
-                formatDateFromString(binding.edtStartDate.getValue())
+            ParSummaryFragment.StartDate = formatDateFromString(binding.edtStartDate.getValue())
             ParSummaryFragment.EndDate = formatDateFromString(binding.edtEndDate.getValue())
         }
 

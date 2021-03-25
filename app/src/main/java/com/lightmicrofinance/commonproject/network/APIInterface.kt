@@ -58,4 +58,7 @@ interface APIInterface {
 
     @POST("par/getParSummery")
     fun getParSummary(@Body body: RequestBody): Observable<Response<ParSummaryModal>>
+
+    @POST("collection/getCollectionSummeryInverted")
+    fun getCollectionSummaryReport(@Body body: RequestBody): Observable<Response<CollectionSummaryReportModal>>
 }

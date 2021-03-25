@@ -14,61 +14,7 @@ data class CollectionSummaryModal(
     val message: String? = null
 )
 
-data class All(
-
-    @field:SerializedName("Target")
-    val target: String? = null,
-
-    @field:SerializedName("Percentage")
-    val percentage: String? = null,
-
-    @field:SerializedName("Clients")
-    val clients: String? = null,
-
-    @field:SerializedName("Collected")
-    val collected: String? = null,
-
-    @field:SerializedName("Pending")
-    val pending: String? = null
-)
-
-data class Partialy(
-
-    @field:SerializedName("Target")
-    val target: String? = null,
-
-    @field:SerializedName("Percentage")
-    val percentage: String? = null,
-
-    @field:SerializedName("Clients")
-    val clients: String? = null,
-
-    @field:SerializedName("Collected")
-    val collected: String? = null,
-
-    @field:SerializedName("Pending")
-    val pending: String? = null
-)
-
-data class Pending(
-
-    @field:SerializedName("Target")
-    val target: String? = null,
-
-    @field:SerializedName("Percentage")
-    val percentage: String? = null,
-
-    @field:SerializedName("Clients")
-    val clients: String? = null,
-
-    @field:SerializedName("Collected")
-    val collected: String? = null,
-
-    @field:SerializedName("Pending")
-    val pending: String? = null
-)
-
-data class Collected(
+data class Response(
 
     @field:SerializedName("Target")
     val target: String? = null,
@@ -88,15 +34,12 @@ data class Collected(
 
 data class CollectionSummaryDataItem(
 
-    @field:SerializedName("All")
-    val all: All? = null,
+    @field:SerializedName("Response")
+    val response: Response? = null,
 
-    @field:SerializedName("Partialy")
-    val partialy: Partialy? = null,
+    @field:SerializedName("Color")
+    val color: String? = null,
 
-    @field:SerializedName("Pending")
-    val pending: Pending? = null,
-
-    @field:SerializedName("Collected")
-    val collected: Collected? = null
+    @field:SerializedName("Title")
+    val title: String? = null
 )

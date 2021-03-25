@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/bg_collection_card" />
+            android:src="@drawable/blue_card" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -56,78 +56,78 @@
                 android:text="@string/parameter"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@+id/txtPlan"
+                app:layout_constraintEnd_toStartOf="@+id/txtCollected"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.7"
+                app:layout_constraintHorizontal_weight="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.commonProject.customview.TextviewMedium
-                android:id="@+id/txtPlan"
+                android:id="@+id/txtCollected"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:gravity="center"
                 android:paddingVertical="@dimen/_5sdp"
                 android:singleLine="true"
-                android:text="@string/plan"
+                android:text="@string/collected"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@+id/txtActual"
+                android:textSize="@dimen/_9ssp"
+                app:layout_constraintEnd_toStartOf="@+id/txtPartialy"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
                 app:layout_constraintStart_toEndOf="@+id/txtParam"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.commonProject.customview.TextviewMedium
-                android:id="@+id/txtActual"
+                android:id="@+id/txtPartialy"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:gravity="center"
                 android:paddingVertical="@dimen/_5sdp"
                 android:singleLine="true"
-                android:text="@string/actual"
+                android:text="@string/partialy"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@+id/txtDifferent"
+                app:layout_constraintEnd_toStartOf="@+id/txtPending"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtPlan"
+                app:layout_constraintStart_toEndOf="@+id/txtCollected"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.commonProject.customview.TextviewMedium
-                android:id="@+id/txtDifferent"
+                android:id="@+id/txtPending"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:gravity="center"
                 android:paddingVertical="@dimen/_5sdp"
                 android:singleLine="true"
-                android:text="@string/diff"
+                android:text="@string/pending"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@+id/txtAchived"
+                app:layout_constraintEnd_toStartOf="@+id/txtGtotal"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtActual"
+                app:layout_constraintStart_toEndOf="@+id/txtPartialy"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <com.commonProject.customview.TextviewMedium
-                android:id="@+id/txtAchived"
+                android:id="@+id/txtGtotal"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:gravity="center"
                 android:paddingVertical="@dimen/_5sdp"
                 android:singleLine="true"
-                android:text="@string/per_achived"
+                android:text="@string/g_total"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10ssp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtDifferent"
+                app:layout_constraintStart_toEndOf="@+id/txtPending"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -144,23 +144,23 @@
 
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtLENew"
+                android:id="@+id/txtCleints"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:paddingVertical="@dimen/_5sdp"
                 android:singleLine="true"
-                android:text="@string/_le_new"
+                android:text="@string/clients"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@+id/txtLENewPlan"
+                app:layout_constraintEnd_toStartOf="@+id/txtCleintsCollected"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.7"
+                app:layout_constraintHorizontal_weight="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view1" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtLENewPlan"
+                android:id="@+id/txtCleintsCollected"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -170,15 +170,15 @@
                 android:text="@string/plan_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtLENew"
-                app:layout_constraintEnd_toStartOf="@+id/txtLENewActual"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCleints"
+                app:layout_constraintEnd_toStartOf="@+id/txtCleintsPartialy"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtLENew"
+                app:layout_constraintStart_toEndOf="@+id/txtCleints"
                 app:layout_constraintTop_toBottomOf="@id/view1" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtLENewActual"
+                android:id="@+id/txtCleintsPartialy"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -188,15 +188,15 @@
                 android:text="@string/plan_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtLENew"
-                app:layout_constraintEnd_toStartOf="@+id/txtLENewDifferent"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCleints"
+                app:layout_constraintEnd_toStartOf="@+id/txtCleintsPending"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtLENewPlan"
+                app:layout_constraintStart_toEndOf="@+id/txtCleintsCollected"
                 app:layout_constraintTop_toBottomOf="@id/view1" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtLENewDifferent"
+                android:id="@+id/txtCleintsPending"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -206,15 +206,15 @@
                 android:text="@string/diff_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtLENew"
-                app:layout_constraintEnd_toStartOf="@+id/txtLENewAchived"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCleints"
+                app:layout_constraintEnd_toStartOf="@+id/txtCleintsGtotal"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtLENewActual"
+                app:layout_constraintStart_toEndOf="@+id/txtCleintsPartialy"
                 app:layout_constraintTop_toBottomOf="@id/view1" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtLENewAchived"
+                android:id="@+id/txtCleintsGtotal"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -224,11 +224,11 @@
                 android:text="@string/per_achived_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtLENew"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCleints"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtLENewDifferent"
+                app:layout_constraintStart_toEndOf="@+id/txtCleintsPending"
                 app:layout_constraintTop_toBottomOf="@id/view1" />
 
 
@@ -241,27 +241,27 @@
                 android:background="@color/colorWhite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtLENew" />
+                app:layout_constraintTop_toBottomOf="@+id/txtCleints" />
 
 
             <com.commonProject.customview.TextviewMedium
-                android:id="@+id/txtLEReNew"
+                android:id="@+id/txtDemand"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:paddingVertical="@dimen/_5sdp"
                 android:singleLine="true"
-                android:text="@string/_le_re_new"
+                android:text="@string/demand"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@+id/txtLEReNewPlan"
+                app:layout_constraintEnd_toStartOf="@+id/txtDemandCollected"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.7"
+                app:layout_constraintHorizontal_weight="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view2" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtLEReNewPlan"
+                android:id="@+id/txtDemandCollected"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -271,15 +271,15 @@
                 android:text="@string/plan_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtLEReNew"
-                app:layout_constraintEnd_toStartOf="@+id/txtLEReNewActual"
+                app:layout_constraintBottom_toBottomOf="@+id/txtDemand"
+                app:layout_constraintEnd_toStartOf="@+id/txtDemandPartialy"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtLEReNew"
+                app:layout_constraintStart_toEndOf="@+id/txtDemand"
                 app:layout_constraintTop_toBottomOf="@id/view2" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtLEReNewActual"
+                android:id="@+id/txtDemandPartialy"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -289,15 +289,15 @@
                 android:text="@string/plan_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtLEReNew"
-                app:layout_constraintEnd_toStartOf="@+id/txtLEReNewDifferent"
+                app:layout_constraintBottom_toBottomOf="@+id/txtDemand"
+                app:layout_constraintEnd_toStartOf="@+id/txtDemandPending"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtLEReNewPlan"
+                app:layout_constraintStart_toEndOf="@+id/txtDemandCollected"
                 app:layout_constraintTop_toBottomOf="@id/view2" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtLEReNewDifferent"
+                android:id="@+id/txtDemandPending"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -307,15 +307,15 @@
                 android:text="@string/diff_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtLEReNew"
-                app:layout_constraintEnd_toStartOf="@+id/txtLEReNewAchived"
+                app:layout_constraintBottom_toBottomOf="@+id/txtDemand"
+                app:layout_constraintEnd_toStartOf="@+id/txtDemandGtotal"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtLEReNewActual"
+                app:layout_constraintStart_toEndOf="@+id/txtDemandPartialy"
                 app:layout_constraintTop_toBottomOf="@id/view2" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtLEReNewAchived"
+                android:id="@+id/txtDemandGtotal"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -325,11 +325,11 @@
                 android:text="@string/per_achived_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtLEReNew"
+                app:layout_constraintBottom_toBottomOf="@+id/txtDemand"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtLEReNewDifferent"
+                app:layout_constraintStart_toEndOf="@+id/txtDemandPending"
                 app:layout_constraintTop_toBottomOf="@id/view2" />
 
 
@@ -342,27 +342,27 @@
                 android:background="@color/colorWhite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtLEReNew" />
+                app:layout_constraintTop_toBottomOf="@+id/txtDemand" />
 
 
             <com.commonProject.customview.TextviewMedium
-                android:id="@+id/txtTotalLE"
+                android:id="@+id/txtCollection"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:paddingVertical="@dimen/_5sdp"
                 android:singleLine="true"
-                android:text="@string/total_le"
+                android:text="@string/collection"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@+id/txtTotalLEPlan"
+                app:layout_constraintEnd_toStartOf="@+id/txtCollectionCollected"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.7"
+                app:layout_constraintHorizontal_weight="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view3" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtTotalLEPlan"
+                android:id="@+id/txtCollectionCollected"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -372,15 +372,15 @@
                 android:text="@string/plan_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtTotalLE"
-                app:layout_constraintEnd_toStartOf="@+id/txtTotalLEActual"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCollection"
+                app:layout_constraintEnd_toStartOf="@+id/txtCollectionPartialy"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtTotalLE"
+                app:layout_constraintStart_toEndOf="@+id/txtCollection"
                 app:layout_constraintTop_toBottomOf="@id/view3" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtTotalLEActual"
+                android:id="@+id/txtCollectionPartialy"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -390,15 +390,15 @@
                 android:text="@string/plan_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtTotalLE"
-                app:layout_constraintEnd_toStartOf="@+id/txtTotalLEDifferent"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCollection"
+                app:layout_constraintEnd_toStartOf="@+id/txtCollectionPending"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtTotalLEPlan"
+                app:layout_constraintStart_toEndOf="@+id/txtCollectionCollected"
                 app:layout_constraintTop_toBottomOf="@id/view3" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtTotalLEDifferent"
+                android:id="@+id/txtCollectionPending"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -408,15 +408,15 @@
                 android:text="@string/diff_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtTotalLE"
-                app:layout_constraintEnd_toStartOf="@+id/txtTotalLEAchived"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCollection"
+                app:layout_constraintEnd_toStartOf="@+id/txtCollectionGtotal"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtTotalLEActual"
+                app:layout_constraintStart_toEndOf="@+id/txtCollectionPartialy"
                 app:layout_constraintTop_toBottomOf="@id/view3" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtTotalLEAchived"
+                android:id="@+id/txtCollectionGtotal"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -426,11 +426,11 @@
                 android:text="@string/per_achived_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtTotalLE"
+                app:layout_constraintBottom_toBottomOf="@+id/txtCollection"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtTotalLEDifferent"
+                app:layout_constraintStart_toEndOf="@+id/txtCollectionPending"
                 app:layout_constraintTop_toBottomOf="@id/view3" />
 
 
@@ -444,27 +444,27 @@
                 android:background="@color/colorWhite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtTotalLE" />
+                app:layout_constraintTop_toBottomOf="@+id/txtCollection" />
 
 
             <com.commonProject.customview.TextviewMedium
-                android:id="@+id/txtDD"
+                android:id="@+id/txtPendingp"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:paddingVertical="@dimen/_5sdp"
                 android:singleLine="true"
-                android:text="@string/dd"
+                android:text="@string/pending"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@+id/txtDDPlan"
+                app:layout_constraintEnd_toStartOf="@+id/txtPendingpCollected"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.7"
+                app:layout_constraintHorizontal_weight="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view4" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtDDPlan"
+                android:id="@+id/txtPendingpCollected"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -474,15 +474,15 @@
                 android:text="@string/plan_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtDD"
-                app:layout_constraintEnd_toStartOf="@+id/txtDDActual"
+                app:layout_constraintBottom_toBottomOf="@+id/txtPendingp"
+                app:layout_constraintEnd_toStartOf="@+id/txtPendingpPartialy"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtDD"
+                app:layout_constraintStart_toEndOf="@+id/txtPendingp"
                 app:layout_constraintTop_toBottomOf="@id/view4" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtDDActual"
+                android:id="@+id/txtPendingpPartialy"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -492,15 +492,15 @@
                 android:text="@string/plan_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtDD"
-                app:layout_constraintEnd_toStartOf="@+id/txtDDDifferent"
+                app:layout_constraintBottom_toBottomOf="@+id/txtPendingp"
+                app:layout_constraintEnd_toStartOf="@+id/txtPendingpPending"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtDDPlan"
+                app:layout_constraintStart_toEndOf="@+id/txtPendingpCollected"
                 app:layout_constraintTop_toBottomOf="@id/view4" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtDDDifferent"
+                android:id="@+id/txtPendingpPending"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -510,15 +510,15 @@
                 android:text="@string/diff_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtDD"
-                app:layout_constraintEnd_toStartOf="@+id/txtDDAchived"
+                app:layout_constraintBottom_toBottomOf="@+id/txtPendingp"
+                app:layout_constraintEnd_toStartOf="@+id/txtPendingpGtotal"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtDDActual"
+                app:layout_constraintStart_toEndOf="@+id/txtPendingpPartialy"
                 app:layout_constraintTop_toBottomOf="@id/view4" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtDDAchived"
+                android:id="@+id/txtPendingpGtotal"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -528,11 +528,11 @@
                 android:text="@string/per_achived_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtDD"
+                app:layout_constraintBottom_toBottomOf="@+id/txtPendingp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtDDDifferent"
+                app:layout_constraintStart_toEndOf="@+id/txtPendingpPending"
                 app:layout_constraintTop_toBottomOf="@id/view4" />
 
 
@@ -545,27 +545,27 @@
                 android:background="@color/colorWhite"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDD" />
+                app:layout_constraintTop_toBottomOf="@+id/txtPendingp" />
 
 
             <com.commonProject.customview.TextviewMedium
-                android:id="@+id/txtDDve"
+                android:id="@+id/txtParcentage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:paddingVertical="@dimen/_5sdp"
                 android:singleLine="true"
-                android:text="@string/dd_ve"
+                android:text="%"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@+id/txtDDvePlan"
+                app:layout_constraintEnd_toStartOf="@+id/txtParcentageCollected"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.7"
+                app:layout_constraintHorizontal_weight="0.6"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/view5" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtDDvePlan"
+                android:id="@+id/txtParcentageCollected"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -575,15 +575,15 @@
                 android:text="@string/plan_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtDDve"
-                app:layout_constraintEnd_toStartOf="@+id/txtDDveActual"
+                app:layout_constraintBottom_toBottomOf="@+id/txtParcentage"
+                app:layout_constraintEnd_toStartOf="@+id/txtParcentagePartialy"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtDDve"
+                app:layout_constraintStart_toEndOf="@+id/txtParcentage"
                 app:layout_constraintTop_toBottomOf="@id/view5" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtDDveActual"
+                android:id="@+id/txtParcentagePartialy"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -593,15 +593,15 @@
                 android:text="@string/plan_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtDDve"
-                app:layout_constraintEnd_toStartOf="@+id/txtDDveDifferent"
+                app:layout_constraintBottom_toBottomOf="@+id/txtParcentage"
+                app:layout_constraintEnd_toStartOf="@+id/txtParcentagePending"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtDDvePlan"
+                app:layout_constraintStart_toEndOf="@+id/txtParcentageCollected"
                 app:layout_constraintTop_toBottomOf="@id/view5" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtDDveDifferent"
+                android:id="@+id/txtParcentagePending"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -611,15 +611,15 @@
                 android:text="@string/diff_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtDDve"
-                app:layout_constraintEnd_toStartOf="@+id/txtDDveAchived"
+                app:layout_constraintBottom_toBottomOf="@+id/txtParcentage"
+                app:layout_constraintEnd_toStartOf="@+id/txtParcentageGtotal"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtDDveActual"
+                app:layout_constraintStart_toEndOf="@+id/txtParcentagePartialy"
                 app:layout_constraintTop_toBottomOf="@id/view5" />
 
             <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtDDveAchived"
+                android:id="@+id/txtParcentageGtotal"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="@dimen/_3sdp"
@@ -629,11 +629,11 @@
                 android:text="@string/per_achived_amount"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtDDve"
+                app:layout_constraintBottom_toBottomOf="@+id/txtParcentage"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtDDveDifferent"
+                app:layout_constraintStart_toEndOf="@+id/txtParcentagePending"
                 app:layout_constraintTop_toBottomOf="@id/view5" />
 
 
@@ -644,301 +644,10 @@
                 android:layout_marginTop="@dimen/_3sdp"
                 android:alpha=".2"
                 android:background="@color/colorWhite"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtDDve" />
-
-
-            <com.commonProject.customview.TextviewMedium
-                android:id="@+id/txtGRT"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/grt"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@+id/txtGRTPlan"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.7"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view6" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtGRTPlan"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/plan_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtGRT"
-                app:layout_constraintEnd_toStartOf="@+id/txtGRTActual"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtGRT"
-                app:layout_constraintTop_toBottomOf="@id/view6" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtGRTActual"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/plan_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtGRT"
-                app:layout_constraintEnd_toStartOf="@+id/txtGRTDifferent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtGRTPlan"
-                app:layout_constraintTop_toBottomOf="@id/view6" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtGRTDifferent"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/diff_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtGRT"
-                app:layout_constraintEnd_toStartOf="@+id/txtGRTAchived"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtGRTActual"
-                app:layout_constraintTop_toBottomOf="@id/view6" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtGRTAchived"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/per_achived_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/txtGRT"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/txtGRTDifferent"
-                app:layout_constraintTop_toBottomOf="@id/view6" />
-
-
-            <View
-                android:id="@+id/view7"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:alpha=".2"
-                android:background="@color/colorWhite"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtGRT" />
-
-
-            <com.commonProject.customview.TextviewMedium
-                android:id="@+id/textDistClient"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/disb_client"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_10ssp"
-                app:layout_constraintEnd_toStartOf="@+id/textDistClientPlan"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.7"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view7" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/textDistClientPlan"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/plan_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/textDistClient"
-                app:layout_constraintEnd_toStartOf="@+id/textDistClientActual"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textDistClient"
-                app:layout_constraintTop_toBottomOf="@id/view7" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/textDistClientActual"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/plan_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/textDistClient"
-                app:layout_constraintEnd_toStartOf="@+id/textDistClientDifferent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textDistClientPlan"
-                app:layout_constraintTop_toBottomOf="@id/view7" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/textDistClientDifferent"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/diff_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/textDistClient"
-                app:layout_constraintEnd_toStartOf="@+id/textDistClientAchived"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textDistClientActual"
-                app:layout_constraintTop_toBottomOf="@id/view7" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/textDistClientAchived"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/per_achived_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="@+id/textDistClient"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textDistClientDifferent"
-                app:layout_constraintTop_toBottomOf="@id/view7" />
-
-
-            <View
-                android:id="@+id/view8"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_1sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:alpha=".2"
-                android:background="@color/colorWhite"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textDistClient" />
-
-
-            <com.commonProject.customview.TextviewMedium
-                android:id="@+id/textDistAmount"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/disb_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_10ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textDistAmountPlan"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.7"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/view8" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/textDistAmountPlan"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/plan_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textDistAmountActual"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textDistAmount"
-                app:layout_constraintTop_toBottomOf="@id/view8" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/textDistAmountActual"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/plan_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textDistAmountDifferent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textDistAmountPlan"
-                app:layout_constraintTop_toBottomOf="@id/view8" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/textDistAmountDifferent"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/diff_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/textDistAmountAchived"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textDistAmountActual"
-                app:layout_constraintTop_toBottomOf="@id/view8" />
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/textDistAmountAchived"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:gravity="center"
-                android:paddingVertical="@dimen/_5sdp"
-                android:singleLine="true"
-                android:text="@string/per_achived_amount"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_8ssp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_weight="0.5"
-                app:layout_constraintStart_toEndOf="@+id/textDistAmountDifferent"
-                app:layout_constraintTop_toBottomOf="@id/view8" />
+                app:layout_constraintTop_toBottomOf="@+id/txtParcentage" />
 
 
             <View
@@ -947,8 +656,8 @@
                 android:layout_height="0dp"
                 android:alpha=".2"
                 android:background="@color/colorWhite"
-                app:layout_constraintBottom_toBottomOf="@id/textDistAmount"
-                app:layout_constraintStart_toEndOf="@+id/textDistAmount"
+                app:layout_constraintBottom_toBottomOf="@id/txtParcentageGtotal"
+                app:layout_constraintStart_toEndOf="@+id/txtParcentage"
                 app:layout_constraintTop_toTopOf="@id/txtParam" />
 
 
@@ -958,8 +667,8 @@
                 android:layout_height="0dp"
                 android:alpha=".2"
                 android:background="@color/colorWhite"
-                app:layout_constraintBottom_toBottomOf="@id/textDistAmount"
-                app:layout_constraintStart_toEndOf="@+id/txtPlan"
+                app:layout_constraintBottom_toBottomOf="@id/txtParcentageGtotal"
+                app:layout_constraintStart_toEndOf="@+id/txtCollected"
                 app:layout_constraintTop_toTopOf="@id/txtParam" />
 
             <View
@@ -968,8 +677,8 @@
                 android:layout_height="0dp"
                 android:alpha=".2"
                 android:background="@color/colorWhite"
-                app:layout_constraintBottom_toBottomOf="@id/textDistAmount"
-                app:layout_constraintStart_toEndOf="@+id/txtActual"
+                app:layout_constraintBottom_toBottomOf="@id/txtParcentageGtotal"
+                app:layout_constraintStart_toEndOf="@+id/txtPartialy"
                 app:layout_constraintTop_toTopOf="@id/txtParam" />
 
 
@@ -979,8 +688,8 @@
                 android:layout_height="0dp"
                 android:alpha=".2"
                 android:background="@color/colorWhite"
-                app:layout_constraintBottom_toBottomOf="@id/textDistAmount"
-                app:layout_constraintStart_toEndOf="@+id/txtDifferent"
+                app:layout_constraintBottom_toBottomOf="@id/txtParcentageGtotal"
+                app:layout_constraintStart_toEndOf="@+id/txtPending"
                 app:layout_constraintTop_toTopOf="@id/txtParam" />
 
 

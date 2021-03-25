@@ -26,6 +26,7 @@
         <activity android:name=".activity.InformationActivity"/>
         <activity android:name=".activity.ChangePasswordActivity"/>
         <activity android:name=".activity.SearchActivty"/>
+        <activity android:name=".activity.ParCleintActivity" />
     </application>
 
 </manifest>

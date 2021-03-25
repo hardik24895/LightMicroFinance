@@ -7,13 +7,15 @@ object Constant {
     const val PAR = "par"
     const val COLLECTION = "collection"
     const val BUSINESS = "business"
+    const val BUCKET = "bucket"
+    const val BUCKET_SIZE = "bucket_size"
     const val BUSINESS_SUMMARY = "business_summary"
     const val PAR_SUMMARY = "par_summary"
     const val PENDING = "pending"
-    const val PARTIALY ="Partialy"
-    const val COLLECTED ="Collected"
-    const val TYPE ="type"
-    const val PASSWORD="password"
+    const val PARTIALY = "Partialy"
+    const val COLLECTED = "Collected"
+    const val TYPE = "type"
+    const val PASSWORD = "password"
     const val SITE = "site"
     const val TICKET = "ticket"
     const val CUSTOMER = "customer"
@@ -54,7 +56,7 @@ object Constant {
 
 
     // ---Server Date Time--//
-    const val DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ss"
+    const val DATE_FORMAT = "yyyy-MM-dd"
 
 
     const val MOBILE = "mobile"
@@ -73,5 +75,12 @@ object Constant {
 
     const val METHOD_LOGIN = "checkLogin"
     const val METHOD_COLLECTION_LIST = "checkLogin"
+
+    //------Bucket Size----
+    const val oneTO30 = "1-30"
+    const val threoneTO60 = "31-60"
+    const val sixoneTO90 = "61-90"
+    const val nineoneTO180 = "91-180"
+    const val oneeightaboveTO180 = "180-180+"
 
 }

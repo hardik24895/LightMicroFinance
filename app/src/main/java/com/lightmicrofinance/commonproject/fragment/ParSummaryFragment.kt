@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
-import com.commonProject.extention.getCurrentDate
+import com.commonProject.extention.getYesterdayDate
 import com.commonProject.extention.showAlert
 import com.commonProject.network.CallbackObserver
 import com.commonProject.network.Networking
@@ -13,6 +13,7 @@ import com.commonProject.network.addTo
 import com.commonProject.utils.Constant
 import com.commonProject.utils.TimeStamp
 import com.lightmicrofinance.commonproject.R
+import com.lightmicrofinance.commonproject.activity.ParCleintActivity
 import com.lightmicrofinance.commonproject.activity.SearchActivty
 import com.lightmicrofinance.commonproject.databinding.FragementSummaryParBinding
 import com.lightmicrofinance.commonproject.modal.ParSummaryModal
@@ -27,8 +28,8 @@ class ParSummaryFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     companion object {
-        var StartDate: String = TimeStamp.getStartDateRange()
-        var EndDate: String = getCurrentDate()
+        var StartDate: String = TimeStamp.getSpesificStartDateRange()
+        var EndDate: String = getYesterdayDate()
 
     }
 
@@ -50,19 +51,49 @@ class ParSummaryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.txtSelectedDate.text = StartDate + " To " + EndDate
+        binding.txt130Cleints.setOnClickListener {
+            openCleintParList(Constant.oneTO30)
+        }
+        binding.txt3160Cleints.setOnClickListener {
+            openCleintParList(Constant.threoneTO60)
+        }
 
+        binding.txt6190Cleints.setOnClickListener {
+            openCleintParList(Constant.sixoneTO90)
+        }
+
+        binding.txt91180Cleints.setOnClickListener {
+            openCleintParList(Constant.nineoneTO180)
+        }
+
+        binding.txt180AboveCleints.setOnClickListener {
+            openCleintParList(Constant.oneeightaboveTO180)
+        }
+
+        binding.txtGTotalCleints.setOnClickListener {
+            openCleintParList("")
+        }
     }
 
     override fun onResume() {
         super.onResume()
+        binding.txtSelectedDate.text = StartDate + " To " + EndDate
         getSummaryData()
+    }
+
+    fun openCleintParList(bucketSize: String) {
+        val intent = Intent(requireContext(), ParCleintActivity::class.java)
+        intent.putExtra(Constant.DATA, Constant.BUCKET)
+        intent.putExtra(Constant.BUCKET_SIZE, bucketSize)
+        startActivity(intent)
+        Animatoo.animateCard(context)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.home, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
