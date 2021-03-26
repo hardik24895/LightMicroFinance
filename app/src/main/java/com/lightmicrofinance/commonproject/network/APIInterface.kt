@@ -61,4 +61,10 @@ interface APIInterface {
 
     @POST("collection/getCollectionSummeryInverted")
     fun getCollectionSummaryReport(@Body body: RequestBody): Observable<Response<CollectionSummaryReportModal>>
+
+    @POST("reason/getReasons")
+    fun getReason(@Body body: RequestBody): Observable<Response<ReasonListModal>>
+
+    @POST("collection/editCollection")
+    fun addCollection(@Body body: RequestBody): Observable<Response<CommanIDModal>>
 }

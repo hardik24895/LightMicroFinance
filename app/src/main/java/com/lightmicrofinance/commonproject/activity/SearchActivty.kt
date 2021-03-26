@@ -15,7 +15,6 @@ import com.commonProject.network.addTo
 import com.commonProject.utils.Constant
 import com.commonProject.utils.Logger
 import com.commonProject.utils.TimeStamp
-import com.commonProject.utils.TimeStamp.formatDateFromString
 import com.lightmicrofinance.commonproject.R
 import com.lightmicrofinance.commonproject.databinding.ActivitySearchBinding
 import com.lightmicrofinance.commonproject.fragment.*
@@ -59,7 +58,7 @@ class SearchActivty : BaseActivity() {
                 myCalendar1.set(Calendar.YEAR, year)
                 myCalendar1.set(Calendar.MONTH, monthOfYear)
                 myCalendar1.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val myFormat = "dd/MM/yyyy" //In which you need put here
+                val myFormat = "dd-MM-yyyy" //In which you need put here
                 val sdf = SimpleDateFormat(myFormat, Locale.US)
                 binding.edtStartDate.setText(sdf.format(myCalendar1.time))
             }
@@ -74,7 +73,7 @@ class SearchActivty : BaseActivity() {
                     myCalendar2.set(Calendar.YEAR, year)
                     myCalendar2.set(Calendar.MONTH, monthOfYear)
                     myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                    val myFormat = "dd/MM/yyyy" //In which you need put here
+                    val myFormat = "dd-MM-yyyy" //In which you need put here
                     val sdf = SimpleDateFormat(myFormat, Locale.US)
                     binding.edtEndDate.setText(sdf.format(myCalendar2.time))
                 }
@@ -132,7 +131,7 @@ class SearchActivty : BaseActivity() {
                 myCalendar2[Calendar.DAY_OF_MONTH]
             )
 
-            val f = SimpleDateFormat("dd/MM/yyyy")
+            val f = SimpleDateFormat("dd-MM-yyyy")
             val d = f.parse(binding.edtStartDate.getValue())
             dialog.getDatePicker().setMinDate(d.time)
             dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis - 86400000L)
@@ -167,15 +166,15 @@ class SearchActivty : BaseActivity() {
             CollectionFragment.LoanID = binding.edtLoanID.getValue()
             CollectionFragment.CenterName = centerName
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS)) {
-            BusinessFragment.StartDate = formatDateFromString(binding.edtStartDate.getValue())
-            BusinessFragment.EndDate = formatDateFromString(binding.edtEndDate.getValue())
+            BusinessFragment.StartDate = binding.edtStartDate.getValue()
+            BusinessFragment.EndDate = binding.edtEndDate.getValue()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS_SUMMARY)) {
             BusinessSummaryFragment.StartDate =
-                formatDateFromString(binding.edtStartDate.getValue())
-            BusinessSummaryFragment.EndDate = formatDateFromString(binding.edtEndDate.getValue())
+                binding.edtStartDate.getValue()
+            BusinessSummaryFragment.EndDate = binding.edtEndDate.getValue()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.PAR_SUMMARY)) {
-            ParSummaryFragment.StartDate = formatDateFromString(binding.edtStartDate.getValue())
-            ParSummaryFragment.EndDate = formatDateFromString(binding.edtEndDate.getValue())
+            ParSummaryFragment.StartDate = binding.edtStartDate.getValue()
+            ParSummaryFragment.EndDate = binding.edtEndDate.getValue()
         }
 
 
@@ -237,9 +236,17 @@ class SearchActivty : BaseActivity() {
 
                     var myList: MutableList<SearchableItem> = mutableListOf()
                     centerNameList!!.add(getString(R.string.center_name))
+
+                    myList.add(SearchableItem(0, getString(R.string.center_name)))
+
                     for (items in response.data.indices) {
                         centerNameList!!.add(response.data.get(items).centerName.toString())
-                        myList.add(SearchableItem(items.toLong(), centerNameList!!.get(items)))
+                        myList.add(
+                            SearchableItem(
+                                items.toLong() + 1,
+                                centerNameList!!.get(items + 1)
+                            )
+                        )
                     }
                     itemCenterNameType = myList
 

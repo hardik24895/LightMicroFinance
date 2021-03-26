@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager.widget.ViewPager
+import com.lightmicrofinance.commonproject.R
+import com.lightmicrofinance.commonproject.activity.MainActivity
 import com.lightmicrofinance.commonproject.adapter.ViewPagerPagerAdapter
 import com.lightmicrofinance.commonproject.databinding.FragmentReportBinding
 
@@ -36,14 +39,53 @@ class ReportFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatePageAdapter()
+
+        (mContext as MainActivity).txtTitle.text =
+            requireActivity().getString(R.string.collection_summary)
+
+        binding.viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                if (position == 0) {
+                    (mContext as MainActivity).txtTitle.text =
+                        requireActivity().getString(R.string.collection_summary)
+                } else if (position == 1) {
+                    (mContext as MainActivity).txtTitle.text =
+                        requireActivity().getString(R.string.business_summary)
+                } else {
+                    (mContext as MainActivity).txtTitle.text =
+                        requireActivity().getString(R.string.par_summary)
+                }
+
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+        })
     }
 
     private fun setStatePageAdapter() {
         viewPageradapter = ViewPagerPagerAdapter(childFragmentManager)
-       // viewPageradapter.addFragment(CollectionChartFragment(), "Chart")
-        viewPageradapter.addFragment(BusinessSummaryFragment(), "B Summary")
-        viewPageradapter.addFragment(ParSummaryFragment(), "Par Summary")
-        viewPageradapter.addFragment(CollectionSummaryFragment(), "C Summary")
+        // viewPageradapter.addFragment(CollectionChartFragment(), "Chart")
+        viewPageradapter.addFragment(
+            CollectionSummaryFragment(),
+            getString(R.string.collection_summary)
+        )
+        viewPageradapter.addFragment(
+            BusinessSummaryFragment(),
+            getString(R.string.business_summary)
+        )
+        viewPageradapter.addFragment(ParSummaryFragment(), getString(R.string.par_summary))
+
         _binding?.viewPager?.adapter = viewPageradapter
         _binding?.tabs?.setupWithViewPager(_binding?.viewPager!!, true)
 

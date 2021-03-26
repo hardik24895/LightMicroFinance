@@ -284,9 +284,9 @@ object TimeStamp {
     fun getSpesificStartDateRange(): String {
         val calendar = getCalendarForNow()
         if (calendar.get(Calendar.MONTH) > 10)
-            return "25/" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.YEAR)
+            return "25-" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.YEAR)
         else
-            return "25/0" + calendar.get(Calendar.MONTH) + "/" + calendar.get(Calendar.YEAR)
+            return "25-0" + calendar.get(Calendar.MONTH) + "-" + calendar.get(Calendar.YEAR)
     }
 
     fun getEndDateRange(): String {

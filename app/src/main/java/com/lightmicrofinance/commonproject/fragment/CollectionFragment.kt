@@ -226,6 +226,17 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
     }
 
 
+    fun spinnerAPICall2() {
+        page = 1
+        list.clear()
+        hasNextPage = true
+        _binding.rvSwipe.swipeRefreshLayout.isRefreshing = true
+        setupRecyclerView()
+        _binding.rvSwipe.recyclerView.isLoading = true
+        getCollectionList(page)
+    }
+
+
     fun getCollectionList(page: Int) {
         val params = HashMap<String, Any>()
         params["PageSize"] = Constant.PAGE_SIZE
@@ -233,8 +244,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         params["FECode"] = session.user.data?.fECode.toString()
         params["CenterName"] = CenterName
         params["LoanID"] = LoanID
-         params["ClientID"] = ClientID
-         params["ClientName"] = ClientName
+        params["ClientID"] = ClientID
+        params["ClientName"] = ClientName
          params["CollectionType"] = status
 
          Networking
@@ -335,7 +346,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                 if (position != -1 && centerNameListArray!!.size > position) {
                     if (position == 0) {
                         CenterName = ""
-                        // resumeAPICall()
+                        // spinnerAPICall2()
+
                     } else {
                         CenterName = centerNameListArray!!.get(position - 1).centerName.toString()
                         spinnerAPICall()
@@ -363,9 +375,17 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
 
                     var myList: MutableList<SearchableItem> = mutableListOf()
                     centerNameList!!.add(getString(R.string.center_name))
+
+
+                    myList.add(SearchableItem(0, getString(R.string.center_name)))
                     for (items in response.data.indices) {
                         centerNameList!!.add(response.data.get(items).centerName.toString())
-                        myList.add(SearchableItem(items.toLong(), centerNameList!!.get(items)))
+                        myList.add(
+                            SearchableItem(
+                                items.toLong() + 1,
+                                centerNameList!!.get(items + 1)
+                            )
+                        )
                     }
                     itemCenterNameType = myList
 

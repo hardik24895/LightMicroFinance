@@ -70,36 +70,9 @@ class ParCleintActivity : BaseActivity(), ParAdapter.OnItemSelected {
             }
         })
 
-        binding.include2.swipeRefreshLayout.setOnRefreshListener {
-            CenterName = ""
-            ClientID = ""
-            LoanID = ""
-            ClientName = ""
-            BucketSize = ""
-            page = 1
-            list.clear()
-            hasNextPage = true
-            binding.include2.recyclerView.isLoading = true
-            adapter?.notifyDataSetChanged()
-            getParList(page)
-        }
+
     }
 
-    fun getRefreshData() {
-        CenterName = ""
-        ClientID = ""
-        LoanID = ""
-        ClientName = ""
-        BucketSize = ""
-        page = 1
-        list.clear()
-        setupRecyclerView()
-        hasNextPage = true
-        binding.include2.swipeRefreshLayout.isRefreshing = true
-        binding.include2.recyclerView.isLoading = true
-        adapter?.notifyDataSetChanged()
-        getParList(page)
-    }
 
     fun setupRecyclerView() {
 
@@ -148,7 +121,6 @@ class ParCleintActivity : BaseActivity(), ParAdapter.OnItemSelected {
         page = 1
         list.clear()
         hasNextPage = true
-        binding.include2.swipeRefreshLayout.isRefreshing = true
         setupRecyclerView()
         binding.include2.recyclerView.isLoading = true
         BucketSize = intent.getStringExtra(Constant.BUCKET_SIZE).toString()
@@ -181,7 +153,7 @@ class ParCleintActivity : BaseActivity(), ParAdapter.OnItemSelected {
                     if (list.size > 0) {
                         binding.include2.progressbar.invisible()
                     }
-                    binding.include2.swipeRefreshLayout.isRefreshing = false
+
 
                     if (response.error == false) {
                         list.addAll(response.data)
@@ -209,7 +181,6 @@ class ParCleintActivity : BaseActivity(), ParAdapter.OnItemSelected {
 
     private fun refreshData(msg: String?, code: Int) {
         binding.include2.recyclerView.setLoadedCompleted()
-        binding.include2.swipeRefreshLayout.isRefreshing = false
         adapter?.notifyDataSetChanged()
         if (list.size > 0) {
             binding.include2.imgNodata.invisible()

@@ -175,7 +175,7 @@ fun getCurrentDate(): String {
     } else
         selectedMonth = month.toString()
 
-    date = "" + selectedDay + "/" + selectedMonth + "/" + year
+    date = "" + selectedDay + "-" + selectedMonth + "-" + year
 
     return date.toString()
 }
@@ -204,7 +204,7 @@ fun getYesterdayDate(): String {
     } else
         selectedMonth = month.toString()
 
-    date = "" + selectedDay + "/" + selectedMonth + "/" + year
+    date = "" + selectedDay + "-" + selectedMonth + "-" + year
 
     return date.toString()
 }

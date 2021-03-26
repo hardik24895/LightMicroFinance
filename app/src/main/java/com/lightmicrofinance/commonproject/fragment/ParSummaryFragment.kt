@@ -2,6 +2,7 @@ package com.lightmicrofinance.commonproject.fragment
 
 
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.view.*
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
@@ -141,35 +142,36 @@ class ParSummaryFragment : BaseFragment() {
                     hideProgressbar()
                     if (response.error == false) {
 
+                        binding.txt130Cleints.setPaintFlags(binding.txt130Cleints.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
                         binding.txt130Cleints.text = data?.jsonMember130?.clients
                         binding.txt130ParAmount.text = data?.jsonMember130?.amount
                         binding.txt130ODAmount.text = data?.jsonMember130?.overdueAmount
 
-
+                        binding.txt3160Cleints.setPaintFlags(binding.txt3160Cleints.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
                         binding.txt3160Cleints.text = data?.jsonMember3160?.clients.toString()
                         binding.txt3160ParAmount.text = data?.jsonMember3160?.amount.toString()
                         binding.txt3160ODAmount.text =
                             data?.jsonMember3160?.overdueAmount.toString()
 
-
+                        binding.txt6190Cleints.setPaintFlags(binding.txt6190Cleints.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
                         binding.txt6190Cleints.text = data?.jsonMember6190?.clients.toString()
                         binding.txt6190ParAmount.text = data?.jsonMember6190?.amount.toString()
                         binding.txt6190ODAmount.text =
                             data?.jsonMember6190?.overdueAmount.toString()
 
-
+                        binding.txt91180Cleints.setPaintFlags(binding.txt91180Cleints.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
                         binding.txt91180Cleints.text = data?.jsonMember91180?.clients.toString()
                         binding.txt91180ParAmount.text = data?.jsonMember91180?.amount.toString()
                         binding.txt91180ODAmount.text =
                             data?.jsonMember91180?.overdueAmount.toString()
 
-
+                        binding.txt180AboveCleints.setPaintFlags(binding.txt180AboveCleints.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
                         binding.txt180AboveCleints.text = data?.jsonMember180?.clients.toString()
                         binding.txt180AboveParAmount.text = data?.jsonMember180?.amount.toString()
                         binding.txt180AboveOdAmount.text =
                             data?.jsonMember180?.overdueAmount.toString()
 
-
+                        binding.txtGTotalCleints.setPaintFlags(binding.txtGTotalCleints.getPaintFlags() or Paint.UNDERLINE_TEXT_FLAG)
                         binding.txtGTotalCleints.text = data?.total?.clients.toString()
                         binding.txtGTotalParAmount.text = data?.total?.amount.toString()
                         binding.txtGTotalOdAmount.text = data?.total?.overdueAmount.toString()

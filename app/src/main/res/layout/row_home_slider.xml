@@ -112,7 +112,7 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:paddingVertical="@dimen/_15sdp">
+                    android:paddingVertical="@dimen/_10sdp">
 
                     <com.commonProject.customview.TextviewMedium
                         android:layout_width="0dp"
@@ -151,7 +151,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fm">
@@ -173,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:paddingVertical="@dimen/_15sdp">
+                android:paddingVertical="@dimen/_10sdp">
 
                 <com.commonProject.customview.TextviewMedium
                     android:layout_width="0dp"
@@ -210,7 +209,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_5sdp"
-        android:layout_marginTop="@dimen/_10sdp"
+
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -233,7 +232,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:orientation="horizontal"
-                android:paddingVertical="@dimen/_15sdp">
+                android:paddingVertical="@dimen/_10sdp">
 
                 <com.commonProject.customview.TextviewMedium
                     android:layout_width="0dp"

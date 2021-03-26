@@ -40,7 +40,6 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
         var ClientName: String = ""
         var StartDate: String = ""
         var EndDate: String = ""
-
     }
 
     private var _binding: ReclerviewSwipelayoutBinding? = null

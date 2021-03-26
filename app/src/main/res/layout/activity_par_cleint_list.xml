@@ -19,7 +19,7 @@
 
         <include
             android:id="@+id/include2"
-            layout="@layout/reclerview_swipelayout" />
+            layout="@layout/reclerview_only" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

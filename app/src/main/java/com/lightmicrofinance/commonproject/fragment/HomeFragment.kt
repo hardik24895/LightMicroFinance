@@ -110,8 +110,7 @@ class HomeFragment : BaseFragment() {
             )
         }
 
-        (mContext as MainActivity).txtTitle.text =
-            requireActivity().getString(R.string.collected)
+        (mContext as MainActivity).txtTitle.text = requireActivity().getString(R.string.collected)
         (mContext as MainActivity).toolbar1.setBackgroundColor(
             requireActivity().resources.getColor(
                 R.color.green
