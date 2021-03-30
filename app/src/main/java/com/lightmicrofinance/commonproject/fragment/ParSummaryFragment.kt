@@ -31,7 +31,6 @@ class ParSummaryFragment : BaseFragment() {
     companion object {
         var StartDate: String = TimeStamp.getSpesificStartDateRange()
         var EndDate: String = getYesterdayDate()
-
     }
 
     override fun onCreateView(
@@ -74,6 +73,31 @@ class ParSummaryFragment : BaseFragment() {
         binding.txtGTotalCleints.setOnClickListener {
             openCleintParList("")
         }
+
+
+        binding.txt130.setOnClickListener {
+            openCleintParList(Constant.oneTO30)
+        }
+        binding.txt3160.setOnClickListener {
+            openCleintParList(Constant.threoneTO60)
+        }
+
+        binding.txt6190.setOnClickListener {
+            openCleintParList(Constant.sixoneTO90)
+        }
+
+        binding.txt91180.setOnClickListener {
+            openCleintParList(Constant.nineoneTO180)
+        }
+
+        binding.txt180Above.setOnClickListener {
+            openCleintParList(Constant.oneeightaboveTO180)
+        }
+
+        binding.txtGTotal.setOnClickListener {
+            openCleintParList("")
+        }
+
     }
 
     override fun onResume() {

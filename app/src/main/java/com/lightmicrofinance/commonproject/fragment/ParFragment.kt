@@ -1,6 +1,5 @@
 package com.lightmicrofinance.commonproject.fragment
 
-
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -22,8 +21,6 @@ import com.lightmicrofinance.commonproject.modal.ParDataItem
 import com.lightmicrofinance.commonproject.modal.ParListModal
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-
-
 
 class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
 

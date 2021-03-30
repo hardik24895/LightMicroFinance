@@ -23,10 +23,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
         app:cardCornerRadius="@dimen/_10sdp"
-        app:cardElevation="0dp"
-        app:cardMaxElevation="0dp"
+
+        app:cardElevation="@dimen/_5sdp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

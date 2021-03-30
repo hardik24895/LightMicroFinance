@@ -17,16 +17,15 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
         android:paddingHorizontal="@dimen/_10sdp"
         android:paddingVertical="@dimen/_5sdp">
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txdate"
+            android:id="@+id/txtEmployeerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_3sdp"
-            android:text="@string/date"
+            android:text="@string/emplyeer_name"
             android:textColor="@color/colorWhite"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,12 +36,12 @@
             android:layout_height="wrap_content"
             android:text="@string/branch_name"
             android:textColor="@color/colorWhite"
-            app:layout_constraintBottom_toBottomOf="@+id/txdate"
+            app:layout_constraintBottom_toBottomOf="@+id/txtEmployeerName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.commonProject.customview.TextviewMedium
-            android:id="@+id/txtDate"
+            android:id="@+id/txtEmployeerCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_2sdp"
@@ -50,7 +49,7 @@
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txdate" />
+            app:layout_constraintTop_toBottomOf="@+id/txtEmployeerName" />
 
         <com.commonProject.customview.TextviewMedium
             android:id="@+id/txtBranchName"
@@ -60,9 +59,33 @@
             android:text="Morbi"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            app:layout_constraintBottom_toBottomOf="@+id/txtDate"
+            app:layout_constraintBottom_toBottomOf="@+id/txtEmployeerCode"
             app:layout_constraintEnd_toEndOf="@+id/txbranch"
-            app:layout_constraintTop_toBottomOf="@+id/txdate" />
+            app:layout_constraintTop_toBottomOf="@+id/txtEmployeerName" />
+
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtmony"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:text="@string/month"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtBranchName" />
+
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="25-03-2021"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtmony" />
+
 
         <View
             android:id="@+id/view"
@@ -72,14 +95,14 @@
             android:alpha=".5"
             android:background="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
-            app:layout_constraintStart_toStartOf="@+id/txtDate"
-            app:layout_constraintTop_toBottomOf="@+id/txtBranchName" />
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtMonth" />
 
         <com.commonProject.customview.TextviewMedium
-            android:layout_marginTop="@dimen/_3sdp"
             android:id="@+id/txtitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
             android:paddingVertical="@dimen/_5sdp"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
@@ -89,59 +112,58 @@
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
         <com.commonProject.customview.TextviewMedium
-            android:layout_marginTop="@dimen/_3sdp"
             android:id="@+id/txtarget"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:gravity="center"
             android:paddingVertical="@dimen/_5sdp"
             android:text="@string/target"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toStartOf="@+id/txachived"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtitle"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
         <com.commonProject.customview.TextviewMedium
-            android:layout_marginTop="@dimen/_3sdp"
             android:id="@+id/txachived"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:gravity="center"
             android:paddingVertical="@dimen/_5sdp"
             android:text="@string/achived"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-           android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
             app:layout_constraintTop_toBottomOf="@+id/view" />
 
 
-
         <com.commonProject.customview.TextviewMedium
-            android:id="@+id/txLE"
+            android:id="@+id/txtOpeningCleints"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/opening_cleints"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_13ssp"
-            android:text="@string/le_new"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintEnd_toStartOf="@+id/txtarget"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtitle" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txLeNewTarget"
+            android:id="@+id/txtOpeningCleintsNewTarget"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toStartOf="@+id/txachived"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtitle"
@@ -151,49 +173,50 @@
             android:id="@+id/txtLeNewAchived"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
             app:layout_constraintTop_toBottomOf="@+id/txtitle" />
+
         <View
             android:id="@+id/view1"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_3sdp"
-            android:background="@color/colorWhite"
             android:alpha=".2"
+            android:background="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
-            app:layout_constraintStart_toStartOf="@+id/txtDate"
-            app:layout_constraintTop_toBottomOf="@+id/txLE" />
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtOpeningCleints" />
 
 
         <com.commonProject.customview.TextviewMedium
-            android:id="@+id/txLERenew"
+            android:id="@+id/txtNewCleints"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/new_add"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_13ssp"
-            android:text="@string/le_renewl"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintEnd_toStartOf="@+id/txtarget"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view1" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txLeReNewTarget"
+            android:id="@+id/txtNewCleintsTarget"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toStartOf="@+id/txachived"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtitle"
@@ -203,49 +226,50 @@
             android:id="@+id/txtLeReNewAchived"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
             app:layout_constraintTop_toBottomOf="@+id/view1" />
+
         <View
             android:id="@+id/view2"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_3sdp"
-            android:background="@color/colorWhite"
             android:alpha=".2"
+            android:background="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
-            app:layout_constraintStart_toStartOf="@+id/txtDate"
-            app:layout_constraintTop_toBottomOf="@+id/txLERenew" />
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtNewCleints" />
 
 
         <com.commonProject.customview.TextviewMedium
-            android:id="@+id/txTotalLE"
+            android:id="@+id/txtcloseCleints"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/ma_cleints"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_13ssp"
-            android:text="@string/total_le"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintEnd_toStartOf="@+id/txtarget"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view2" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txTotalLETarget"
+            android:id="@+id/txtcloseCleintsTarget"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toStartOf="@+id/txachived"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtitle"
@@ -255,11 +279,11 @@
             android:id="@+id/txtTotalLEAchived"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
@@ -273,31 +297,31 @@
             android:alpha=".2"
             android:background="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
-            app:layout_constraintStart_toStartOf="@+id/txtDate"
-            app:layout_constraintTop_toBottomOf="@+id/txTotalLE" />
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtcloseCleints" />
 
         <com.commonProject.customview.TextviewMedium
-            android:id="@+id/txDddone"
+            android:id="@+id/txtrenewDs"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/re_new_dis"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_13ssp"
-            android:text="@string/dd_done"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintEnd_toStartOf="@+id/txtarget"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view3" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txDDDoneTarget"
+            android:id="@+id/txtrenewDsTarget"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toStartOf="@+id/txachived"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtitle"
@@ -307,11 +331,11 @@
             android:id="@+id/txtDDDOneAchived"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
@@ -325,31 +349,31 @@
             android:alpha=".2"
             android:background="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
-            app:layout_constraintStart_toStartOf="@+id/txtDate"
-            app:layout_constraintTop_toBottomOf="@+id/txDddone" />
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtrenewDs" />
 
         <com.commonProject.customview.TextviewMedium
-            android:id="@+id/txDdpos"
+            android:id="@+id/txtClosingCleints"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/closing_cleints"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_13ssp"
-            android:text="@string/dd_pos"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintEnd_toStartOf="@+id/txtarget"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view4" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txDDPosTarget"
+            android:id="@+id/txtClosingCleintsTarget"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toStartOf="@+id/txachived"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtitle"
@@ -359,11 +383,11 @@
             android:id="@+id/txtDDPosAchived"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
@@ -377,31 +401,31 @@
             android:alpha=".2"
             android:background="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
-            app:layout_constraintStart_toStartOf="@+id/txtDate"
-            app:layout_constraintTop_toBottomOf="@+id/txDdpos" />
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtClosingCleints" />
 
         <com.commonProject.customview.TextviewMedium
-            android:id="@+id/txgrt"
+            android:id="@+id/txtCollection"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/collection_par"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_13ssp"
-            android:text="@string/grt"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintEnd_toStartOf="@+id/txtarget"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view5" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txGRTTarget"
+            android:id="@+id/txtCollectionTarget"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toStartOf="@+id/txachived"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtitle"
@@ -411,11 +435,11 @@
             android:id="@+id/txtGRTAchived"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
@@ -429,18 +453,18 @@
             android:alpha=".2"
             android:background="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
-            app:layout_constraintStart_toStartOf="@+id/txtDate"
-            app:layout_constraintTop_toBottomOf="@+id/txgrt" />
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtCollection" />
 
 
         <com.commonProject.customview.TextviewMedium
-            android:id="@+id/txdsb"
+            android:id="@+id/txtTotalds"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/total_ds_cleint"
             android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_13ssp"
-            android:text="@string/dsb_cleint"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintEnd_toStartOf="@+id/txtarget"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -450,11 +474,11 @@
             android:id="@+id/txDSBTarget"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toStartOf="@+id/txachived"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtitle"
@@ -464,68 +488,15 @@
             android:id="@+id/txtDSBAchived"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
-            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/txtarget"
             app:layout_constraintTop_toBottomOf="@+id/view6" />
-
-        <View
-            android:id="@+id/view7"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_1sdp"
-            android:layout_marginTop="@dimen/_3sdp"
-            android:alpha=".2"
-            android:background="@color/colorWhite"
-            app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
-            app:layout_constraintStart_toStartOf="@+id/txtDate"
-            app:layout_constraintTop_toBottomOf="@+id/txdsb" />
-
-
-        <com.commonProject.customview.TextviewMedium
-            android:id="@+id/txdsbamount"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/_2sdp"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_13ssp"
-            android:text="@string/dsb_amount"
-            app:layout_constraintEnd_toStartOf="@+id/txtarget"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view7" />
-
-        <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txDSBAmountTarget"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/_2sdp"
-            android:text="0"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_13ssp"
-            android:gravity="center"
-            app:layout_constraintEnd_toStartOf="@+id/txachived"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/txtitle"
-            app:layout_constraintTop_toBottomOf="@+id/view7" />
-
-        <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txtDSBAmountAchived"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingVertical="@dimen/_2sdp"
-            android:text="0"
-            android:textColor="@color/colorWhite"
-            android:textSize="@dimen/_13ssp"
-            android:gravity="center"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/txtarget"
-            app:layout_constraintTop_toBottomOf="@+id/view7" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

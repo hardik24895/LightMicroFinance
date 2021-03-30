@@ -112,6 +112,19 @@ class MainActivity : BaseActivity() {
             replaceFragment(ParFragment(), R.id.framLayout)
         }
 
+
+
+        binding.leftDrawerMenu.linGoalSheet.setOnClickListener {
+            toggleLeftDrawer()
+            toolbar1.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                window?.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+            }
+            binding.appbarMain.tvTitle.text = getString(R.string.goal_sheet)
+            replaceFragment(GoalSheetFragment(), R.id.framLayout)
+        }
+
+
         binding.leftDrawerMenu.linBusiness.setOnClickListener {
             toggleLeftDrawer()
             toolbar1.setBackgroundColor(resources.getColor(R.color.colorPrimary))
@@ -131,6 +144,7 @@ class MainActivity : BaseActivity() {
             binding.appbarMain.tvTitle.text = getString(R.string.report)
             replaceFragment(ReportFragment(), R.id.framLayout)
         }
+
         binding.leftDrawerMenu.linSetting.setOnClickListener {
             toolbar1.setBackgroundColor(resources.getColor(R.color.colorPrimary))
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
