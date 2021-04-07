@@ -1,5 +1,7 @@
 package com.lightmicrofinance.app.activity
 
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -16,6 +18,7 @@ import com.lightmicrofinance.app.extention.replaceFragment
 import com.lightmicrofinance.app.fragment.*
 import com.lightmicrofinance.app.utils.Constant
 import com.lightmicrofinance.app.utils.SessionManager
+
 
 class MainActivity : BaseActivity() {
 
@@ -39,15 +42,25 @@ class MainActivity : BaseActivity() {
 
         binding.appbarMain.toolbar.setNavigationOnClickListener { toggleLeftDrawer() }
 
-       // includedView.setImageResource(R.drawable.ic_menu)
-      //  includedView.setOnClickListener { toggleLeftDrawer() }
+        // includedView.setImageResource(R.drawable.ic_menu)
+        //  includedView.setOnClickListener { toggleLeftDrawer() }
 
         drawerClickIteam()
 
         // binding.appbarMain.tvTitle.text = getString(R.string.home)
         replaceFragment(HomeFragment(), R.id.framLayout)
 
+        try {
+            val pInfo: PackageInfo = getPackageManager().getPackageInfo(getPackageName(), 0)
+            val version = pInfo.versionName
+            binding.leftDrawerMenu.txtVersion.text = version
+        } catch (e: PackageManager.NameNotFoundException) {
+            e.printStackTrace()
+        }
+
         binding.leftDrawerMenu.txtName.text = session.user.data?.name
+
+
 
 
         binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
@@ -58,7 +71,7 @@ class MainActivity : BaseActivity() {
                 binding.leftDrawerMenu.txtName.setText(session.user.data?.name)
 
 
-              /*  Glide.with(this@MainActivity)
+                /*  Glide.with(this@MainActivity)
                     .load(session.user.data?.photoURL)
                     .apply(
                         com.bumptech.glide.request.RequestOptions().centerCrop()
@@ -157,7 +170,7 @@ class MainActivity : BaseActivity() {
 
         binding.leftDrawerMenu.linLogout.setOnClickListener {
             val dialog = LogoutDailog.newInstance(
-              this,
+                this,
                 object : LogoutDailog.onItemClick {
                     override fun onItemCLicked() {
 

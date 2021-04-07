@@ -68,58 +68,71 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getCenterNameList()
+        getCenterNameList(Constant.PENDING)
         centerNameSpinnerListner()
         centerNameViewClick()
 
         _binding.txtPending.setOnClickListener {
-            _binding.txtPending.isSelected = true
-            _binding.txtPartialy.isSelected = false
-            _binding.txtCollected.isSelected = false
-            status = Constant.PENDING
-            getRefreshData()
+            if (!_binding.txtPending.isSelected) {
+                _binding.txtPending.isSelected = true
+                _binding.txtPartialy.isSelected = false
+                _binding.txtCollected.isSelected = false
+                status = Constant.PENDING
+                getCenterNameList(Constant.PENDING)
+
+            }
+
         }
         _binding.txtPartialy.setOnClickListener {
-            _binding.txtPending.isSelected = false
-            _binding.txtPartialy.isSelected = true
-            _binding.txtCollected.isSelected = false
-            status = Constant.PARTIALY
-            getRefreshData()
+            if (!_binding.txtPartialy.isSelected) {
+                _binding.txtPending.isSelected = false
+                _binding.txtPartialy.isSelected = true
+                _binding.txtCollected.isSelected = false
+                status = Constant.PARTIALY
+                getCenterNameList(Constant.PARTIALY)
+                //getRefreshData()
+            }
+
 
         }
         _binding.txtCollected.setOnClickListener {
-            _binding.txtPending.isSelected = false
-            _binding.txtPartialy.isSelected = false
-            _binding.txtCollected.isSelected = true
-            status = Constant.COLLECTED
-            getRefreshData()
+            if (!_binding.txtCollected.isSelected) {
+                _binding.txtPending.isSelected = false
+                _binding.txtPartialy.isSelected = false
+                _binding.txtCollected.isSelected = true
+                status = Constant.COLLECTED
+                getCenterNameList(Constant.COLLECTED)
+                //getRefreshData()
+            }
+
         }
 
-              _binding.rvSwipe.recyclerView.setLoadMoreListener(object : LoadMoreListener {
-                  override fun onLoadMore() {
-                      if (hasNextPage && !   _binding.rvSwipe.recyclerView.isLoading) {
-                          _binding.rvSwipe.progressbar.visible()
-                          getCollectionList(++page)
-                      }
-                  }
-              })
+        _binding.rvSwipe.recyclerView.setLoadMoreListener(object : LoadMoreListener {
+            override fun onLoadMore() {
+                if (hasNextPage && !_binding.rvSwipe.recyclerView.isLoading) {
+                    _binding.rvSwipe.progressbar.visible()
+                    getCollectionList(++page)
+                }
+            }
+        })
 
         _binding.rvSwipe.swipeRefreshLayout.setOnRefreshListener {
-                CenterName = ""
-                ClientID = ""
-                LoanID = ""
-                ClientName = ""
-                page = 1
-                list.clear()
-                hasNextPage = true
-                _binding.rvSwipe.recyclerView.isLoading = true
-                adapter?.notifyDataSetChanged()
-                getCollectionList(page)
-            }
+            CenterName = ""
+            ClientID = ""
+            LoanID = ""
+            ClientName = ""
+            page = 1
+            list.clear()
+            hasNextPage = true
+            _binding.rvSwipe.recyclerView.isLoading = true
+            adapter?.notifyDataSetChanged()
+            _binding.spCenterName.setSelection(0)
+            getCollectionList(page)
+        }
 
     }
 
-    fun getRefreshData(){
+    fun getRefreshData() {
         CenterName = ""
         ClientID = ""
         LoanID = ""
@@ -131,7 +144,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         _binding.rvSwipe.swipeRefreshLayout.isRefreshing = true
         _binding.rvSwipe.recyclerView.isLoading = true
         adapter?.notifyDataSetChanged()
-        _binding.spCenterName.setSelection(0)
+        //_binding.spCenterName.setSelection(0)
         getCollectionList(page)
     }
 
@@ -195,6 +208,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         } else {
             _binding.txtCollected.isSelected = true
         }
+        getCenterNameList2(status)
         page = 1
         list.clear()
         hasNextPage = true
@@ -202,7 +216,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         setupRecyclerView()
         _binding.rvSwipe.recyclerView.isLoading = true
         getCollectionList(page)
-        _binding.spCenterName.setSelection(0)
+        // _binding.spCenterName.setSelection(0)
         super.onResume()
 
     }
@@ -246,43 +260,43 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         params["LoanID"] = LoanID
         params["ClientID"] = ClientID
         params["ClientName"] = ClientName
-         params["CollectionType"] = status
+        params["CollectionType"] = status
 
-         Networking
-             .with(requireContext())
-             .getServices()
-             .getCollection(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
-             .subscribeOn(Schedulers.io())
-             .observeOn(AndroidSchedulers.mainThread())
-             .subscribeWith(object : CallbackObserver<CollectionListModal>() {
-                 override fun onSuccess(response: CollectionListModal) {
-                     if (list.size > 0) {
-                         _binding.rvSwipe.progressbar.invisible()
-                     }
-                     _binding.rvSwipe.swipeRefreshLayout.isRefreshing = false
+        Networking
+            .with(requireContext())
+            .getServices()
+            .getCollection(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<CollectionListModal>() {
+                override fun onSuccess(response: CollectionListModal) {
+                    if (list.size > 0) {
+                        _binding.rvSwipe.progressbar.invisible()
+                    }
+                    _binding.rvSwipe.swipeRefreshLayout.isRefreshing = false
 
-                     if (response.error==false){
-                         list.addAll(response.data)
-                         adapter?.notifyItemRangeInserted(
-                             list.size.minus(response.data.size),
-                             list.size
-                         )
-                         hasNextPage = list.size < response.rows
-                     }
+                    if (response.error == false) {
+                        list.addAll(response.data)
+                        adapter?.notifyItemRangeInserted(
+                            list.size.minus(response.data.size),
+                            list.size
+                        )
+                        hasNextPage = list.size < response.rows
+                    }
 
-                     refreshData(getString(R.string.no_data_found), 1)
-                 }
+                    refreshData(getString(R.string.no_data_found), 1)
+                }
 
-                 override fun onFailed(code: Int, message: String) {
-                     if (list.size > 0) {
-                         _binding.rvSwipe.progressbar.invisible()
-                     }
-                     showAlert(getString(R.string.show_server_error))
-                     refreshData(message, code)
-                 }
+                override fun onFailed(code: Int, message: String) {
+                    if (list.size > 0) {
+                        _binding.rvSwipe.progressbar.invisible()
+                    }
+                    showAlert(getString(R.string.show_server_error))
+                    refreshData(message, code)
+                }
 
-             }).addTo(autoDisposable)
-     }
+            }).addTo(autoDisposable)
+    }
 
 
     private fun refreshData(msg: String?, code: Int) {
@@ -321,13 +335,18 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
 
     private fun centerNameViewClick() {
 
+
         _binding.view2.setOnClickListener {
-            SearchableDialog(requireContext(),
-                itemCenterNameType!!,
-                getString(R.string.center_name), { item, _ ->
-                    _binding.spCenterName.setSelection(item.id.toInt())
-                }).show()
+            itemCenterNameType?.let { it1 ->
+                SearchableDialog(requireContext(),
+                    it1,
+                    getString(R.string.center_name), { item, _ ->
+                        _binding.spCenterName.setSelection(item.id.toInt())
+                    }).show()
+            }
+
         }
+
 
     }
 
@@ -360,9 +379,62 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         }
     }
 
-    fun getCenterNameList() {
+    fun getCenterNameList(type: String) {
+        centerNameListArray.clear()
+        centerNameList.clear()
         val params = HashMap<String, Any>()
-        params[""] = ""
+        params["Type"] = type
+        Networking
+            .with(requireContext())
+            .getServices()
+            .getCenterName(Networking.wrapParams(params))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<CenternameListModal>() {
+                override fun onSuccess(response: CenternameListModal) {
+                    centerNameListArray!!.addAll(response.data)
+
+                    var myList: MutableList<SearchableItem> = mutableListOf()
+                    centerNameList!!.add(getString(R.string.center_name))
+
+
+                    myList.add(SearchableItem(0, getString(R.string.center_name)))
+                    for (items in response.data.indices) {
+                        centerNameList!!.add(response.data.get(items).centerName.toString())
+                        myList.add(
+                            SearchableItem(
+                                items.toLong() + 1,
+                                centerNameList!!.get(items + 1)
+                            )
+                        )
+                    }
+                    itemCenterNameType = myList
+
+                    adaptercenterName = ArrayAdapter(
+                        requireContext(),
+                        R.layout.custom_spinner_item,
+                        centerNameList!!
+                    )
+                    _binding.spCenterName.setAdapter(adaptercenterName)
+
+                    getRefreshData()
+                }
+
+                override fun onFailed(code: Int, message: String) {
+
+                    // showAlert(message)
+                    showAlert(getString(R.string.show_server_error))
+
+                }
+
+            }).addTo(autoDisposable)
+    }
+
+    fun getCenterNameList2(type: String) {
+        centerNameListArray.clear()
+        centerNameList.clear()
+        val params = HashMap<String, Any>()
+        params["Type"] = type
         Networking
             .with(requireContext())
             .getServices()
@@ -408,6 +480,4 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
 
             }).addTo(autoDisposable)
     }
-
-
 }

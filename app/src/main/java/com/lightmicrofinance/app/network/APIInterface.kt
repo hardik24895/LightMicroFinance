@@ -67,4 +67,7 @@ interface APIInterface {
 
     @POST("collection/editCollection")
     fun addCollection(@Body body: RequestBody): Observable<Response<CommanIDModal>>
+
+    @POST("goalsheet/getGoalSheet")
+    fun getGoalSheet(@Body body: RequestBody): Observable<Response<GoalsheetModal>>
 }

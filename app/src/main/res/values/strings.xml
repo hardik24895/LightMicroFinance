@@ -120,6 +120,10 @@
     <string name="collection_par">Collection %</string>
     <string name="total_ds_cleint">Total Dis.</string>
     <string name="goal_sheet">Goal Sheet</string>
+    <string name="original_collection">Original Collection</string>
+    <string name="original_demand">Original Demand</string>
+    <string name="current_demand">Current Demand</string>
+    <string name="today_collection">Today\'s Collection</string>
 
 
 </resources>

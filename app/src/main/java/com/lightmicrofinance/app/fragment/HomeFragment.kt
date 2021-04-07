@@ -280,6 +280,7 @@ class HomeFragment : BaseFragment() {
 
 
     fun getCollectionSummary() {
+        showProgressbar()
         list.clear()
         val params = HashMap<String, Any>()
         params["FECode"] = session.user.data?.fECode.toString()
@@ -292,7 +293,7 @@ class HomeFragment : BaseFragment() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CallbackObserver<CollectionSummaryModal>() {
                 override fun onSuccess(response: CollectionSummaryModal) {
-
+                    hideProgressbar()
                     if (response.error == false) {
                         list.addAll(response.data)
                         adapter?.notifyDataSetChanged()
@@ -308,6 +309,7 @@ class HomeFragment : BaseFragment() {
                 }
 
                 override fun onFailed(code: Int, message: String) {
+                    hideProgressbar()
                     showAlert(getString(R.string.show_server_error))
                     //  refreshData(message, code)
                 }

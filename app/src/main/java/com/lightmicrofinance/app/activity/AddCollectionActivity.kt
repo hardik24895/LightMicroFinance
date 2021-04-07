@@ -54,6 +54,9 @@ class AddCollectionActivity : BaseActivity() {
         getReasonList()
         reasonNameSpinnerListner()
         reasonNameViewClick()
+        binding.edtPayment.setText(collectionDataItem?.currentDemand)
+        setCalculation()
+
 
         binding.edtPayment.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
@@ -105,7 +108,7 @@ class AddCollectionActivity : BaseActivity() {
         try {
             if (!binding.edtPayment.isEmpty()) {
 
-                val todayCOllection = binding.edtPayment.getValue().toInt()
+                val todayCOllection = binding.edtPayment.getValue().toFloat()
                 val totalCollection =
                     todayCOllection + collectionDataItem?.originalCollection?.toFloat()!!
                 val originalDemand = collectionDataItem?.originalDemand?.toFloat()!!
@@ -172,15 +175,34 @@ class AddCollectionActivity : BaseActivity() {
         binding.txtBranchName.text = collectionDataItem?.branch
         binding.txtDate.text = collectionDataItem?.dueDate
         binding.txtClientName.text = collectionDataItem?.clientName
-        binding.txtAmount.text = getString(R.string.RS) + " " + collectionDataItem?.originalDemand
+        binding.txtAmount.text = getString(R.string.RS) + " " + collectionDataItem?.currentDemand
+        binding.txtOriginalCollection.text =
+            getString(R.string.RS) + " " + collectionDataItem?.originalCollection
+        binding.txtOriginalDemand.text =
+            getString(R.string.RS) + " " + collectionDataItem?.originalDemand
+        binding.txtRegularCollection.text =
+            getString(R.string.RS) + " " + collectionDataItem?.regularCollection
+        binding.txtTotalCollections.text =
+            getString(R.string.RS) + " " + collectionDataItem?.totalCollection
+        binding.txtPendings.text = getString(R.string.RS) + " " + collectionDataItem?.pending
+        binding.txtPrec.text = collectionDataItem?.percentage
+
 
         binding.rg.setOnCheckedChangeListener(RadioGroup.OnCheckedChangeListener { group, checkedId -> // checkedId is the RadioButton selected
             val rb = findViewById<View>(checkedId) as RadioButton
             if (rb?.text.toString() == getString(R.string.full)) {
                 binding.linlayReason.invisible()
+                binding.inPayment.visible()
+                binding.edtPayment.setText(collectionDataItem?.currentDemand)
+                setCalculation()
             } else if (rb.text.toString() == getString(R.string.partial)) {
+                binding.edtPayment.setText("0")
+                binding.inPayment.visible()
                 binding.linlayReason.invisible()
+                setCalculation()
             } else {
+                binding.edtPayment.setText("0")
+                binding.inPayment.invisible()
                 binding.linlayReason.visible()
             }
 

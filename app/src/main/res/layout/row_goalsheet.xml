@@ -170,7 +170,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txtitle" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txtLeNewAchived"
+            android:id="@+id/txtachOpeningClients"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -223,7 +223,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view1" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txtLeReNewAchived"
+            android:id="@+id/txtachNewClients"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -276,7 +276,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view2" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txtTotalLEAchived"
+            android:id="@+id/txtachClosedClients"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -328,7 +328,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view3" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txtDDDOneAchived"
+            android:id="@+id/txtachRenewDis"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -380,7 +380,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view4" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txtDDPosAchived"
+            android:id="@+id/txtachClosingCliens"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -432,7 +432,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view5" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txtGRTAchived"
+            android:id="@+id/txtachCollectionpr"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"
@@ -485,7 +485,7 @@
             app:layout_constraintTop_toBottomOf="@+id/view6" />
 
         <com.commonProject.customview.TextviewReguler
-            android:id="@+id/txtDSBAchived"
+            android:id="@+id/txtachTotalDis"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:gravity="center"

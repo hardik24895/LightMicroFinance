@@ -41,7 +41,7 @@
 
         <com.commonProject.customview.TextviewMedium
             android:id="@+id/txtCollection"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="start"
@@ -50,8 +50,8 @@
             android:text="\u20b9 0"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_25ssp"
-            app:layout_constraintEnd_toEndOf="@+id/txtDemand"
-            app:layout_constraintStart_toStartOf="@+id/txtDemand"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txdemand" />
 
         <com.commonProject.customview.TextviewReguler
