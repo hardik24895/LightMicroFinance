@@ -274,11 +274,11 @@ class AddCollectionActivity : BaseActivity() {
                 addCollection()
 
                 //  Logger.d("reason", reasonNameListArray.get(binding.spReasonName.selectedItemPosition - 1).reason.toString())
-                Logger.d("percentage", removeLastChar(binding.txtPercentage.text.toString()))
+               /* Logger.d("percentage", removeLastChar(binding.txtPercentage.text.toString()))
                 Logger.d("pending", binding.txtPending.text.toString().substring(2))
                 Logger.d("regular", binding.txtRegularLocation.text.toString().substring(2))
                 Logger.d("totalCollection", binding.txtTotalCollection.text.toString().substring(2))
-                Logger.d("advance", binding.txtAdvanceCollection.text.toString().substring(2))
+                Logger.d("advance", binding.txtAdvanceCollection.text.toString().substring(2))*/
 
 
             }
