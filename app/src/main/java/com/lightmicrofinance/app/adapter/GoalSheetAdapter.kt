@@ -71,7 +71,7 @@ class GoalSheetAdapter(
             binding.txtrenewDsTarget.text = data.renewDis
             binding.txtCollectionTarget.text = data.collectionPerc
             binding.txtachNewClients.text = data.achNewClients
-            //  binding.txDSBTarget.text = data.
+            binding.txDSBTarget.text = data.totalDis
             binding.txtachOpeningClients.text = data.achOpeningClients
             //     binding.txtLeReNewAchived.text = data.ach
             binding.txtachClosedClients.text = data.achClosedClients

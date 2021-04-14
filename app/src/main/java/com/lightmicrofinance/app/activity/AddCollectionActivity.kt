@@ -31,6 +31,7 @@ class AddCollectionActivity : BaseActivity() {
 
     var collectionDataItem: CollectionDataItem? = null
     val myCalendar1 = Calendar.getInstance()
+    val myCalendar2 = Calendar.getInstance()
 
     var reasonNameList: ArrayList<String> = ArrayList()
     var adapterreasonName: ArrayAdapter<String>? = null
@@ -56,6 +57,7 @@ class AddCollectionActivity : BaseActivity() {
         reasonNameViewClick()
         binding.edtPayment.setText(collectionDataItem?.currentDemand)
         setCalculation()
+        poromiseDateDisplay()
 
 
         binding.edtPayment.addTextChangedListener(object : TextWatcher {
@@ -100,6 +102,34 @@ class AddCollectionActivity : BaseActivity() {
                 myCalendar1[Calendar.DAY_OF_MONTH]
             )
             dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis)
+            dialog.show()
+        }
+    }
+
+    fun poromiseDateDisplay() {
+        val date: DatePickerDialog.OnDateSetListener = object : DatePickerDialog.OnDateSetListener {
+            override fun onDateSet(
+                view: DatePicker?, year: Int, monthOfYear: Int,
+                dayOfMonth: Int
+            ) {
+                myCalendar2.set(Calendar.YEAR, year)
+                myCalendar2.set(Calendar.MONTH, monthOfYear)
+                myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val myFormat = "dd-MM-yyyy" //In which you need put here
+                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                binding.edPromiseDate.setText(sdf.format(myCalendar2.time))
+            }
+        }
+
+        binding.edPromiseDate.setOnClickListener {
+            val dialog = DatePickerDialog(
+                this@AddCollectionActivity,
+                date,
+                myCalendar2[Calendar.YEAR],
+                myCalendar2[Calendar.MONTH],
+                myCalendar2[Calendar.DAY_OF_MONTH]
+            )
+            dialog.getDatePicker().minDate = Calendar.getInstance().timeInMillis
             dialog.show()
         }
     }
@@ -169,6 +199,15 @@ class AddCollectionActivity : BaseActivity() {
     }
 
     fun setData() {
+
+        if (intent.getStringExtra(Constant.TYPE) == Constant.PENDING) {
+            binding.imgCardBg.setImageResource(R.drawable.orange_card)
+        } else if (intent.getStringExtra(Constant.TYPE) == Constant.PARTIALY) {
+            binding.imgCardBg.setImageResource(R.drawable.blue_card)
+        } else {
+            binding.imgCardBg.setImageResource(R.drawable.green_card)
+        }
+
         binding.txtCleintId.text = collectionDataItem?.clientID
         binding.txtLoanID.text = collectionDataItem?.loanID
         binding.txtCenterName.text = collectionDataItem?.centerName
@@ -225,6 +264,11 @@ class AddCollectionActivity : BaseActivity() {
             binding.linlayReason.isVisible && reasonId == "-1" -> {
                 binding.mainview.showSnackBar("Select Reason")
             }
+
+            binding.inPromiseDate.isVisible && binding.edPromiseDate.isEmpty() -> {
+                binding.mainview.showSnackBar("Enter Promise Date")
+            }
+
             else -> {
 
                 addCollection()
@@ -268,11 +312,17 @@ class AddCollectionActivity : BaseActivity() {
                 position: Int,
                 id: Long
             ) {
-                if (position != -1 && reasonNameListArray!!.size > position - 1) {
+                if (position != -1 && reasonNameListArray.size > position - 1) {
                     if (position == 0) {
                         reasonId = "-1"
+                        binding.inPromiseDate.invisible()
                     } else {
-                        reasonId = reasonNameListArray!!.get(position - 1).reasonID.toString()
+                        reasonId = reasonNameListArray.get(position - 1).reasonID.toString()
+                        if (reasonNameListArray.get(position - 1).isPOT == "1")
+                            binding.inPromiseDate.visible()
+                        else
+                            binding.inPromiseDate.invisible()
+
                     }
                     Logger.d("userIDq", reasonId)
 
@@ -350,6 +400,15 @@ class AddCollectionActivity : BaseActivity() {
         } else {
             params["Reason"] = ""
         }
+
+        if (binding.edPromiseDate.isEmpty()) {
+            params["PromiseDate"] = ""
+        } else {
+            params["PromiseDate"] = binding.edPromiseDate.getValue()
+        }
+
+
+
 
         params["PaymentReceivedType"] = rb?.text.toString()
         params["PaymentDate"] = binding.edDate.getValue()

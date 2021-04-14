@@ -50,12 +50,13 @@ class CollectionSummaryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.txtSelectedDate.text = StartDate + " To " + EndDate
+
 
     }
 
     override fun onResume() {
         super.onResume()
+        binding.txtSelectedDate.text = StartDate + " To " + EndDate
         getSummaryData()
     }
 
@@ -77,7 +78,7 @@ class CollectionSummaryFragment : BaseFragment() {
              }*/
             R.id.action_filter -> {
                 val intent = Intent(context, SearchActivty::class.java)
-                intent.putExtra(Constant.DATA, Constant.BUSINESS_SUMMARY)
+                intent.putExtra(Constant.DATA, Constant.COLLECTION_SUMMARY)
                 startActivity(intent)
                 Animatoo.animateCard(context)
                 return true

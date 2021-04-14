@@ -11,6 +11,7 @@ object Constant {
     const val BUCKET_SIZE = "bucket_size"
     const val BUSINESS_SUMMARY = "business_summary"
     const val PAR_SUMMARY = "par_summary"
+    const val COLLECTION_SUMMARY = "collection_summary"
     const val PENDING = "pending"
     const val PARTIALY = "Partialy"
     const val COLLECTED = "Collected"

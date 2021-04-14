@@ -84,7 +84,8 @@ class SearchActivty : BaseActivity() {
         if (intent.getStringExtra(Constant.DATA)!!
                 .equals(Constant.BUSINESS) || intent.getStringExtra(Constant.DATA)!!
                 .equals(Constant.BUSINESS_SUMMARY) || intent.getStringExtra(Constant.DATA)!!
-                .equals(Constant.PAR_SUMMARY)
+                .equals(Constant.PAR_SUMMARY) || intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.COLLECTION_SUMMARY)
         ) {
             binding.inStartDate.visible()
             binding.inEndDate.visible()
@@ -169,12 +170,14 @@ class SearchActivty : BaseActivity() {
             BusinessFragment.StartDate = binding.edtStartDate.getValue()
             BusinessFragment.EndDate = binding.edtEndDate.getValue()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS_SUMMARY)) {
-            BusinessSummaryFragment.StartDate =
-                binding.edtStartDate.getValue()
+            BusinessSummaryFragment.StartDate = binding.edtStartDate.getValue()
             BusinessSummaryFragment.EndDate = binding.edtEndDate.getValue()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.PAR_SUMMARY)) {
             ParSummaryFragment.StartDate = binding.edtStartDate.getValue()
             ParSummaryFragment.EndDate = binding.edtEndDate.getValue()
+        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION_SUMMARY)) {
+            CollectionSummaryFragment.StartDate = binding.edtStartDate.getValue()
+            CollectionSummaryFragment.EndDate = binding.edtEndDate.getValue()
         }
 
 

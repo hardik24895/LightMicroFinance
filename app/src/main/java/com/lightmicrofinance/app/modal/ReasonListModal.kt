@@ -32,5 +32,10 @@ data class ReasonDataItem(
     val reasonID: String? = null,
 
     @field:SerializedName("Reason")
-    val reason: String? = null
+    val reason: String? = null,
+
+    @field:SerializedName("IsPOT")
+    val isPOT: String? = null
+
+
 )

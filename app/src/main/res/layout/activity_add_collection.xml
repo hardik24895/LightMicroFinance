@@ -481,6 +481,34 @@
                     app:layout_constraintTop_toTopOf="@+id/spReasonName" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inPromiseDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:dividerPadding="@dimen/_2sdp"
+                android:hint="@string/date"
+                android:textColorHint="@color/icon_color"
+                android:visibility="gone"
+                app:boxBackgroundColor="#FFF"
+                app:layout_constraintEnd_toEndOf="@+id/card"
+                app:layout_constraintStart_toStartOf="@+id/card"
+                app:layout_constraintTop_toBottomOf="@+id/linlayReason">
+
+                <EditText
+                    android:id="@+id/edPromiseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:focusable="false"
+                    android:fontFamily="@font/poppins_regular"
+                    android:inputType="date"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/inRemarks"
                 android:layout_width="0dp"
@@ -492,7 +520,7 @@
                 app:boxBackgroundColor="#FFF"
                 app:layout_constraintEnd_toEndOf="@+id/card"
                 app:layout_constraintStart_toStartOf="@+id/card"
-                app:layout_constraintTop_toBottomOf="@+id/linlayReason">
+                app:layout_constraintTop_toBottomOf="@+id/inPromiseDate">
 
                 <EditText
                     android:id="@+id/edtRemarks"

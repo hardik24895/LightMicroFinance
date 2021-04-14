@@ -92,7 +92,10 @@ data class GoalsheetDataItem(
     val achNewClients: String? = null,
 
     @field:SerializedName("GoalID")
-    val goalID: String? = null
+    val goalID: String? = null,
+
+    @field:SerializedName("TotalDis")
+    val totalDis: String? = null
 
 
 )
