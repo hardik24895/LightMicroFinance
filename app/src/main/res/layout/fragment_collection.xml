@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <com.commonProject.customview.TextviewReguler
         android:id="@+id/txtPending"
@@ -99,6 +100,51 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linlayFEList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/bg_spinner"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linlayCenterName">
+
+
+        <tech.hibk.searchablespinnerlibrary.SearchableSpinner
+            android:id="@+id/spFEList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_3sdp"
+            android:clickable="false"
+            android:focusable="false"
+            android:padding="@dimen/_5sdp"
+            app:cancelButtonColor="@color/black"
+            app:cancelButtontext="CLOSE"
+            app:dialogTitle="@string/center_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:nothingSelectedText="@string/center_name"
+            app:onlyLightTheme="true" />
+
+        <View
+            android:id="@+id/viewFE"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/spFEList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/spFEList" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -106,7 +152,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linlayCenterName">
+        app:layout_constraintTop_toBottomOf="@+id/linlayFEList">
 
         <include
             android:id="@+id/rvSwipe"

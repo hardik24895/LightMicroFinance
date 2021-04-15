@@ -3,7 +3,7 @@ package com.lightmicrofinance.app.utils
 object Constant {
     const val NA = "NA"
     const val USER_TYPE = "user_type"
-    const val BM = "FE"
+    const val BM = "BM"
     const val FE = "FE"
     const val ISCHECKED = "isChecked"
     const val LEAD = "lead"
