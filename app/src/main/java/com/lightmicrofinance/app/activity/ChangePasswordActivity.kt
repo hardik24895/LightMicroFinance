@@ -59,6 +59,7 @@ class ChangePasswordActivity : BaseActivity() {
         showProgressbar()
         val params = HashMap<String, Any>()
         params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
         params["Password"] = binding.edtOldPwd.getValue()
         params["NewPassword"] = binding.edtNewPassword.getValue()
 

@@ -104,6 +104,7 @@ class GoalSheetFragment : BaseFragment(), GoalSheetAdapter.OnItemSelected {
         params["PageSize"] = Constant.PAGE_SIZE
         params["CurrentPage"] = page
         params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
         params["StartDate"] = BusinessFragment.StartDate
         params["EndDate"] = BusinessFragment.EndDate
 

@@ -98,6 +98,7 @@ class BusinessSummaryFragment : BaseFragment() {
         showProgressbar()
         val params = HashMap<String, Any>()
         params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
         params["StartDate"] = StartDate
         params["EndDate"] = EndDate
 

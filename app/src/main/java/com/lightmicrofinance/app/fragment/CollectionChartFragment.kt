@@ -194,6 +194,7 @@ class CollectionChartFragment : BaseFragment() {
         showProgressbar()
         val params = HashMap<String, Any>()
         params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
 
         Networking
             .with(requireContext())

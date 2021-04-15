@@ -162,6 +162,7 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
          params["PageSize"] =  Constant.PAGE_SIZE
          params["CurrentPage"] = page
          params["FECode"] = session.user.data?.fECode.toString()
+         params["BMCode"] = session.user.data?.bMCode.toString()
          params["CenterName"] = CenterName
          params["LoanID"] = LoanID
          params["ClientID"] = ClientID
