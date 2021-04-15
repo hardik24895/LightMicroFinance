@@ -46,9 +46,37 @@ class SearchActivty : BaseActivity() {
         setContentView(view)
         binding.includes.txtTitle.text = getString(R.string.search)
 
+        binding.includes.imgBack.setOnClickListener { finish() }
+
         binding.edtStartDate.setText(TimeStamp.getSpesificStartDateRange())
         binding.edtEndDate.setText(getYesterdayDate())
 
+        if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION_SUMMARY))
+            binding.edtStartDate.setText(TimeStamp.getStartDateRange())
+        else
+            binding.edtStartDate.setText(TimeStamp.getSpesificStartDateRange())
+
+        if (intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.BUSINESS) || intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.BUSINESS_SUMMARY) || intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.PAR_SUMMARY) || intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.COLLECTION_SUMMARY)
+        ) {
+            binding.inStartDate.visible()
+            binding.inEndDate.visible()
+            binding.linlayCenterName.invisible()
+            binding.inCleintID.invisible()
+            binding.inCleintName.invisible()
+            binding.inLoanID.invisible()
+        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION)) {
+            binding.linlayCenterName.invisible()
+        }
+
+        binding.btnSearch.setOnClickListener { SearchData() }
+
+        getCenterNameList()
+        centerNameSpinnerListner()
+        centerNameViewClick()
 
         val date: DatePickerDialog.OnDateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(
@@ -79,29 +107,6 @@ class SearchActivty : BaseActivity() {
                 }
             }
 
-        binding.includes.imgBack.setOnClickListener { finish() }
-
-        if (intent.getStringExtra(Constant.DATA)!!
-                .equals(Constant.BUSINESS) || intent.getStringExtra(Constant.DATA)!!
-                .equals(Constant.BUSINESS_SUMMARY) || intent.getStringExtra(Constant.DATA)!!
-                .equals(Constant.PAR_SUMMARY) || intent.getStringExtra(Constant.DATA)!!
-                .equals(Constant.COLLECTION_SUMMARY)
-        ) {
-            binding.inStartDate.visible()
-            binding.inEndDate.visible()
-            binding.linlayCenterName.invisible()
-            binding.inCleintID.invisible()
-            binding.inCleintName.invisible()
-            binding.inLoanID.invisible()
-        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION)) {
-            binding.linlayCenterName.invisible()
-        }
-
-        binding.btnSearch.setOnClickListener { SearchData() }
-
-        getCenterNameList()
-        centerNameSpinnerListner()
-        centerNameViewClick()
 
 
 

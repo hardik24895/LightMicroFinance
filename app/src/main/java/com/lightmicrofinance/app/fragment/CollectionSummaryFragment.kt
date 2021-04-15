@@ -27,7 +27,7 @@ class CollectionSummaryFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     companion object {
-        var StartDate: String = TimeStamp.getSpesificStartDateRange()
+        var StartDate: String = TimeStamp.getStartDateRange()
         var EndDate: String = getYesterdayDate()
 
     }

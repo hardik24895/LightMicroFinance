@@ -363,7 +363,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                 position: Int,
                 id: Long
             ) {
-                if (position != -1 && centerNameListArray!!.size > position) {
+                if (position != -1 && centerNameListArray!!.size > position - 1) {
                     if (position == 0) {
                         CenterName = ""
                         // spinnerAPICall2()
