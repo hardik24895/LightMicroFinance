@@ -16,29 +16,20 @@ data class LoginModal(
 
 data class LoginData(
 
-	@field:SerializedName("Status")
-	val status: String? = null,
-
 	@field:SerializedName("Designation")
 	val designation: String? = null,
 
-	@field:SerializedName("CreatedBy")
-	val createdBy: String? = null,
+	@field:SerializedName("BMCode")
+	val bMCode: String? = null,
 
 	@field:SerializedName("RMName")
 	val rMName: String? = null,
 
-	@field:SerializedName("ModifiedBy")
-	val modifiedBy: Any? = null,
-
-	@field:SerializedName("ModifiedDate")
-	val modifiedDate: Any? = null,
-
 	@field:SerializedName("Mobile")
 	val mobile: String? = null,
 
-	@field:SerializedName("Name")
-	val name: String? = null,
+	@field:SerializedName("FEName")
+	val fEName: String? = null,
 
 	@field:SerializedName("CenterName")
 	val centerName: String? = null,
@@ -46,17 +37,26 @@ data class LoginData(
 	@field:SerializedName("FECode")
 	val fECode: String? = null,
 
-	@field:SerializedName("State")
-	val state: String? = null,
+	@field:SerializedName("UserID")
+	val userID: String? = null,
 
-	@field:SerializedName("CreatedDate")
-	val createdDate: String? = null,
+	@field:SerializedName("BMName")
+	val bMName: String? = null,
+
+	@field:SerializedName("BMID")
+	val bMID: String? = null,
 
 	@field:SerializedName("FEID")
 	val fEID: String? = null,
 
 	@field:SerializedName("AMName")
 	val aMName: String? = null,
+
+	@field:SerializedName("CenterID")
+	val centerID: String? = null,
+
+	@field:SerializedName("UserType")
+	val userType: String? = null,
 
 	@field:SerializedName("BranchCode")
 	val branchCode: String? = null,

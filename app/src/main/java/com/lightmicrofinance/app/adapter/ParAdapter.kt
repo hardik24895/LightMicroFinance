@@ -53,6 +53,7 @@ class ParAdapter(
         ) {
 
             binding.txtFeCodeNo.text = data.fECode
+            binding.txtFeName.text = data.fEName
             binding.txtLoanID.text = data.loanID
             binding.txtBranchName.text = data.branch
             binding.txtDPD.text = data.dPD

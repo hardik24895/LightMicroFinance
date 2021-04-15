@@ -58,9 +58,10 @@ class MainActivity : BaseActivity() {
             e.printStackTrace()
         }
 
-        binding.leftDrawerMenu.txtName.text = session.user.data?.name
-
-
+        if (session.user.data?.userType == Constant.FE)
+            binding.leftDrawerMenu.txtName.text = session.user.data?.fEName
+        else
+            binding.leftDrawerMenu.txtName.text = session.user.data?.bMName
 
 
         binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
@@ -68,7 +69,11 @@ class MainActivity : BaseActivity() {
             }
 
             override fun onDrawerOpened(drawerView: View) {
-                binding.leftDrawerMenu.txtName.setText(session.user.data?.name)
+
+                if (session.user.data?.userType == Constant.FE)
+                    binding.leftDrawerMenu.txtName.text = session.user.data?.fEName
+                else
+                    binding.leftDrawerMenu.txtName.text = session.user.data?.bMName
 
 
                 /*  Glide.with(this@MainActivity)
@@ -104,16 +109,16 @@ class MainActivity : BaseActivity() {
             replaceFragment(HomeFragment(), R.id.framLayout)
         }
 
-       binding.leftDrawerMenu.linCollection.setOnClickListener {
+        binding.leftDrawerMenu.linCollection.setOnClickListener {
 
-           toolbar1.setBackgroundColor(resources.getColor(R.color.colorPrimary))
-           if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-               window?.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-           }
-           toggleLeftDrawer()
-           binding.appbarMain.tvTitle.text = getString(R.string.collection)
-           replaceFragment(CollectionFragment(), R.id.framLayout)
-       }
+            toolbar1.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                window?.setStatusBarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+            }
+            toggleLeftDrawer()
+            binding.appbarMain.tvTitle.text = getString(R.string.collection)
+            replaceFragment(CollectionFragment(), R.id.framLayout)
+        }
 
         binding.leftDrawerMenu.linPar.setOnClickListener {
             toggleLeftDrawer()
@@ -187,9 +192,9 @@ class MainActivity : BaseActivity() {
         }
 
 
-       /* binding.contentMain.includes.imgAdd.setOnClickListener {
-            goToActivity<SearchActivty>()
-        }*/
+        /* binding.contentMain.includes.imgAdd.setOnClickListener {
+             goToActivity<SearchActivty>()
+         }*/
 
     }
 
