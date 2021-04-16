@@ -6,11 +6,14 @@ import android.os.Bundle
 import android.view.*
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.lightmicrofinance.app.R
+import com.lightmicrofinance.app.activity.LoginActivity
 import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.databinding.FragamentCollectionSummaryBinding
 import com.lightmicrofinance.app.extention.getYesterdayDate
+import com.lightmicrofinance.app.extention.goToActivityAndClearTask
 import com.lightmicrofinance.app.extention.showAlert
 import com.lightmicrofinance.app.modal.CollectionSummaryReportModal
+import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
@@ -57,6 +60,7 @@ class CollectionSummaryFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         binding.txtSelectedDate.text = StartDate + " To " + EndDate
+        checkUserSatus()
         getSummaryData()
     }
 
@@ -149,6 +153,40 @@ class CollectionSummaryFragment : BaseFragment() {
                 override fun onFailed(code: Int, message: String) {
                     showAlert(message)
                     hideProgressbar()
+                }
+
+            }).addTo(autoDisposable)
+    }
+
+    fun checkUserSatus() {
+        val params = java.util.HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
+
+        Networking
+            .with(requireContext())
+            .getServices()
+            .checkUserStatus(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<UserStatusModal>() {
+                override fun onSuccess(response: UserStatusModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            if (data.status == "0")
+                                goToActivityAndClearTask<LoginActivity>()
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(message)
                 }
 
             }).addTo(autoDisposable)

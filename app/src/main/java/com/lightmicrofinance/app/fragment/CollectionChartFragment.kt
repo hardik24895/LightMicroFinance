@@ -13,10 +13,13 @@ import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.lightmicrofinance.app.R
+import com.lightmicrofinance.app.activity.LoginActivity
 import com.lightmicrofinance.app.databinding.FragmentChartBinding
+import com.lightmicrofinance.app.extention.goToActivityAndClearTask
 import com.lightmicrofinance.app.extention.showAlert
 import com.lightmicrofinance.app.modal.CollectionChartDataItem
 import com.lightmicrofinance.app.modal.CollectionChartModal
+import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
@@ -185,6 +188,7 @@ class CollectionChartFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        checkUserSatus()
         getCollectionChart()
     }
 
@@ -221,5 +225,38 @@ class CollectionChartFragment : BaseFragment() {
             }).addTo(autoDisposable)
     }
 
+    fun checkUserSatus() {
+        val params = java.util.HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
+
+        Networking
+            .with(requireContext())
+            .getServices()
+            .checkUserStatus(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<UserStatusModal>() {
+                override fun onSuccess(response: UserStatusModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            if (data.status == "0")
+                                goToActivityAndClearTask<LoginActivity>()
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(message)
+                }
+
+            }).addTo(autoDisposable)
+    }
 
 }

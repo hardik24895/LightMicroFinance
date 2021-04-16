@@ -14,6 +14,7 @@ import com.lightmicrofinance.app.extention.*
 import com.lightmicrofinance.app.fragment.*
 import com.lightmicrofinance.app.modal.CenternameDataItem
 import com.lightmicrofinance.app.modal.CenternameListModal
+import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
@@ -45,7 +46,6 @@ class SearchActivty : BaseActivity() {
         val view = binding.root
         setContentView(view)
         binding.includes.txtTitle.text = getString(R.string.search)
-
         binding.includes.imgBack.setOnClickListener { finish() }
 
         binding.edtStartDate.setText(TimeStamp.getSpesificStartDateRange())
@@ -276,5 +276,44 @@ class SearchActivty : BaseActivity() {
                 }
 
             }).addTo(autoDisposable)
+    }
+
+    fun checkUserSatus() {
+        val params = HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
+
+        Networking
+            .with(this)
+            .getServices()
+            .checkUserStatus(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<UserStatusModal>() {
+                override fun onSuccess(response: UserStatusModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            if (data.status == "0")
+                                goToActivityAndClearTask<LoginActivity>()
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(message)
+                }
+
+            }).addTo(autoDisposable)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkUserSatus()
     }
 }

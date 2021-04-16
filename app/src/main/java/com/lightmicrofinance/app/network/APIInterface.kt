@@ -70,4 +70,12 @@ interface APIInterface {
 
     @POST("goalsheet/getGoalSheet")
     fun getGoalSheet(@Body body: RequestBody): Observable<Response<GoalsheetModal>>
+
+    @POST("user/checkUserStatus")
+    fun checkUserStatus(@Body body: RequestBody): Observable<Response<UserStatusModal>>
+
+    @POST("config/getConfig")
+    fun getConfig(@Body body: RequestBody): Observable<Response<ConfigDataModel>>
+
+
 }

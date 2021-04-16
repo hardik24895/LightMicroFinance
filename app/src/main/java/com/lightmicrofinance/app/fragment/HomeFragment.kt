@@ -1,8 +1,12 @@
 package com.lightmicrofinance.app.fragment
 
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.*
 import android.widget.TextView
@@ -23,6 +27,7 @@ import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
 import com.lightmicrofinance.app.utils.SessionManager
+import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -169,6 +174,14 @@ class HomeFragment : BaseFragment() {
 
           })
   */
+
+
+        try {
+            val AppVersion: Int = session.configData.data?.appVersionAndroid?.toInt()!!
+            checkCurrentVersion(AppVersion)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun setViewData(position: Int) {
@@ -579,5 +592,35 @@ class HomeFragment : BaseFragment() {
               inflater = LayoutInflater.from(mContext)
           }
       }*/
+
+
+    private fun checkCurrentVersion(CurrentAppVersion: Int): Boolean {
+        var status = true
+        if (CurrentAppVersion > 0) {
+            if (Utils.getAppVersionCode(requireContext()) >= CurrentAppVersion) {
+                status = true
+            } else {
+                status = false
+                AlertDialog.Builder(mActivity)
+                    .setTitle("")
+                    .setMessage(getString(R.string.msg_install_latest_version))
+                    .setCancelable(false)
+                    .setPositiveButton(mActivity!!.getString(R.string.action_update),
+                        DialogInterface.OnClickListener { dialog, whichButton ->
+                            dialog.dismiss()
+                            startActivity(
+                                Intent(
+                                    Intent.ACTION_VIEW, Uri.parse(
+                                        "market://details?id=" + mActivity!!.packageName
+                                    )
+                                )
+                            )
+                            mActivity!!.finish()
+                        })
+                    .show()
+            }
+        }
+        return status
+    }
 
 }

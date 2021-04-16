@@ -8,8 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import com.lightmicrofinance.app.activity.ChangePasswordActivity
 import com.lightmicrofinance.app.activity.InformationActivity
+import com.lightmicrofinance.app.activity.LoginActivity
 import com.lightmicrofinance.app.databinding.FragmentSettingBinding
+import com.lightmicrofinance.app.extention.goToActivityAndClearTask
+import com.lightmicrofinance.app.extention.showAlert
+import com.lightmicrofinance.app.modal.UserStatusModal
+import com.lightmicrofinance.app.network.CallbackObserver
+import com.lightmicrofinance.app.network.Networking
+import com.lightmicrofinance.app.network.addTo
 import com.lightmicrofinance.app.utils.Constant
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class SettingFragment : BaseFragment() {
@@ -59,6 +68,45 @@ class SettingFragment : BaseFragment() {
             intent.putExtra("Desc", "TermandCondition")
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkUserSatus()
+    }
+
+    fun checkUserSatus() {
+        val params = java.util.HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
+
+        Networking
+            .with(requireContext())
+            .getServices()
+            .checkUserStatus(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<UserStatusModal>() {
+                override fun onSuccess(response: UserStatusModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            if (data.status == "0")
+                                goToActivityAndClearTask<LoginActivity>()
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(message)
+                }
+
+            }).addTo(autoDisposable)
     }
 
 }

@@ -15,9 +15,16 @@ import com.lightmicrofinance.app.databinding.ActivityMainBinding
 import com.lightmicrofinance.app.dialog.LogoutDailog
 import com.lightmicrofinance.app.extention.goToActivityAndClearTask
 import com.lightmicrofinance.app.extention.replaceFragment
+import com.lightmicrofinance.app.extention.showAlert
 import com.lightmicrofinance.app.fragment.*
+import com.lightmicrofinance.app.modal.UserStatusModal
+import com.lightmicrofinance.app.network.CallbackObserver
+import com.lightmicrofinance.app.network.Networking
+import com.lightmicrofinance.app.network.addTo
 import com.lightmicrofinance.app.utils.Constant
 import com.lightmicrofinance.app.utils.SessionManager
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class MainActivity : BaseActivity() {
@@ -196,6 +203,13 @@ class MainActivity : BaseActivity() {
              goToActivity<SearchActivty>()
          }*/
 
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        checkUserSatus()
     }
 
     private fun toggleLeftDrawer() {
@@ -207,5 +221,39 @@ class MainActivity : BaseActivity() {
         }
 
 
+    }
+
+    fun checkUserSatus() {
+        val params = HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
+
+        Networking
+            .with(this)
+            .getServices()
+            .checkUserStatus(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<UserStatusModal>() {
+                override fun onSuccess(response: UserStatusModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            if (data.status == "0")
+                                goToActivityAndClearTask<LoginActivity>()
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(message)
+                }
+
+            }).addTo(autoDisposable)
     }
 }

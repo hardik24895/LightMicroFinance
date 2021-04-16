@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.content.Context
 import com.google.gson.Gson
 import com.lightmicrofinance.app.R
+import com.lightmicrofinance.app.modal.ConfigDataModel
 import com.lightmicrofinance.app.modal.LoginModal
 
 
@@ -31,6 +32,18 @@ class SessionManager(val context: Context) {
             val json = gson.toJson(user)
             pref.edit().putString(KEY_USER_INFO, json).apply()
             isLoggedIn = true
+        }
+
+    var configData: ConfigDataModel
+        get() {
+            val gson = Gson()
+            val json = getDataByKey(KEY_CONFIG_INFO, "")
+            return gson.fromJson(json, ConfigDataModel::class.java)
+        }
+        set(configData) {
+            val gson = Gson()
+            val json = gson.toJson(configData)
+            pref.edit().putString(KEY_CONFIG_INFO, json).apply()
         }
 
 /*
