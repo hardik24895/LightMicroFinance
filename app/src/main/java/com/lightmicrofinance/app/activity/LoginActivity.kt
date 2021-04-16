@@ -9,6 +9,7 @@ import com.lightmicrofinance.app.databinding.ActivityLoginBinding
 import com.lightmicrofinance.app.dialog.ForgotPasswordDailog
 import com.lightmicrofinance.app.dialog.LogoutDailog
 import com.lightmicrofinance.app.extention.*
+import com.lightmicrofinance.app.modal.ConfigDataModel
 import com.lightmicrofinance.app.modal.LoginModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
@@ -107,6 +108,42 @@ class LoginActivity : BaseActivity() {
                     if (response.error == false) {
                         if (data != null) {
                             session.user = response
+                            getConfig()
+
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(message)
+                    hideProgressbar()
+                }
+
+            }).addTo(autoDisposable)
+    }
+
+    fun getConfig() {
+        val params = HashMap<String, Any>()
+        /* params["FECode"] = binding.edtEmpId.getValue()
+         params["Password"] = binding.edtPassword.getValue()*/
+
+        Networking
+            .with(this)
+            .getServices()
+            .getConfig(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<ConfigDataModel>() {
+                override fun onSuccess(response: ConfigDataModel) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            session.configData = response
                             goToActivityAndClearTask<MainActivity>()
                         } else {
                             showAlert(response.message.toString())
@@ -124,4 +161,5 @@ class LoginActivity : BaseActivity() {
 
             }).addTo(autoDisposable)
     }
+
 }

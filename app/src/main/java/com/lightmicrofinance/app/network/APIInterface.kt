@@ -73,4 +73,12 @@ interface APIInterface {
 
     @POST("user/getFeList")
     fun getFEList(@Body body: RequestBody): Observable<Response<FEDateModel>>
+
+    @POST("user/checkUserStatus")
+    fun checkUserStatus(@Body body: RequestBody): Observable<Response<UserStatusModal>>
+
+    @POST("config/getConfig")
+    fun getConfig(@Body body: RequestBody): Observable<Response<ConfigDataModel>>
+
+
 }

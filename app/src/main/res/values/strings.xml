@@ -126,5 +126,8 @@
     <string name="current_demand">Current Demand</string>
     <string name="today_collection">Today\'s Collection</string>
 
+    <string name="msg_install_latest_version">Please install the latest version of this app.</string>
+    <string name="action_update">Update</string>
+
 
 </resources>

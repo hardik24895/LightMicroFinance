@@ -7,8 +7,10 @@ import android.text.Spanned
 import androidx.core.text.HtmlCompat
 import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.databinding.ActivityCmsBinding
+import com.lightmicrofinance.app.extention.goToActivityAndClearTask
 import com.lightmicrofinance.app.extention.showAlert
 import com.lightmicrofinance.app.modal.CMSDataModal
+import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
@@ -53,13 +55,16 @@ class InformationActivity : BaseActivity() {
                 override fun onSuccess(response: CMSDataModal) {
                     hideProgressbar()
 
-                    if (response.error==false) {
+                    if (response.error == false) {
                         val htmlStrig = response.data?.content
 
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             val htmlAsSpanned: Spanned =
-                                Html.fromHtml(htmlStrig.toString(), HtmlCompat.FROM_HTML_MODE_LEGACY)
-                           binding.txtDesc.setText(htmlAsSpanned);
+                                Html.fromHtml(
+                                    htmlStrig.toString(),
+                                    HtmlCompat.FROM_HTML_MODE_LEGACY
+                                )
+                            binding.txtDesc.setText(htmlAsSpanned);
                         } else {
                             val htmlAsSpanned: Spanned = Html.fromHtml(htmlStrig.toString())
                             binding.txtDesc.setText(htmlAsSpanned);
@@ -70,6 +75,45 @@ class InformationActivity : BaseActivity() {
                 override fun onFailed(code: Int, message: String) {
                     hideProgressbar()
                     showAlert(getString(R.string.show_server_error))
+                }
+
+            }).addTo(autoDisposable)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkUserSatus()
+    }
+
+    fun checkUserSatus() {
+        val params = HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
+
+        Networking
+            .with(this)
+            .getServices()
+            .checkUserStatus(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<UserStatusModal>() {
+                override fun onSuccess(response: UserStatusModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            if (data.status == "0")
+                                goToActivityAndClearTask<LoginActivity>()
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(message)
                 }
 
             }).addTo(autoDisposable)

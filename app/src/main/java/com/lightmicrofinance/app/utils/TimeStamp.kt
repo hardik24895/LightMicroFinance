@@ -276,7 +276,7 @@ object TimeStamp {
             setTimeToBeginningOfDay(calendar)
             begining = calendar.time
         }
-        val simpleDate = SimpleDateFormat("dd/MM/yyyy")
+        val simpleDate = SimpleDateFormat("dd-MM-yyyy")
         val strDt = simpleDate.format(begining)
         return strDt
     }

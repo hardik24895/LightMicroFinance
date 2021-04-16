@@ -12,9 +12,11 @@ import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.commonProject.interfaces.LoadMoreListener
 import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.AddCollectionActivity
+import com.lightmicrofinance.app.activity.LoginActivity
 import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.adapter.CollectionAdapter
 import com.lightmicrofinance.app.databinding.FragmentCollectionBinding
+import com.lightmicrofinance.app.extention.goToActivityAndClearTask
 import com.lightmicrofinance.app.extention.invisible
 import com.lightmicrofinance.app.extention.showAlert
 import com.lightmicrofinance.app.extention.visible
@@ -164,8 +166,6 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         adapter?.notifyDataSetChanged()
         //_binding.spCenterName.setSelection(0)
         getCollectionList(page)
-
-
     }
 
     fun setupRecyclerView() {
@@ -221,6 +221,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
     }
 
     override fun onResume() {
+        checkUserSatus()
         if (status == Constant.PENDING) {
             _binding.txtPending.isSelected = true
         } else if (status == Constant.PARTIALY) {
@@ -390,7 +391,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                 position: Int,
                 id: Long
             ) {
-                if (position != -1 && centerNameListArray!!.size > position) {
+                if (position != -1 && centerNameListArray!!.size > position - 1) {
                     if (position == 0) {
                         CenterName = ""
                         // spinnerAPICall2()
@@ -504,6 +505,40 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                     // showAlert(message)
                     showAlert(getString(R.string.show_server_error))
 
+                }
+
+            }).addTo(autoDisposable)
+    }
+
+    fun checkUserSatus() {
+        val params = java.util.HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
+
+        Networking
+            .with(requireContext())
+            .getServices()
+            .checkUserStatus(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<UserStatusModal>() {
+                override fun onSuccess(response: UserStatusModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            if (data.status == "0")
+                                goToActivityAndClearTask<LoginActivity>()
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(message)
                 }
 
             }).addTo(autoDisposable)
