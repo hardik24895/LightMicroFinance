@@ -4,6 +4,7 @@ package com.lightmicrofinance.app.fragment
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -46,6 +47,7 @@ class ParSummaryFragment : BaseFragment() {
         var EndDate: String = getYesterdayDate()
     }
 
+    var selectedFEId: String = ""
     var FENameList: ArrayList<String> = ArrayList()
     var adapterFE: ArrayAdapter<String>? = null
     var FEListArray: ArrayList<FEDataItem> = ArrayList()
@@ -73,7 +75,7 @@ class ParSummaryFragment : BaseFragment() {
         } else {
             _binding?.linlayFEList?.invisible()
         }
-        getFEList()
+
         FEViewClick()
         FESpinnerListner()
 
@@ -128,6 +130,7 @@ class ParSummaryFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
+        getFEList()
         binding.txtSelectedDate.text = StartDate + " To " + EndDate
         checkUserSatus()
         getSummaryData()
@@ -177,10 +180,16 @@ class ParSummaryFragment : BaseFragment() {
     fun getSummaryData() {
         showProgressbar()
         val params = HashMap<String, Any>()
-        params["FECode"] = session.user.data?.fECode.toString()
+        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+            params["FECode"] = selectedFEId
+        } else {
+            params["FECode"] = session.user.data?.fECode.toString()
+        }
         params["BMCode"] = session.user.data?.bMCode.toString()
         params["StartDate"] = StartDate
         params["EndDate"] = EndDate
+
+        Log.d("Request::::>", "getSummaryData: " + params)
 
         Networking
             .with(requireContext())
@@ -362,12 +371,15 @@ class ParSummaryFragment : BaseFragment() {
                     if (position == 0) {
                         //    CenterName = ""
                         // spinnerAPICall2()
-
-                    } else {
                         // CenterName = FEListArray.get(position - 1).name.toString()
                         //   spinnerAPICall()
+                        selectedFEId = ""
+
+                    }else{
+                        selectedFEId = FEListArray.get(position - 1).fECode.toString()
                     }
-                    // Logger.d("userIDq", CenterName)
+                    getSummaryData()
+
 
                 }
 
