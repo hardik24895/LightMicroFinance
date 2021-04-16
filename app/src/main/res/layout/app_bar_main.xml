@@ -10,7 +10,7 @@
         android:id="@+id/app"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/Theme.RMEnterPrise.AppBarOverlay"
+        android:theme="@style/Theme.CommonProject.AppBarOverlay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.RMEnterPrise.PopupOverlay">
+            app:popupTheme="@style/Theme.CommonProject.PopupOverlay">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

@@ -10,13 +10,16 @@ import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.databinding.FragementSummaryBusinessBinding
 import com.lightmicrofinance.app.extention.getYesterdayDate
+import com.lightmicrofinance.app.extention.invisible
 import com.lightmicrofinance.app.extention.showAlert
+import com.lightmicrofinance.app.extention.visible
 import com.lightmicrofinance.app.modal.BusinessSummaryModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
 import com.lightmicrofinance.app.utils.Constant
 import com.lightmicrofinance.app.utils.TimeStamp
+import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -51,7 +54,11 @@ class BusinessSummaryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+            _binding?.linlayFEList?.visible()
+        } else {
+            _binding?.linlayFEList?.invisible()
+        }
 
     }
 

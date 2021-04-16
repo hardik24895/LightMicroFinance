@@ -11,13 +11,16 @@ import com.lightmicrofinance.app.activity.ParCleintActivity
 import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.databinding.FragementSummaryParBinding
 import com.lightmicrofinance.app.extention.getYesterdayDate
+import com.lightmicrofinance.app.extention.invisible
 import com.lightmicrofinance.app.extention.showAlert
+import com.lightmicrofinance.app.extention.visible
 import com.lightmicrofinance.app.modal.ParSummaryModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
 import com.lightmicrofinance.app.utils.Constant
 import com.lightmicrofinance.app.utils.TimeStamp
+import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -50,6 +53,11 @@ class ParSummaryFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+            _binding?.linlayFEList?.visible()
+        } else {
+            _binding?.linlayFEList?.invisible()
+        }
 
         binding.txt130Cleints.setOnClickListener {
             openCleintParList(Constant.oneTO30)

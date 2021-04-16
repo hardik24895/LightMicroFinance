@@ -9,6 +9,7 @@ import com.commonProject.interfaces.LoadMoreListener
 import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.adapter.ParAdapter
+import com.lightmicrofinance.app.databinding.FragmentParBinding
 import com.lightmicrofinance.app.databinding.ReclerviewSwipelayoutBinding
 import com.lightmicrofinance.app.extention.invisible
 import com.lightmicrofinance.app.extention.showAlert
@@ -39,7 +40,7 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
         var ClientName: String = ""
     }
 
-    private var _binding: ReclerviewSwipelayoutBinding? = null
+    private var _binding: FragmentParBinding? = null
 
     private val binding get() = _binding!!
 
@@ -48,7 +49,7 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ReclerviewSwipelayoutBinding.inflate(inflater, container, false)
+        _binding = FragmentParBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -81,11 +82,11 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
             getParList(page)
         }
 
-//        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
-//            _binding.linlayFEList.visible()
-//        } else {
-//            _binding.linlayFEList.invisible()
-//        }
+        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+            _binding?.linlayFEList?.visible()
+        } else {
+            _binding?.linlayFEList?.invisible()
+        }
 
     }
 
