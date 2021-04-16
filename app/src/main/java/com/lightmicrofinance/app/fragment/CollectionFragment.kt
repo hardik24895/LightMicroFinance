@@ -3,6 +3,7 @@ package com.lightmicrofinance.app.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -44,6 +45,14 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
     var page: Int = 1
     var hasNextPage: Boolean = true
 
+
+    var selectedFEId: String = ""
+    var FENameList: ArrayList<String> = ArrayList()
+    var adapterFE: ArrayAdapter<String>? = null
+    var FEListArray: ArrayList<FEDataItem> = ArrayList()
+    var itemFEType: List<SearchableItem>? = null
+
+
     companion object {
         var CenterName: String = ""
         var LoanID: String = ""
@@ -71,6 +80,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         getCenterNameList(Constant.PENDING)
         centerNameSpinnerListner()
         centerNameViewClick()
+        FESpinnerListner()
+        FEViewClick()
 
         _binding.txtPending.setOnClickListener {
             if (!_binding.txtPending.isSelected) {
@@ -129,6 +140,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             _binding.spCenterName.setSelection(0)
             getCollectionList(page)
         }
+
+
 
         if (checkUserIsBM(session.user.data?.userType!!)) {
             _binding.linlayFEList.visible()
@@ -217,6 +230,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             _binding.txtCollected.isSelected = true
         }
         getCenterNameList2(status)
+        getFEList()
         page = 1
         list.clear()
         hasNextPage = true
@@ -228,7 +242,6 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         super.onResume()
 
     }
-
 
     fun spinnerAPICall() {
         if (status == Constant.PENDING) {
@@ -263,7 +276,12 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         val params = HashMap<String, Any>()
         params["PageSize"] = Constant.PAGE_SIZE
         params["CurrentPage"] = page
-        params["FECode"] = session.user.data?.fECode.toString()
+
+        if (checkUserIsBM(session.user.data?.userType!!)) {
+            params["FECode"] = selectedFEId
+        } else {
+            params["FECode"] = session.user.data?.fECode.toString()
+        }
         params["BMCode"] = session.user.data?.bMCode.toString()
         params["CenterName"] = CenterName
         params["LoanID"] = LoanID
@@ -271,6 +289,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         params["ClientName"] = ClientName
         params["CollectionType"] = status
 
+
+        Log.d("Request::::>", "getCollectionList: " + params)
         Networking
             .with(requireContext())
             .getServices()
@@ -523,4 +543,119 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
 
             }).addTo(autoDisposable)
     }
+
+    fun getFEList() {
+        FEListArray.clear()
+        FENameList.clear()
+        val params = HashMap<String, Any>()
+        params.put("PageSize", "-1")
+        params.put("CurrentPage", "1")
+        params.put("BMCode", session.user.data?.bMCode.toString())
+        params.put("Status", "-1")
+
+        Log.d("Request::::>", "getFEList: " + params)
+        Networking
+            .with(requireContext())
+            .getServices()
+            .getFEList(Networking.wrapParams(params))
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<FEDateModel>() {
+                override fun onSuccess(response: FEDateModel) {
+                    FEListArray.addAll(response.data)
+
+                    var myList: MutableList<SearchableItem> = mutableListOf()
+                    FENameList.add(getString(R.string.select_field_executive))
+
+
+                    myList.add(SearchableItem(0, getString(R.string.select_field_executive)))
+                    for (items in response.data.indices) {
+                        FENameList.add(response.data.get(items).name.toString())
+                        myList.add(
+                            SearchableItem(
+                                items.toLong() + 1,
+                                FENameList.get(items + 1)
+                            )
+                        )
+                    }
+                    itemFEType = myList
+
+                    adapterFE = ArrayAdapter(
+                        requireContext(),
+                        R.layout.custom_spinner_item,
+                        FENameList
+                    )
+                    _binding.spFEList.setAdapter(adapterFE)
+
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+
+                    // showAlert(message)
+                    showAlert(getString(R.string.show_server_error))
+
+                }
+
+            }).addTo(autoDisposable)
+    }
+
+
+    private fun FEViewClick() {
+
+
+        _binding.viewFE.setOnClickListener {
+            itemFEType?.let { it1 ->
+                SearchableDialog(requireContext(),
+                    it1,
+                    getString(R.string.select_field_executive), { item, _ ->
+                        _binding.spFEList.setSelection(item.id.toInt())
+                    }).show()
+            }
+
+        }
+
+
+    }
+
+    private fun FESpinnerListner() {
+        _binding.spFEList.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (position != -1 && FEListArray.size > position) {
+                    if (position == 0) {
+                        //    CenterName = ""
+                        // spinnerAPICall2()
+                        // CenterName = FEListArray.get(position - 1).name.toString()
+                        //   spinnerAPICall()
+                        selectedFEId = ""
+
+                    }else{
+                        selectedFEId = FEListArray.get(position - 1).fECode.toString()
+                    }
+
+
+                    page = 1
+                    list.clear()
+                    hasNextPage = true
+                    _binding.rvSwipe.swipeRefreshLayout.isRefreshing = true
+                    setupRecyclerView()
+                    _binding.rvSwipe.recyclerView.isLoading = true
+                    getCollectionList(page)
+                }
+                // Logger.d("userIDq", CenterName)
+
+            }
+
+        }
+    }
 }
+
