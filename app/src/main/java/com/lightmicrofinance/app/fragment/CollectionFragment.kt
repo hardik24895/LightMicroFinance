@@ -630,7 +630,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                 position: Int,
                 id: Long
             ) {
-                if (position != -1 && FEListArray.size > position) {
+                if (position != -1 && FEListArray.size > position - 1) {
                     if (position == 0) {
                         //    CenterName = ""
                         // spinnerAPICall2()
@@ -638,7 +638,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                         //   spinnerAPICall()
                         selectedFEId = ""
 
-                    }else{
+                    } else {
                         selectedFEId = FEListArray.get(position - 1).fECode.toString()
                     }
 

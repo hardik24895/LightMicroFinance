@@ -38,12 +38,7 @@ import kotlin.math.roundToInt
 object Utils {
 
     fun checkUserIsBM(userType: String): Boolean {
-
-
-        if (userType == Constant.BM)
-            return true
-        else
-            return false
+        return userType == Constant.BM
 
     }
 
