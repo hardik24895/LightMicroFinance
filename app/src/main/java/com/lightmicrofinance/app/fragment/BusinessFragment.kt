@@ -11,7 +11,7 @@ import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.LoginActivity
 import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.adapter.BusinessAdapter
-import com.lightmicrofinance.app.databinding.ReclerviewSwipelayoutBinding
+import com.lightmicrofinance.app.databinding.FragmentParBinding
 import com.lightmicrofinance.app.extention.goToActivityAndClearTask
 import com.lightmicrofinance.app.extention.invisible
 import com.lightmicrofinance.app.extention.showAlert
@@ -23,6 +23,7 @@ import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
 import com.lightmicrofinance.app.utils.Constant
+import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -45,7 +46,7 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
         var EndDate: String = ""
     }
 
-    private var _binding: ReclerviewSwipelayoutBinding? = null
+    private var _binding: FragmentParBinding? = null
 
     private val binding get() = _binding!!
 
@@ -54,7 +55,7 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = ReclerviewSwipelayoutBinding.inflate(inflater, container, false)
+        _binding = FragmentParBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -87,6 +88,12 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
             _binding?.recyclerView?.isLoading = true
             adapter?.notifyDataSetChanged()
             getBusinessList(page)
+        }
+
+        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+            _binding?.linlayFEList?.visible()
+        } else {
+            _binding?.linlayFEList?.invisible()
         }
 
     }

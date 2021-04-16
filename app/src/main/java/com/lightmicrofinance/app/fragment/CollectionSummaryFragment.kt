@@ -9,9 +9,7 @@ import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.LoginActivity
 import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.databinding.FragamentCollectionSummaryBinding
-import com.lightmicrofinance.app.extention.getYesterdayDate
-import com.lightmicrofinance.app.extention.goToActivityAndClearTask
-import com.lightmicrofinance.app.extention.showAlert
+import com.lightmicrofinance.app.extention.*
 import com.lightmicrofinance.app.modal.CollectionSummaryReportModal
 import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
@@ -19,6 +17,7 @@ import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
 import com.lightmicrofinance.app.utils.Constant
 import com.lightmicrofinance.app.utils.TimeStamp
+import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -53,7 +52,11 @@ class CollectionSummaryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+            _binding?.linlayFEList?.visible()
+        } else {
+            _binding?.linlayFEList?.invisible()
+        }
 
     }
 

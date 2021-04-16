@@ -1,6 +1,4 @@
 package com.lightmicrofinance.app.fragment
-
-
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -10,9 +8,7 @@ import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.LoginActivity
 import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.databinding.FragementSummaryBusinessBinding
-import com.lightmicrofinance.app.extention.getYesterdayDate
-import com.lightmicrofinance.app.extention.goToActivityAndClearTask
-import com.lightmicrofinance.app.extention.showAlert
+import com.lightmicrofinance.app.extention.*
 import com.lightmicrofinance.app.modal.BusinessSummaryModal
 import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
@@ -20,6 +16,7 @@ import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
 import com.lightmicrofinance.app.utils.Constant
 import com.lightmicrofinance.app.utils.TimeStamp
+import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -54,14 +51,18 @@ class BusinessSummaryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
+        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+            _binding?.linlayFEList?.visible()
+        } else {
+            _binding?.linlayFEList?.invisible()
+        }
 
     }
 
     override fun onResume() {
         super.onResume()
-        checkUserSatus()
         binding.txtSelectedDate.text = StartDate + " To " + EndDate
+        checkUserSatus()
         getSummaryData()
 
     }

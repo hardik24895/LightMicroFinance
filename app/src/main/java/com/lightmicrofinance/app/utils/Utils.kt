@@ -37,6 +37,16 @@ import kotlin.math.roundToInt
 
 object Utils {
 
+    fun checkUserIsBM(userType: String): Boolean {
+
+
+        if (userType == Constant.BM)
+            return true
+        else
+            return false
+
+    }
+
 
     fun isNetworkAvailable(context: Context): Boolean {
         val connectivityManager =

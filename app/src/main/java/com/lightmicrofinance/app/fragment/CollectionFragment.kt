@@ -25,6 +25,7 @@ import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
 import com.lightmicrofinance.app.utils.Constant
 import com.lightmicrofinance.app.utils.Logger
+import com.lightmicrofinance.app.utils.Utils.checkUserIsBM
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import tech.hibk.searchablespinnerlibrary.SearchableDialog
@@ -128,6 +129,13 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             _binding.spCenterName.setSelection(0)
             getCollectionList(page)
         }
+
+        if (checkUserIsBM(session.user.data?.userType!!)) {
+            _binding.linlayFEList.visible()
+        } else {
+            _binding.linlayFEList.invisible()
+        }
+
 
     }
 
