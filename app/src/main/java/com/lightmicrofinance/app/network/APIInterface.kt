@@ -70,4 +70,7 @@ interface APIInterface {
 
     @POST("goalsheet/getGoalSheet")
     fun getGoalSheet(@Body body: RequestBody): Observable<Response<GoalsheetModal>>
+
+    @POST("user/getFeList")
+    fun getFEList(@Body body: RequestBody): Observable<Response<FEDateModel>>
 }
