@@ -2,6 +2,7 @@ package com.lightmicrofinance.app.fragment
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,6 +48,7 @@ class GoalSheetFragment : BaseFragment(), GoalSheetAdapter.OnItemSelected {
     var page: Int = 1
     var hasNextPage: Boolean = true
 
+    var selectedFEId: String = ""
     var FENameList: ArrayList<String> = ArrayList()
     var adapterFE: ArrayAdapter<String>? = null
     var FEListArray: ArrayList<FEDataItem> = ArrayList()
@@ -95,7 +97,7 @@ class GoalSheetFragment : BaseFragment(), GoalSheetAdapter.OnItemSelected {
             _binding?.linlayFEList?.invisible()
         }
 
-        getFEList()
+
         FEViewClick()
         FESpinnerListner()
     }
@@ -112,6 +114,7 @@ class GoalSheetFragment : BaseFragment(), GoalSheetAdapter.OnItemSelected {
     override fun onResume() {
         super.onResume()
         checkUserSatus()
+        getFEList()
         page = 1
         list.clear()
         hasNextPage = true
@@ -128,10 +131,16 @@ class GoalSheetFragment : BaseFragment(), GoalSheetAdapter.OnItemSelected {
         val params = HashMap<String, Any>()
         params["PageSize"] = Constant.PAGE_SIZE
         params["CurrentPage"] = page
-        params["FECode"] = session.user.data?.fECode.toString()
+        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+            params["FECode"] = selectedFEId
+        } else {
+            params["FECode"] = session.user.data?.fECode.toString()
+        }
         params["BMCode"] = session.user.data?.bMCode.toString()
         params["StartDate"] = BusinessFragment.StartDate
         params["EndDate"] = BusinessFragment.EndDate
+
+        Log.d("Request::::>", "getBusinessList: " + params)
 
         Networking
             .with(requireContext())
@@ -312,13 +321,20 @@ class GoalSheetFragment : BaseFragment(), GoalSheetAdapter.OnItemSelected {
                     if (position == 0) {
                         //    CenterName = ""
                         // spinnerAPICall2()
-
-                    } else {
                         // CenterName = FEListArray.get(position - 1).name.toString()
                         //   spinnerAPICall()
-                    }
-                    // Logger.d("userIDq", CenterName)
+                        selectedFEId = ""
 
+                    }else{
+                        selectedFEId = FEListArray.get(position - 1).fECode.toString()
+                    }
+                    page = 1
+                    list.clear()
+                    hasNextPage = true
+                    _binding?.swipeRefreshLayout?.isRefreshing = true
+                    setupRecyclerView()
+                    _binding?.recyclerView?.isLoading = true
+                    getBusinessList(page)
                 }
 
             }

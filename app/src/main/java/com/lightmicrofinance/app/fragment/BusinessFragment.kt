@@ -3,6 +3,7 @@ package com.lightmicrofinance.app.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -43,7 +44,7 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
     var status = Constant.PENDING
     var page: Int = 1
     var hasNextPage: Boolean = true
-
+    var selectedFEId: String = ""
     var FENameList: ArrayList<String> = ArrayList()
     var adapterFE: ArrayAdapter<String>? = null
     var FEListArray: ArrayList<FEDataItem> = ArrayList()
@@ -180,6 +181,7 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
 
     override fun onResume() {
         checkUserSatus()
+        getFEList()
         page = 1
         list.clear()
         hasNextPage = true
@@ -187,7 +189,6 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
         setupRecyclerView()
         _binding?.recyclerView?.isLoading = true
         getBusinessList(page)
-        getFEList()
         super.onResume()
 
     }
@@ -198,13 +199,17 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
         val params = HashMap<String, Any>()
         params["PageSize"] = Constant.PAGE_SIZE
         params["CurrentPage"] = page
-        params["FECode"] = session.user.data?.fECode.toString()
+        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+            params["FECode"] = selectedFEId
+        } else {
+            params["FECode"] = session.user.data?.fECode.toString()
+        }
         params["BMCode"] = session.user.data?.bMCode.toString()
         if (!StartDate.isEmpty() && !EndDate.isEmpty()) {
             params["StartDate"] = StartDate
             params["EndDate"] = EndDate
         }
-
+        Log.d("Request::::>", "getBusinessList: " + params)
 
         Networking
             .with(requireContext())
@@ -365,16 +370,25 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
                 id: Long
             ) {
                 if (position != -1 && FEListArray.size > position) {
-                    if (position == 0) {
-                        //    CenterName = ""
-                        // spinnerAPICall2()
+                    if (position != -1 && FEListArray.size > position) {
+                        if (position == 0) {
+                            //    CenterName = ""
+                            // spinnerAPICall2()
+                            // CenterName = FEListArray.get(position - 1).name.toString()
+                            //   spinnerAPICall()
+                            selectedFEId = ""
 
-                    } else {
-                        // CenterName = FEListArray.get(position - 1).name.toString()
-                        //   spinnerAPICall()
+                        }else{
+                            selectedFEId = FEListArray.get(position - 1).fECode.toString()
+                        }
+                        page = 1
+                        list.clear()
+                        hasNextPage = true
+                        _binding?.swipeRefreshLayout?.isRefreshing = true
+                        setupRecyclerView()
+                        _binding?.recyclerView?.isLoading = true
+                        getBusinessList(page)
                     }
-                    // Logger.d("userIDq", CenterName)
-
                 }
 
             }
