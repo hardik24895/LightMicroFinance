@@ -289,7 +289,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         params["CollectionType"] = status
 
 
-        Log.d("Request::::>", "getCollectionList: "+params)
+        Log.d("Request::::>", "getCollectionList: " + params)
         Networking
             .with(requireContext())
             .getServices()
@@ -518,7 +518,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         params.put("BMCode", session.user.data?.bMCode.toString())
         params.put("Status", "-1")
 
-        Log.d("Request::::>", "getFEList: "+params)
+        Log.d("Request::::>", "getFEList: " + params)
         Networking
             .with(requireContext())
             .getServices()
@@ -599,20 +599,22 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                     if (position == 0) {
                         //    CenterName = ""
                         // spinnerAPICall2()
-
-                    } else {
                         // CenterName = FEListArray.get(position - 1).name.toString()
                         //   spinnerAPICall()
-                        selectedFEId = FEListArray.get(position - 1).fECode.toString()
-                        page = 1
-                        list.clear()
-                        hasNextPage = true
-                        _binding.rvSwipe.swipeRefreshLayout.isRefreshing = true
-                        setupRecyclerView()
-                        _binding.rvSwipe.recyclerView.isLoading = true
-                        getCollectionList(page)
+                        selectedFEId = ""
 
+                    }else{
+                        selectedFEId = FEListArray.get(position - 1).fECode.toString()
                     }
+
+
+                    page = 1
+                    list.clear()
+                    hasNextPage = true
+                    _binding.rvSwipe.swipeRefreshLayout.isRefreshing = true
+                    setupRecyclerView()
+                    _binding.rvSwipe.recyclerView.isLoading = true
+                    getCollectionList(page)
                 }
                 // Logger.d("userIDq", CenterName)
 

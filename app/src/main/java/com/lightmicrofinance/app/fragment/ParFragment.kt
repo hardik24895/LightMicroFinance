@@ -2,6 +2,7 @@ package com.lightmicrofinance.app.fragment
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -39,7 +40,7 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
     var page: Int = 1
     var hasNextPage: Boolean = true
 
-
+    var selectedFEId: String = ""
     var FENameList: ArrayList<String> = ArrayList()
     var adapterFE: ArrayAdapter<String>? = null
     var FEListArray: ArrayList<FEDataItem> = ArrayList()
@@ -167,6 +168,7 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
     }
 
     override fun onResume() {
+        getFEList()
         page = 1
         list.clear()
         hasNextPage = true
@@ -174,7 +176,6 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
         setupRecyclerView()
         _binding?.recyclerView?.isLoading = true
         getParList(page)
-        getFEList()
         super.onResume()
 
     }
@@ -185,13 +186,20 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
         val params = HashMap<String, Any>()
         params["PageSize"] = Constant.PAGE_SIZE
         params["CurrentPage"] = page
-        params["FECode"] = session.user.data?.fECode.toString()
+
+        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+            params["FECode"] = selectedFEId
+        } else {
+            params["FECode"] = session.user.data?.fECode.toString()
+        }
+
         params["BMCode"] = session.user.data?.bMCode.toString()
         params["CenterName"] = CenterName
         params["LoanID"] = LoanID
         params["ClientID"] = ClientID
         params["ClientName"] = ClientName
 
+        Log.d("Request::::>", "getParList: " + params)
         Networking
             .with(requireContext())
             .getServices()
@@ -273,6 +281,9 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
         params.put("BMCode", session.user.data?.bMCode.toString())
         params.put("Status", "-1")
 
+
+        Log.d("Request::::>", "getFEList: " + params)
+
         Networking
             .with(requireContext())
             .getServices()
@@ -348,14 +359,18 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
             ) {
                 if (position != -1 && FEListArray.size > position) {
                     if (position == 0) {
-                        //    CenterName = ""
-                        // spinnerAPICall2()
+                         selectedFEId = ""
 
                     } else {
-                        // CenterName = FEListArray.get(position - 1).name.toString()
-                        //   spinnerAPICall()
+                        selectedFEId = FEListArray.get(position - 1).fECode.toString()
                     }
-                    // Logger.d("userIDq", CenterName)
+                    page = 1
+                    list.clear()
+                    hasNextPage = true
+                    _binding?.swipeRefreshLayout?.isRefreshing = true
+                    setupRecyclerView()
+                    _binding?.recyclerView?.isLoading = true
+                    getParList(page)
 
                 }
 
