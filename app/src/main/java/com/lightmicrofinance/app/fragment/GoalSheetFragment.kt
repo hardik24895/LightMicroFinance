@@ -316,7 +316,7 @@ class GoalSheetFragment : BaseFragment(), GoalSheetAdapter.OnItemSelected {
                 position: Int,
                 id: Long
             ) {
-                if (position != -1 && FEListArray.size > position) {
+                if (position != -1 && FEListArray.size > position-1) {
                     if (position == 0) {
                         //    CenterName = ""
                         // spinnerAPICall2()
