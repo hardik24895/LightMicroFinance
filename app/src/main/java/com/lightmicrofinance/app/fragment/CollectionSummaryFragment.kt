@@ -13,11 +13,6 @@ import com.lightmicrofinance.app.activity.LoginActivity
 import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.databinding.FragamentCollectionSummaryBinding
 import com.lightmicrofinance.app.extention.*
-import com.lightmicrofinance.app.extention.getYesterdayDate
-import com.lightmicrofinance.app.extention.invisible
-import com.lightmicrofinance.app.extention.goToActivityAndClearTask
-import com.lightmicrofinance.app.extention.showAlert
-import com.lightmicrofinance.app.extention.visible
 import com.lightmicrofinance.app.modal.CollectionSummaryReportModal
 import com.lightmicrofinance.app.modal.FEDataItem
 import com.lightmicrofinance.app.modal.FEDateModel
@@ -207,7 +202,8 @@ class CollectionSummaryFragment : BaseFragment() {
                     if (response.error == false) {
                         if (data != null) {
                             if (data.status == "0")
-                                goToActivityAndClearTask<LoginActivity>()
+                                session.clearSession()
+                            goToActivityAndClearTask<LoginActivity>()
                         } else {
                             showAlert(response.message.toString())
                         }

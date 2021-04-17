@@ -17,12 +17,15 @@ import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
 import com.lightmicrofinance.app.R
+import com.lightmicrofinance.app.activity.LoginActivity
 import com.lightmicrofinance.app.activity.MainActivity
 import com.lightmicrofinance.app.databinding.FragmentHomeBinding
 import com.lightmicrofinance.app.databinding.RowHomeSliderBinding
+import com.lightmicrofinance.app.extention.goToActivityAndClearTask
 import com.lightmicrofinance.app.extention.showAlert
 import com.lightmicrofinance.app.modal.CollectionSummaryDataItem
 import com.lightmicrofinance.app.modal.CollectionSummaryModal
+import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
@@ -74,6 +77,7 @@ class HomeFragment : BaseFragment() {
         super.onResume()
         // setupRecyclerView()
         // getCollectionSummary()
+        checkUserSatus()
 
     }
 
@@ -592,7 +596,40 @@ class HomeFragment : BaseFragment() {
               inflater = LayoutInflater.from(mContext)
           }
       }*/
+    fun checkUserSatus() {
+        val params = java.util.HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
 
+        Networking
+            .with(requireContext())
+            .getServices()
+            .checkUserStatus(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<UserStatusModal>() {
+                override fun onSuccess(response: UserStatusModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            if (data.status == "0")
+                                session.clearSession()
+                            goToActivityAndClearTask<LoginActivity>()
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(message)
+                }
+
+            }).addTo(autoDisposable)
+    }
 
     private fun checkCurrentVersion(CurrentAppVersion: Int): Boolean {
         var status = true

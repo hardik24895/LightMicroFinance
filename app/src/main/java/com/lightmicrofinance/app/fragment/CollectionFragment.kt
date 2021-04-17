@@ -527,7 +527,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                     if (response.error == false) {
                         if (data != null) {
                             if (data.status == "0")
-                                goToActivityAndClearTask<LoginActivity>()
+                                session.clearSession()
+                            goToActivityAndClearTask<LoginActivity>()
                         } else {
                             showAlert(response.message.toString())
                         }
@@ -642,16 +643,16 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                         selectedFEId = FEListArray.get(position - 1).fECode.toString()
                     }
 
-
                     page = 1
                     list.clear()
                     hasNextPage = true
                     _binding.rvSwipe.swipeRefreshLayout.isRefreshing = true
                     setupRecyclerView()
                     _binding.rvSwipe.recyclerView.isLoading = true
+
                     getCollectionList(page)
                 }
-                // Logger.d("userIDq", CenterName)
+                Logger.d("fecode", selectedFEId)
 
             }
 

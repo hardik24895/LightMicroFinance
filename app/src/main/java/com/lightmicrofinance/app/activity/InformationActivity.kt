@@ -102,7 +102,8 @@ class InformationActivity : BaseActivity() {
                     if (response.error == false) {
                         if (data != null) {
                             if (data.status == "0")
-                                goToActivityAndClearTask<LoginActivity>()
+                                session.clearSession()
+                            goToActivityAndClearTask<LoginActivity>()
                         } else {
                             showAlert(response.message.toString())
                         }

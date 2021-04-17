@@ -18,11 +18,7 @@ import com.lightmicrofinance.app.extention.goToActivityAndClearTask
 import com.lightmicrofinance.app.extention.invisible
 import com.lightmicrofinance.app.extention.showAlert
 import com.lightmicrofinance.app.extention.visible
-import com.lightmicrofinance.app.modal.FEDataItem
-import com.lightmicrofinance.app.modal.FEDateModel
-import com.lightmicrofinance.app.modal.ParDataItem
-import com.lightmicrofinance.app.modal.ParListModal
-import com.lightmicrofinance.app.modal.UserStatusModal
+import com.lightmicrofinance.app.modal.*
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
@@ -398,7 +394,8 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
                     if (response.error == false) {
                         if (data != null) {
                             if (data.status == "0")
-                                goToActivityAndClearTask<LoginActivity>()
+                                session.clearSession()
+                            goToActivityAndClearTask<LoginActivity>()
                         } else {
                             showAlert(response.message.toString())
                         }

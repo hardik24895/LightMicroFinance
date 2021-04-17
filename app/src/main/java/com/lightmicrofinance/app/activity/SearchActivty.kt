@@ -177,9 +177,6 @@ class SearchActivty : BaseActivity() {
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS_SUMMARY)) {
             BusinessSummaryFragment.StartDate = binding.edtStartDate.getValue()
             BusinessSummaryFragment.EndDate = binding.edtEndDate.getValue()
-        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.PAR_SUMMARY)) {
-            ParSummaryFragment.StartDate = binding.edtStartDate.getValue()
-            ParSummaryFragment.EndDate = binding.edtEndDate.getValue()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION_SUMMARY)) {
             CollectionSummaryFragment.StartDate = binding.edtStartDate.getValue()
             CollectionSummaryFragment.EndDate = binding.edtEndDate.getValue()
@@ -295,7 +292,8 @@ class SearchActivty : BaseActivity() {
                     if (response.error == false) {
                         if (data != null) {
                             if (data.status == "0")
-                                goToActivityAndClearTask<LoginActivity>()
+                                session.clearSession()
+                            goToActivityAndClearTask<LoginActivity>()
                         } else {
                             showAlert(response.message.toString())
                         }

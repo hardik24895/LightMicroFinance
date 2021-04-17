@@ -5,7 +5,10 @@ import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
@@ -15,11 +18,6 @@ import com.lightmicrofinance.app.activity.ParCleintActivity
 import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.databinding.FragementSummaryParBinding
 import com.lightmicrofinance.app.extention.*
-import com.lightmicrofinance.app.extention.getYesterdayDate
-import com.lightmicrofinance.app.extention.invisible
-import com.lightmicrofinance.app.extention.goToActivityAndClearTask
-import com.lightmicrofinance.app.extention.showAlert
-import com.lightmicrofinance.app.extention.visible
 import com.lightmicrofinance.app.modal.FEDataItem
 import com.lightmicrofinance.app.modal.FEDateModel
 import com.lightmicrofinance.app.modal.ParSummaryModal
@@ -28,7 +26,6 @@ import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
 import com.lightmicrofinance.app.utils.Constant
-import com.lightmicrofinance.app.utils.TimeStamp
 import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -43,8 +40,8 @@ class ParSummaryFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     companion object {
-        var StartDate: String = TimeStamp.getSpesificStartDateRange()
-        var EndDate: String = getYesterdayDate()
+        var StartDate: String = getYesterdayDate()
+        // var EndDate: String = getYesterdayDate()
     }
 
     var selectedFEId: String = ""
@@ -131,7 +128,7 @@ class ParSummaryFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         getFEList()
-        binding.txtSelectedDate.text = StartDate + " To " + EndDate
+        binding.txtSelectedDate.text = StartDate
         checkUserSatus()
         getSummaryData()
     }
@@ -144,10 +141,10 @@ class ParSummaryFragment : BaseFragment() {
         Animatoo.animateCard(context)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.home, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+    /*  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+          inflater.inflate(R.menu.home, menu)
+          super.onCreateOptionsMenu(menu, inflater)
+      }*/
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -172,10 +169,10 @@ class ParSummaryFragment : BaseFragment() {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
+    /*  override fun onCreate(savedInstanceState: Bundle?) {
+          super.onCreate(savedInstanceState)
+          setHasOptionsMenu(true)
+      }*/
 
     fun getSummaryData() {
         showProgressbar()
@@ -187,7 +184,7 @@ class ParSummaryFragment : BaseFragment() {
         }
         params["BMCode"] = session.user.data?.bMCode.toString()
         params["StartDate"] = StartDate
-        params["EndDate"] = EndDate
+        params["EndDate"] = ""
 
         Log.d("Request::::>", "getSummaryData: " + params)
 
@@ -268,7 +265,8 @@ class ParSummaryFragment : BaseFragment() {
                     if (response.error == false) {
                         if (data != null) {
                             if (data.status == "0")
-                                goToActivityAndClearTask<LoginActivity>()
+                                session.clearSession()
+                            goToActivityAndClearTask<LoginActivity>()
                         } else {
                             showAlert(response.message.toString())
                         }

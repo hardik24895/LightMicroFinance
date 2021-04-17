@@ -19,10 +19,6 @@ import com.lightmicrofinance.app.extention.invisible
 import com.lightmicrofinance.app.extention.showAlert
 import com.lightmicrofinance.app.extention.visible
 import com.lightmicrofinance.app.modal.*
-import com.lightmicrofinance.app.modal.BusinessListDataItem
-import com.lightmicrofinance.app.modal.GoalsheetDataItem
-import com.lightmicrofinance.app.modal.GoalsheetModal
-import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
@@ -217,7 +213,8 @@ class GoalSheetFragment : BaseFragment(), GoalSheetAdapter.OnItemSelected {
                     if (response.error == false) {
                         if (data != null) {
                             if (data.status == "0")
-                                goToActivityAndClearTask<LoginActivity>()
+                                session.clearSession()
+                            goToActivityAndClearTask<LoginActivity>()
                         } else {
                             showAlert(response.message.toString())
                         }
