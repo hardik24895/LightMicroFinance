@@ -120,7 +120,7 @@ class ParCleintActivity : BaseActivity(), ParAdapter.OnItemSelected {
 
 
     override fun onResume() {
-        checkUserSatus()
+
         page = 1
         list.clear()
         hasNextPage = true
@@ -128,6 +128,7 @@ class ParCleintActivity : BaseActivity(), ParAdapter.OnItemSelected {
         binding.include2.recyclerView.isLoading = true
         BucketSize = intent.getStringExtra(Constant.BUCKET_SIZE).toString()
         getParList(page)
+        checkUserSatus()
         super.onResume()
 
     }
@@ -225,9 +226,10 @@ class ParCleintActivity : BaseActivity(), ParAdapter.OnItemSelected {
                     val data = response.data
                     if (response.error == false) {
                         if (data != null) {
-                            if (data.status == "0")
-                                session.clearSession()
-                            goToActivityAndClearTask<LoginActivity>()
+                            if (data.status == "0") {
+                                session.isLoggedIn = false
+                                goToActivityAndClearTask<LoginActivity>()
+                            }
                         } else {
                             showAlert(response.message.toString())
                         }

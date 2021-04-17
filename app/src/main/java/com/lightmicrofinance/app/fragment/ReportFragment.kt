@@ -121,9 +121,10 @@ class ReportFragment : BaseFragment() {
                     val data = response.data
                     if (response.error == false) {
                         if (data != null) {
-                            if (data.status == "0")
-                                session.clearSession()
-                            goToActivityAndClearTask<LoginActivity>()
+                            if (data.status == "0") {
+                                session.isLoggedIn = false
+                                goToActivityAndClearTask<LoginActivity>()
+                            }
                         } else {
                             showAlert(response.message.toString())
                         }

@@ -93,11 +93,11 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
             getParList(page)
         }
 
-        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
-            _binding?.linlayFEList?.visible()
-        } else {
-            _binding?.linlayFEList?.invisible()
-        }
+       if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
+           _binding?.linlayFEList?.visible()
+       } else {
+           _binding?.linlayFEList?.invisible()
+       }
         FESpinnerListner()
         FEViewClick()
 
@@ -167,7 +167,6 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
 
     override fun onResume() {
         getFEList()
-        checkUserSatus()
         page = 1
         list.clear()
         hasNextPage = true
@@ -175,6 +174,7 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
         setupRecyclerView()
         _binding?.recyclerView?.isLoading = true
         getParList(page)
+        checkUserSatus()
         super.onResume()
 
     }
@@ -186,7 +186,7 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
         params["PageSize"] = Constant.PAGE_SIZE
         params["CurrentPage"] = page
 
-        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+        if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
             params["FECode"] = selectedFEId
         } else {
             params["FECode"] = session.user.data?.fECode.toString()
@@ -393,9 +393,10 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
                     val data = response.data
                     if (response.error == false) {
                         if (data != null) {
-                            if (data.status == "0")
-                                session.clearSession()
-                            goToActivityAndClearTask<LoginActivity>()
+                            if (data.status == "0") {
+                                session.isLoggedIn = false
+                                goToActivityAndClearTask<LoginActivity>()
+                            }
                         } else {
                             showAlert(response.message.toString())
                         }

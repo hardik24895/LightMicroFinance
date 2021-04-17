@@ -19,11 +19,7 @@ import com.lightmicrofinance.app.extention.goToActivityAndClearTask
 import com.lightmicrofinance.app.extention.invisible
 import com.lightmicrofinance.app.extention.showAlert
 import com.lightmicrofinance.app.extention.visible
-import com.lightmicrofinance.app.modal.BusinessListDataItem
-import com.lightmicrofinance.app.modal.BusinessListModal
-import com.lightmicrofinance.app.modal.FEDataItem
-import com.lightmicrofinance.app.modal.FEDateModel
-import com.lightmicrofinance.app.modal.UserStatusModal
+import com.lightmicrofinance.app.modal.*
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
@@ -102,7 +98,7 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
             getBusinessList(page)
         }
 
-        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+        if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
             _binding?.linlayFEList?.visible()
         } else {
             _binding?.linlayFEList?.invisible()
@@ -179,7 +175,7 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
     }
 
     override fun onResume() {
-        checkUserSatus()
+
         getFEList()
         page = 1
         list.clear()
@@ -188,6 +184,7 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
         setupRecyclerView()
         _binding?.recyclerView?.isLoading = true
         getBusinessList(page)
+        checkUserSatus()
         super.onResume()
 
     }
@@ -198,7 +195,7 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
         val params = HashMap<String, Any>()
         params["PageSize"] = Constant.PAGE_SIZE
         params["CurrentPage"] = page
-        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+        if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
             params["FECode"] = selectedFEId
         } else {
             params["FECode"] = session.user.data?.fECode.toString()
@@ -410,8 +407,10 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
                     val data = response.data
                     if (response.error == false) {
                         if (data != null) {
-                            if (data.status == "0")
+                            if (data.status == "0") {
+                                session.isLoggedIn = false
                                 goToActivityAndClearTask<LoginActivity>()
+                            }
                         } else {
                             showAlert(response.message.toString())
                         }

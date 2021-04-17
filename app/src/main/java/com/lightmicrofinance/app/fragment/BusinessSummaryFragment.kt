@@ -63,11 +63,11 @@ class BusinessSummaryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
-            _binding?.linlayFEList?.visible()
-        } else {
-            _binding?.linlayFEList?.invisible()
-        }
+       if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
+           _binding?.linlayFEList?.visible()
+       } else {
+           _binding?.linlayFEList?.invisible()
+       }
 
         FEViewClick()
         FESpinnerListner()
@@ -77,9 +77,9 @@ class BusinessSummaryFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
         getFEList()
-        checkUserSatus()
         binding.txtSelectedDate.text = StartDate + " To " + EndDate
         getSummaryData()
+        checkUserSatus()
 
     }
 
@@ -118,7 +118,7 @@ class BusinessSummaryFragment : BaseFragment() {
     fun getSummaryData() {
         showProgressbar()
         val params = HashMap<String, Any>()
-        if (Utils.checkUserIsBM(session.user.data?.userType!!)) {
+        if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
             params["FECode"] = selectedFEId
         } else {
             params["FECode"] = session.user.data?.fECode.toString()
@@ -225,9 +225,10 @@ class BusinessSummaryFragment : BaseFragment() {
                     val data = response.data
                     if (response.error == false) {
                         if (data != null) {
-                            if (data.status == "0")
-                                session.clearSession()
-                            goToActivityAndClearTask<LoginActivity>()
+                            if (data.status == "0") {
+                                session.isLoggedIn = false
+                                goToActivityAndClearTask<LoginActivity>()
+                            }
                         } else {
                             showAlert(response.message.toString())
                         }
