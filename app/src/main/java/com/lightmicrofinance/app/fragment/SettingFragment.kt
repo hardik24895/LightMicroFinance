@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.ChangePasswordActivity
 import com.lightmicrofinance.app.activity.InformationActivity
 import com.lightmicrofinance.app.activity.LoginActivity
@@ -105,7 +106,7 @@ class SettingFragment : BaseFragment() {
                 }
 
                 override fun onFailed(code: Int, message: String) {
-                    showAlert(message)
+                    showAlert(getString(R.string.show_server_error))
                 }
 
             }).addTo(autoDisposable)

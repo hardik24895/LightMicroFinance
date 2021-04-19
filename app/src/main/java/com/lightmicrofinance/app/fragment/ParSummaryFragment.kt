@@ -241,7 +241,7 @@ class ParSummaryFragment : BaseFragment() {
                 }
 
                 override fun onFailed(code: Int, message: String) {
-                    showAlert(message)
+                    showAlert(getString(R.string.show_server_error))
                     hideProgressbar()
                 }
 
@@ -278,7 +278,7 @@ class ParSummaryFragment : BaseFragment() {
                 }
 
                 override fun onFailed(code: Int, message: String) {
-                    showAlert(message)
+                    showAlert(getString(R.string.show_server_error))
                 }
 
             }).addTo(autoDisposable)

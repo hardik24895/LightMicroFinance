@@ -64,8 +64,8 @@ class BusinessAdapter(
             binding.txtDDDOneAchived.text = data.achDDDone
             binding.txtDDPosAchived.text = data.achDDPositive
             binding.txDDPosTarget.text = data.dDPositive
-            binding.txtGRTAchived.text = data.gRT
-            binding.txGRTTarget.text = data.achGRT
+            binding.txtGRTAchived.text = data.achGRT
+            binding.txGRTTarget.text = data.gRT
             binding.txtDSBAchived.text = data.achDisbClient
             binding.txDSBTarget.text = data.disbClient
             binding.txDSBAmountTarget.text = data.disbAmount

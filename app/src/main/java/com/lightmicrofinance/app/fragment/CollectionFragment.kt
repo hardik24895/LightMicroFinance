@@ -421,30 +421,49 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CallbackObserver<CenternameListModal>() {
                 override fun onSuccess(response: CenternameListModal) {
-                    centerNameListArray!!.addAll(response.data)
+                    if (response.error == false) {
+                        centerNameListArray!!.addAll(response.data)
 
-                    var myList: MutableList<SearchableItem> = mutableListOf()
-                    centerNameList!!.add(getString(R.string.center_name))
+                        var myList: MutableList<SearchableItem> = mutableListOf()
+                        centerNameList!!.add(getString(R.string.center_name))
 
 
-                    myList.add(SearchableItem(0, getString(R.string.center_name)))
-                    for (items in response.data.indices) {
-                        centerNameList!!.add(response.data.get(items).centerName.toString())
-                        myList.add(
-                            SearchableItem(
-                                items.toLong() + 1,
-                                centerNameList!!.get(items + 1)
+                        myList.add(SearchableItem(0, getString(R.string.center_name)))
+                        for (items in response.data.indices) {
+                            centerNameList!!.add(response.data.get(items).centerName.toString())
+                            myList.add(
+                                SearchableItem(
+                                    items.toLong() + 1,
+                                    centerNameList!!.get(items + 1)
+                                )
                             )
-                        )
-                    }
-                    itemCenterNameType = myList
+                        }
+                        itemCenterNameType = myList
 
-                    adaptercenterName = ArrayAdapter(
-                        requireContext(),
-                        R.layout.custom_spinner_item,
-                        centerNameList!!
-                    )
-                    _binding.spCenterName.setAdapter(adaptercenterName)
+                        adaptercenterName = ArrayAdapter(
+                            requireContext(),
+                            R.layout.custom_spinner_item,
+                            centerNameList!!
+                        )
+                        _binding.spCenterName.setAdapter(adaptercenterName)
+                    } else {
+                        var myList: MutableList<SearchableItem> = mutableListOf()
+                        centerNameList!!.add(getString(R.string.center_name))
+
+
+                        myList.add(SearchableItem(0, getString(R.string.center_name)))
+
+                        itemCenterNameType = myList
+
+                        adaptercenterName = ArrayAdapter(
+                            requireContext(),
+                            R.layout.custom_spinner_item,
+                            centerNameList!!
+                        )
+                        _binding.spCenterName.setAdapter(adaptercenterName)
+                    }
+
+
 
                     getRefreshData()
                 }
@@ -472,30 +491,46 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CallbackObserver<CenternameListModal>() {
                 override fun onSuccess(response: CenternameListModal) {
-                    centerNameListArray!!.addAll(response.data)
+                    if (response.error == false) {
+                        centerNameListArray!!.addAll(response.data)
 
-                    var myList: MutableList<SearchableItem> = mutableListOf()
-                    centerNameList!!.add(getString(R.string.center_name))
+                        var myList: MutableList<SearchableItem> = mutableListOf()
+                        centerNameList!!.add(getString(R.string.center_name))
 
 
-                    myList.add(SearchableItem(0, getString(R.string.center_name)))
-                    for (items in response.data.indices) {
-                        centerNameList!!.add(response.data.get(items).centerName.toString())
-                        myList.add(
-                            SearchableItem(
-                                items.toLong() + 1,
-                                centerNameList!!.get(items + 1)
+                        myList.add(SearchableItem(0, getString(R.string.center_name)))
+                        for (items in response.data.indices) {
+                            centerNameList!!.add(response.data.get(items).centerName.toString())
+                            myList.add(
+                                SearchableItem(
+                                    items.toLong() + 1,
+                                    centerNameList!!.get(items + 1)
+                                )
                             )
-                        )
-                    }
-                    itemCenterNameType = myList
+                        }
+                        itemCenterNameType = myList
 
-                    adaptercenterName = ArrayAdapter(
-                        requireContext(),
-                        R.layout.custom_spinner_item,
-                        centerNameList!!
-                    )
-                    _binding.spCenterName.setAdapter(adaptercenterName)
+                        adaptercenterName = ArrayAdapter(
+                            requireContext(),
+                            R.layout.custom_spinner_item,
+                            centerNameList!!
+                        )
+                        _binding.spCenterName.setAdapter(adaptercenterName)
+                    } else {
+                        var myList: MutableList<SearchableItem> = mutableListOf()
+                        centerNameList!!.add(getString(R.string.center_name))
+
+
+                        myList.add(SearchableItem(0, getString(R.string.center_name)))
+                        itemCenterNameType = myList
+
+                        adaptercenterName = ArrayAdapter(
+                            requireContext(),
+                            R.layout.custom_spinner_item,
+                            centerNameList!!
+                        )
+                        _binding.spCenterName.setAdapter(adaptercenterName)
+                    }
 
 
                 }
@@ -540,7 +575,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                 }
 
                 override fun onFailed(code: Int, message: String) {
-                    showAlert(message)
+                    showAlert(getString(R.string.show_server_error))
                 }
 
             }).addTo(autoDisposable)

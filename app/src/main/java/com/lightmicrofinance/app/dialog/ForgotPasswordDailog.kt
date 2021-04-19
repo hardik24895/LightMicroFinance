@@ -137,7 +137,7 @@ class ForgotPasswordDailog(context: Context) : BlurDialogFragment(), LifecycleOw
                     hideProgressbar()
                     if (response.error == false) {
                         if (data != null) {
-                           dismissAllowingStateLoss()
+                            dismissAllowingStateLoss()
                             listener.onItemCLicked(data.password.toString())
                         } else {
                             showAlert(response.message.toString())
@@ -149,7 +149,7 @@ class ForgotPasswordDailog(context: Context) : BlurDialogFragment(), LifecycleOw
                 }
 
                 override fun onFailed(code: Int, message: String) {
-                    showAlert(message)
+                    showAlert(getString(R.string.show_server_error))
                     hideProgressbar()
                 }
 
