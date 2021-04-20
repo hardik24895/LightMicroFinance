@@ -413,6 +413,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         centerNameList.clear()
         val params = HashMap<String, Any>()
         params["Type"] = type
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
         Networking
             .with(requireContext())
             .getServices()
@@ -483,6 +485,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         centerNameList.clear()
         val params = HashMap<String, Any>()
         params["Type"] = type
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
         Networking
             .with(requireContext())
             .getServices()
