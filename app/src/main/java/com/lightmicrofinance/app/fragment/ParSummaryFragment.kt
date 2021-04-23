@@ -68,6 +68,7 @@ class ParSummaryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
        if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
+           getFEList()
            _binding?.linlayFEList?.visible()
        } else {
            _binding?.linlayFEList?.invisible()
@@ -127,7 +128,7 @@ class ParSummaryFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        getFEList()
+
         binding.txtSelectedDate.text = StartDate
         getSummaryData()
         checkUserSatus()

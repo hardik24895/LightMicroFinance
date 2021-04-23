@@ -144,6 +144,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
 
 
         if (checkUserIsBM(session.user.data?.userType!!)) {
+            getFEList()
             _binding.linlayFEList.visible()
         } else {
             _binding.linlayFEList.invisible()
@@ -230,7 +231,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             _binding.txtCollected.isSelected = true
         }
         getCenterNameList2(status)
-        getFEList()
+
         page = 1
         list.clear()
         hasNextPage = true

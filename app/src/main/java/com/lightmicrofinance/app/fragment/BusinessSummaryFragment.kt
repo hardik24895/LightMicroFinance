@@ -64,6 +64,7 @@ class BusinessSummaryFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
        if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
+           getFEList()
            _binding?.linlayFEList?.visible()
        } else {
            _binding?.linlayFEList?.invisible()
@@ -76,7 +77,7 @@ class BusinessSummaryFragment : BaseFragment() {
 
     override fun onResume() {
         super.onResume()
-        getFEList()
+
         binding.txtSelectedDate.text = StartDate + " To " + EndDate
         getSummaryData()
         checkUserSatus()

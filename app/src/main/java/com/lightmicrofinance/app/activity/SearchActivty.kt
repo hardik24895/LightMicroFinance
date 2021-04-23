@@ -164,7 +164,7 @@ class SearchActivty : BaseActivity() {
         if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.PAR)) {
             ParFragment.CenterName = centerName
             ParFragment.ClientID = binding.edtCleintID.getValue()
-            ParFragment.CenterName = centerName
+            ParFragment.ClientName = binding.edtCleintName.getValue()
             ParFragment.LoanID = binding.edtLoanID.getValue()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION)) {
             CollectionFragment.ClientName = binding.edtCleintName.getValue()
@@ -191,11 +191,13 @@ class SearchActivty : BaseActivity() {
     private fun centerNameViewClick() {
 
         binding.view2.setOnClickListener {
-            SearchableDialog(this@SearchActivty,
-                itemCenterNameType!!,
-                getString(R.string.center_name), { item, _ ->
-                    binding.spCenterName.setSelection(item.id.toInt())
-                }).show()
+            itemCenterNameType?.let { it1 ->
+                SearchableDialog(this@SearchActivty,
+                    it1,
+                    getString(R.string.center_name), { item, _ ->
+                        binding.spCenterName.setSelection(item.id.toInt())
+                    }).show()
+            }
         }
 
     }
@@ -228,11 +230,12 @@ class SearchActivty : BaseActivity() {
 
     fun getCenterNameList() {
         val params = HashMap<String, Any>()
-        params[""] = ""
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
         Networking
             .with(this@SearchActivty)
             .getServices()
-            .getCenterName(Networking.wrapParams(params))
+            .getParCenterName(Networking.wrapParams(params))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CallbackObserver<CenternameListModal>() {

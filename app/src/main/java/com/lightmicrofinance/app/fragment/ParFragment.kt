@@ -94,6 +94,7 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
         }
 
        if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
+           getFEList()
            _binding?.linlayFEList?.visible()
        } else {
            _binding?.linlayFEList?.invisible()
@@ -166,7 +167,7 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
     }
 
     override fun onResume() {
-        getFEList()
+
         page = 1
         list.clear()
         hasNextPage = true

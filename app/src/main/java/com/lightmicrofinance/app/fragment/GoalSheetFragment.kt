@@ -87,6 +87,7 @@ class GoalSheetFragment : BaseFragment(), GoalSheetAdapter.OnItemSelected {
         }
 
        if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
+           getFEList()
            _binding?.linlayFEList?.visible()
        } else {
            _binding?.linlayFEList?.invisible()
@@ -109,7 +110,7 @@ class GoalSheetFragment : BaseFragment(), GoalSheetAdapter.OnItemSelected {
     override fun onResume() {
         super.onResume()
 
-        getFEList()
+
         page = 1
         list.clear()
         hasNextPage = true

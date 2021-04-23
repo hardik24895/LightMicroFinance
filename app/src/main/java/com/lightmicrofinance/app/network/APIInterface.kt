@@ -50,6 +50,10 @@ interface APIInterface {
     @POST("collection/GetCenters")
     fun getCenterName(@Body body: RequestBody): Observable<Response<CenternameListModal>>
 
+    @POST("par/GetCenters")
+    fun getParCenterName(@Body body: RequestBody): Observable<Response<CenternameListModal>>
+
+
     @POST("cms/getPage")
     fun getCMS(@Body body: RequestBody): Observable<Response<CMSDataModal>>
 
