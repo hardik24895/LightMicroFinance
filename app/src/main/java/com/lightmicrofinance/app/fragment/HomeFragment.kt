@@ -2,12 +2,13 @@ package com.lightmicrofinance.app.fragment
 
 
 import android.app.AlertDialog
+import android.app.DownloadManager
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.view.*
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -25,10 +26,12 @@ import com.lightmicrofinance.app.extention.goToActivityAndClearTask
 import com.lightmicrofinance.app.extention.showAlert
 import com.lightmicrofinance.app.modal.CollectionSummaryDataItem
 import com.lightmicrofinance.app.modal.CollectionSummaryModal
+import com.lightmicrofinance.app.modal.ConfigDataModel
 import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
+import com.lightmicrofinance.app.utils.Constant
 import com.lightmicrofinance.app.utils.SessionManager
 import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -78,6 +81,7 @@ class HomeFragment : BaseFragment() {
         // setupRecyclerView()
         // getCollectionSummary()
         checkUserSatus()
+        getConfig()
 
     }
 
@@ -99,7 +103,6 @@ class HomeFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupRecyclerView()
         getCollectionSummary()
 
@@ -180,12 +183,6 @@ class HomeFragment : BaseFragment() {
   */
 
 
-        try {
-            val AppVersion: Int = session.configData.data?.appVersionAndroid?.toInt()!!
-            checkCurrentVersion(AppVersion)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
     }
 
     private fun setViewData(position: Int) {
@@ -646,14 +643,8 @@ class HomeFragment : BaseFragment() {
                     .setPositiveButton(mActivity!!.getString(R.string.action_update),
                         DialogInterface.OnClickListener { dialog, whichButton ->
                             dialog.dismiss()
-                            startActivity(
-                                Intent(
-                                    Intent.ACTION_VIEW, Uri.parse(
-                                        "market://details?id=" + mActivity!!.packageName
-                                    )
-                                )
-                            )
-                            mActivity!!.finish()
+                            downloadFile()
+
                         })
                     .show()
             }
@@ -661,4 +652,64 @@ class HomeFragment : BaseFragment() {
         return status
     }
 
+    fun getConfig() {
+        val params = HashMap<String, Any>()
+        /* params["FECode"] = binding.edtEmpId.getValue()
+         params["Password"] = binding.edtPassword.getValue()*/
+
+        Networking
+            .with(requireContext())
+            .getServices()
+            .getConfig(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<ConfigDataModel>() {
+                override fun onSuccess(response: ConfigDataModel) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            session.configData = response
+                            try {
+                                val AppVersion: Int =
+                                    session.configData.data?.appVersionAndroid?.toInt()!!
+                                checkCurrentVersion(AppVersion)
+                            } catch (e: Exception) {
+                                e.printStackTrace()
+                            }
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(getString(R.string.show_server_error))
+                    hideProgressbar()
+                }
+
+            }).addTo(autoDisposable)
+    }
+
+    fun downloadFile() {
+        val Download_Uri = Uri.parse(Constant.APK_DOWNLOAD);
+        val downloadManager =
+            requireActivity().getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+
+        val request = DownloadManager.Request(Download_Uri)
+        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI or DownloadManager.Request.NETWORK_MOBILE)
+        request.setAllowedOverRoaming(false)
+        request.setTitle("LMF.apk")
+        request.setDescription("NEW Version Downloading")
+        request.setVisibleInDownloadsUi(true)
+        request.setDestinationInExternalPublicDir(
+            Environment.DIRECTORY_DOWNLOADS,
+            "LMF"
+        )
+
+        val refid = downloadManager.enqueue(request)
+
+    }
 }

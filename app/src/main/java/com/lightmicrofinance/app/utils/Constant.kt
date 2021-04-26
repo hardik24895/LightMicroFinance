@@ -29,8 +29,10 @@ object Constant {
     const val CUSTOMER_NAME = "customer_name"
 
     // const val BASE_URL = "http://societyfy.in/lightmf/"
-    const val BASE_URL = "http://societyfy.in/lightmf_stagging/"
+    // const val BASE_URL = "http://societyfy.in/lightmf_stagging/"
+    const val BASE_URL = "http://ec2-15-207-174-61.ap-south-1.compute.amazonaws.com/"
     const val API_URL = "${BASE_URL}api/"
+    const val APK_DOWNLOAD = "${BASE_URL}android/lmf.apk"
     const val EMP_PROFILE = "${BASE_URL}assets/uploads/user/"
     const val TICKET_IMG = "${BASE_URL}assets/uploads/ticket/"
     const val PDF_INVOICE_URL = "${BASE_URL}assets/uploads/invoice/"
