@@ -706,7 +706,7 @@ class HomeFragment : BaseFragment() {
         request.setVisibleInDownloadsUi(true)
         request.setDestinationInExternalPublicDir(
             Environment.DIRECTORY_DOWNLOADS,
-            "LMF"
+            "LMF.apk"
         )
 
         val refid = downloadManager.enqueue(request)

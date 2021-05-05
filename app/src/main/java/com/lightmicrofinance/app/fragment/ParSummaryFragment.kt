@@ -67,12 +67,12 @@ class ParSummaryFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-       if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
-           getFEList()
-           _binding?.linlayFEList?.visible()
-       } else {
-           _binding?.linlayFEList?.invisible()
-       }
+        if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
+            getFEList()
+            _binding?.linlayFEList?.visible()
+        } else {
+            _binding?.linlayFEList?.invisible()
+        }
 
         FEViewClick()
         FESpinnerListner()
@@ -129,15 +129,23 @@ class ParSummaryFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        binding.txtSelectedDate.text = StartDate
+        binding.txtSelectedDate.text = "Till " + StartDate
         getSummaryData()
         checkUserSatus()
     }
 
     fun openCleintParList(bucketSize: String) {
+
         val intent = Intent(requireContext(), ParCleintActivity::class.java)
         intent.putExtra(Constant.DATA, Constant.BUCKET)
+
         intent.putExtra(Constant.BUCKET_SIZE, bucketSize)
+
+        if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
+            intent.putExtra(Constant.FE, selectedFEId)
+        } else {
+            intent.putExtra(Constant.FE, session.user.data?.fECode.toString())
+        }
         startActivity(intent)
         Animatoo.animateCard(context)
     }
@@ -367,7 +375,7 @@ class ParSummaryFragment : BaseFragment() {
                 position: Int,
                 id: Long
             ) {
-                if (position != -1 && FEListArray.size > position-1) {
+                if (position != -1 && FEListArray.size > position - 1) {
                     if (position == 0) {
                         //    CenterName = ""
                         // spinnerAPICall2()
@@ -375,7 +383,7 @@ class ParSummaryFragment : BaseFragment() {
                         //   spinnerAPICall()
                         selectedFEId = ""
 
-                    }else{
+                    } else {
                         selectedFEId = FEListArray.get(position - 1).fECode.toString()
                     }
                     getSummaryData()

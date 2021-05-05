@@ -375,12 +375,14 @@
             android:layout_height="@dimen/_1sdp"
             android:layout_marginTop="@dimen/_3sdp"
             android:alpha=".2"
+            android:visibility="gone"
             android:background="@color/colorWhite"
             app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
             app:layout_constraintStart_toStartOf="@+id/txtDate"
             app:layout_constraintTop_toBottomOf="@+id/txDdpos" />
 
         <com.commonProject.customview.TextviewMedium
+            android:visibility="gone"
             android:id="@+id/txgrt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -399,6 +401,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
+            android:visibility="gone"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
             android:gravity="center"
@@ -413,6 +416,7 @@
             android:layout_height="wrap_content"
             android:paddingVertical="@dimen/_2sdp"
             android:text="0"
+            android:visibility="gone"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
             android:gravity="center"

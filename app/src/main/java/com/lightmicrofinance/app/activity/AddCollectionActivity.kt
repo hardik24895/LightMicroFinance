@@ -145,21 +145,51 @@ class AddCollectionActivity : BaseActivity() {
                 val originalCOllection = collectionDataItem?.originalCollection?.toFloat()!!
                 val currentDemand = collectionDataItem?.currentDemand?.toFloat()!!
 
+
                 var regularCollection = 0f
                 var advanceCOllection = 0f
 
                 var df = DecimalFormat("##.##")
 
-                if (totalCollection <= originalDemand) {
-                    regularCollection = totalCollection
+                /*    j2 = "Original Demand"
+                    l2 = "Original Collection"
+                    k2 = "Current Demand"
+                    m2 = "Today's collection"
+
+                  =IF(IF(J2-L2-K2<0,0,J2-L2-K2)+L2+M2<J2,IF(J2-L2-K2<0,0,J2-L2-K2)+L2+M2,J2)*/
+
+
+
+                if (originalDemand - originalCOllection - currentDemand <= 0) {
+                    regularCollection = 0f
                 } else {
-                    regularCollection = originalDemand
+                    regularCollection = originalDemand - originalCOllection - currentDemand
                 }
 
-                if (originalCOllection < originalDemand - currentDemand) {
-                    regularCollection =
-                        regularCollection + originalDemand - currentDemand - originalCOllection
+                if (regularCollection + originalCOllection + todayCOllection < originalDemand) {
+
+                    if (originalDemand - originalCOllection - currentDemand <= 0) {
+                        regularCollection = 0f
+                    } else {
+                        regularCollection = originalDemand - originalCOllection - currentDemand
+                    }
+                    regularCollection = originalCOllection + todayCOllection + regularCollection
+                } else {
+                    regularCollection = originalDemand
+
                 }
+
+
+                /* if (totalCollection <= originalDemand) {
+                     regularCollection = totalCollection
+                 } else {
+                     regularCollection = originalDemand
+                 }
+
+                 if (originalCOllection < originalDemand - currentDemand) {
+                     regularCollection =
+                         regularCollection + originalDemand - currentDemand - originalCOllection
+                 }*/
 
                 if (totalCollection - regularCollection < 0) {
                     advanceCOllection = 0f
@@ -274,11 +304,11 @@ class AddCollectionActivity : BaseActivity() {
                 addCollection()
 
                 //  Logger.d("reason", reasonNameListArray.get(binding.spReasonName.selectedItemPosition - 1).reason.toString())
-               /* Logger.d("percentage", removeLastChar(binding.txtPercentage.text.toString()))
-                Logger.d("pending", binding.txtPending.text.toString().substring(2))
-                Logger.d("regular", binding.txtRegularLocation.text.toString().substring(2))
-                Logger.d("totalCollection", binding.txtTotalCollection.text.toString().substring(2))
-                Logger.d("advance", binding.txtAdvanceCollection.text.toString().substring(2))*/
+                /* Logger.d("percentage", removeLastChar(binding.txtPercentage.text.toString()))
+                 Logger.d("pending", binding.txtPending.text.toString().substring(2))
+                 Logger.d("regular", binding.txtRegularLocation.text.toString().substring(2))
+                 Logger.d("totalCollection", binding.txtTotalCollection.text.toString().substring(2))
+                 Logger.d("advance", binding.txtAdvanceCollection.text.toString().substring(2))*/
 
 
             }

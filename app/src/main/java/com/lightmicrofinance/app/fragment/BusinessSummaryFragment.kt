@@ -1,15 +1,14 @@
 package com.lightmicrofinance.app.fragment
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.LoginActivity
-import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.databinding.FragementSummaryBusinessBinding
 import com.lightmicrofinance.app.extention.*
 import com.lightmicrofinance.app.modal.BusinessSummaryModal
@@ -19,8 +18,6 @@ import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
-import com.lightmicrofinance.app.utils.Constant
-import com.lightmicrofinance.app.utils.TimeStamp
 import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -35,7 +32,7 @@ class BusinessSummaryFragment : BaseFragment() {
     private val binding get() = _binding!!
 
     companion object {
-        var StartDate: String = TimeStamp.getSpesificStartDateRange()
+        var StartDate: String = getYesterdayDate()
         var EndDate: String = getYesterdayDate()
 
     }
@@ -78,20 +75,20 @@ class BusinessSummaryFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        binding.txtSelectedDate.text = StartDate + " To " + EndDate
+        binding.txtSelectedDate.text = "Till " + StartDate
         getSummaryData()
         checkUserSatus()
 
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.home, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+    /* override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+         inflater.inflate(R.menu.home, menu)
+         super.onCreateOptionsMenu(menu, inflater)
+     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            /* R.id.action_add -> {
+     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+         return when (item.itemId) {
+             *//* R.id.action_add -> {
                  if (checkUserRole(
                          session.roleData.data.visitor.isEdit.toString(),
                          requireContext()
@@ -99,7 +96,7 @@ class BusinessSummaryFragment : BaseFragment() {
                  )
                      showDialog()
                  return true
-             }*/
+             }*//*
             R.id.action_filter -> {
                 val intent = Intent(context, SearchActivty::class.java)
                 intent.putExtra(Constant.DATA, Constant.BUSINESS_SUMMARY)
@@ -114,7 +111,7 @@ class BusinessSummaryFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-    }
+    }*/
 
     fun getSummaryData() {
         showProgressbar()
@@ -125,8 +122,8 @@ class BusinessSummaryFragment : BaseFragment() {
             params["FECode"] = session.user.data?.fECode.toString()
         }
         params["BMCode"] = session.user.data?.bMCode.toString()
-        params["StartDate"] = StartDate
-        params["EndDate"] = EndDate
+        params["StartDate"] = ""
+        params["EndDate"] = ""
 
         Log.d("Request::::>", "getSummaryData: " + params)
 
@@ -160,7 +157,7 @@ class BusinessSummaryFragment : BaseFragment() {
                         binding.txtTotalLEDifferent.text = data?.totalLE?.diff
                         binding.txtTotalLEDifferent.setTextColor(Color.parseColor(data?.totalLE?.color.toString()))
                         binding.txtTotalLEAchived.setTextColor(Color.parseColor(data?.totalLE?.color.toString()))
-                        binding.txtTotalLEAchived.text = data?.lENew?.percentage
+                        binding.txtTotalLEAchived.text = data?.totalLE?.percentage
 
                         binding.txtDDPlan.text = data?.dDDone?.dDDone
                         binding.txtDDActual.text = data?.dDDone?.achDDDone

@@ -139,7 +139,7 @@ class ParCleintActivity : BaseActivity(), ParAdapter.OnItemSelected {
         val params = HashMap<String, Any>()
         params["PageSize"] = Constant.PAGE_SIZE
         params["CurrentPage"] = page
-        params["FECode"] = session.user.data?.fECode.toString()
+        params["FECode"] = intent.getStringExtra(Constant.FE).toString()
         params["BMCode"] = session.user.data?.bMCode.toString()
         params["CenterName"] = CenterName
         params["LoanID"] = LoanID

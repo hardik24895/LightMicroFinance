@@ -1,16 +1,15 @@
 package com.lightmicrofinance.app.fragment
 
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.LoginActivity
-import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.databinding.FragamentCollectionSummaryBinding
 import com.lightmicrofinance.app.extention.*
 import com.lightmicrofinance.app.modal.CollectionSummaryReportModal
@@ -20,7 +19,6 @@ import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
-import com.lightmicrofinance.app.utils.Constant
 import com.lightmicrofinance.app.utils.TimeStamp
 import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -81,19 +79,19 @@ class CollectionSummaryFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        binding.txtSelectedDate.text = StartDate + " To " + EndDate
+        binding.txtSelectedDate.text = "Till " + EndDate
         getSummaryData()
         checkUserSatus()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.home, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
+    /* override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+         inflater.inflate(R.menu.home, menu)
+         super.onCreateOptionsMenu(menu, inflater)
+     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            /* R.id.action_add -> {
+     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+         return when (item.itemId) {
+             *//* R.id.action_add -> {
                  if (checkUserRole(
                          session.roleData.data.visitor.isEdit.toString(),
                          requireContext()
@@ -101,7 +99,7 @@ class CollectionSummaryFragment : BaseFragment() {
                  )
                      showDialog()
                  return true
-             }*/
+             }*//*
             R.id.action_filter -> {
                 val intent = Intent(context, SearchActivty::class.java)
                 intent.putExtra(Constant.DATA, Constant.COLLECTION_SUMMARY)
@@ -116,7 +114,7 @@ class CollectionSummaryFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-    }
+    }*/
 
     fun getSummaryData() {
         showProgressbar()
@@ -127,8 +125,8 @@ class CollectionSummaryFragment : BaseFragment() {
             params["FECode"] = session.user.data?.fECode.toString()
         }
         params["BMCode"] = session.user.data?.bMCode.toString()
-        params["StartDate"] = StartDate
-        params["EndDate"] = EndDate
+        params["StartDate"] = ""
+        params["EndDate"] = ""
 
         Log.d("Request::::>", "getSummaryData: " + params)
 
