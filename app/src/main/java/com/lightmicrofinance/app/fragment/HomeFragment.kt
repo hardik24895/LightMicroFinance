@@ -1,22 +1,33 @@
 package com.lightmicrofinance.app.fragment
 
 
+import android.Manifest
+import android.app.Activity
 import android.app.AlertDialog
 import android.app.DownloadManager
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
+import android.os.AsyncTask
+import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.util.Log
 import android.view.*
 import android.widget.TextView
+import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.SnapHelper
+import com.github.florent37.runtimepermission.kotlin.askPermission
 import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.LoginActivity
 import com.lightmicrofinance.app.activity.MainActivity
@@ -36,6 +47,13 @@ import com.lightmicrofinance.app.utils.SessionManager
 import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
+import java.net.HttpURLConnection
+import java.net.URL
+import java.util.*
+import kotlin.collections.HashMap
 
 
 class HomeFragment : BaseFragment() {
@@ -81,7 +99,7 @@ class HomeFragment : BaseFragment() {
         // setupRecyclerView()
         // getCollectionSummary()
         checkUserSatus()
-        getConfig()
+
 
     }
 
@@ -182,7 +200,7 @@ class HomeFragment : BaseFragment() {
           })
   */
 
-
+        getConfig()
     }
 
     private fun setViewData(position: Int) {
@@ -643,7 +661,8 @@ class HomeFragment : BaseFragment() {
                     .setPositiveButton(mActivity!!.getString(R.string.action_update),
                         DialogInterface.OnClickListener { dialog, whichButton ->
                             dialog.dismiss()
-                            downloadFile()
+                            checkPermission()
+                            // downloadFile()
 
                         })
                     .show()
@@ -711,5 +730,167 @@ class HomeFragment : BaseFragment() {
 
         val refid = downloadManager.enqueue(request)
 
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        checkPermission()
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+
+        checkPermission()
+    }
+
+    fun checkPermission() {
+        askPermission(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        ) {
+            //getLocation()
+            val atualizaApp = UpdateApp()
+            atualizaApp.setContext(requireActivity())
+            atualizaApp.execute(Constant.APK_DOWNLOAD)
+            //Request location updates:
+        }.onDeclined { e ->
+            if (e.hasDenied()) {
+
+                AlertDialog.Builder(requireContext()).setMessage("Please accept our permissions")
+                    .setPositiveButton("yes") { dialog, which ->
+                        e.askAgain();
+                    } //ask again
+                    .show();
+            }
+
+            if (e.hasForeverDenied()) {
+                AlertDialog.Builder(requireContext()).setMessage("Please accept our permissions")
+                    .setPositiveButton("yes") { dialog, which ->
+                        e.goToSettings()
+                    } //ask again
+                    .show();
+            }
+        }
+    }
+
+    inner class UpdateApp() : AsyncTask<String, Int, String>() {
+        private var mPDialog: ProgressDialog? = null
+        private var mContext: Context? = null
+        fun setContext(context: Activity) {
+            mContext = context
+            context.runOnUiThread {
+                mPDialog = ProgressDialog(mContext)
+                mPDialog?.setMessage("Please wait...")
+                mPDialog?.setIndeterminate(true)
+                mPDialog?.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+                mPDialog?.setCancelable(false)
+                mPDialog?.show()
+            }
+        }
+
+        override fun doInBackground(vararg arg0: String): String? {
+            try {
+                val url = URL(arg0[0])
+                val c: HttpURLConnection = url.openConnection() as HttpURLConnection
+                c.setRequestMethod("GET")
+                c.setDoOutput(true)
+                c.connect()
+                val lenghtOfFile: Int = c.getContentLength()
+                val PATH: String =
+                    Objects.requireNonNull(mContext!!.getExternalFilesDir(null))!!.getAbsolutePath()
+                val file = File(PATH)
+                val isCreate: Boolean = file.mkdirs()
+                val outputFile = File(file, "LMF.apk")
+                if (outputFile.exists()) {
+                    val isDelete: Boolean = outputFile.delete()
+                }
+                val fos = FileOutputStream(outputFile)
+                val `is`: InputStream = c.getInputStream()
+                val buffer = ByteArray(1024)
+                var len1: Int
+                var total: Long = 0
+                while (`is`.read(buffer).also { len1 = it } != -1) {
+                    total += len1.toLong()
+                    fos.write(buffer, 0, len1)
+                    publishProgress((total * 100 / lenghtOfFile).toInt())
+                }
+                fos.close()
+                `is`.close()
+                if (mPDialog != null) mPDialog?.dismiss()
+                installApk()
+            } catch (e: java.lang.Exception) {
+                Log.e("UpdateAPP", "Update error! " + e.message)
+            }
+            return null
+        }
+
+        override fun onPreExecute() {
+            super.onPreExecute()
+            if (mPDialog != null) mPDialog?.show()
+        }
+
+        override fun onProgressUpdate(vararg values: Int?) {
+            super.onProgressUpdate(*values)
+            if (mPDialog != null) {
+                mPDialog?.setIndeterminate(false)
+                mPDialog?.setMax(100)
+                values[0]?.toInt()?.let { mPDialog?.setProgress(it) }
+            }
+        }
+
+        override fun onPostExecute(result: String?) {
+            if (mPDialog != null) mPDialog?.dismiss()
+            if (result != null) Toast.makeText(
+                mContext,
+                "Download error: $result",
+                Toast.LENGTH_LONG
+            ).show() else Toast.makeText(mContext, "File Downloaded", Toast.LENGTH_SHORT).show()
+        }
+
+        private fun installApk() {
+            try {
+                val PATH: String =
+                    Objects.requireNonNull(mContext!!.getExternalFilesDir(null))!!.getAbsolutePath()
+                val file = File("$PATH/LMF.apk")
+                val intent = Intent(Intent.ACTION_VIEW)
+                if (Build.VERSION.SDK_INT >= 24) {
+                    val downloaded_apk = FileProvider.getUriForFile(
+                        mContext!!,
+                        mContext!!.applicationContext.packageName + ".provider",
+                        file
+                    )
+                    intent.setDataAndType(downloaded_apk, "application/vnd.android.package-archive")
+                    val resInfoList = mContext!!.packageManager.queryIntentActivities(
+                        intent,
+                        PackageManager.MATCH_DEFAULT_ONLY
+                    )
+                    for (resolveInfo in resInfoList) {
+                        mContext!!.grantUriPermission(
+                            mContext!!.applicationContext.packageName + ".provider",
+                            downloaded_apk,
+                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                        )
+                    }
+                    intent.flags =
+                        Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_GRANT_WRITE_URI_PERMISSION or Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    startActivity(intent)
+                } else {
+                    intent.action = Intent.ACTION_VIEW
+                    intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                    intent.putExtra(Intent.EXTRA_NOT_UNKNOWN_SOURCE, true)
+                    intent.setDataAndType(
+                        Uri.fromFile(file),
+                        "application/vnd.android.package-archive"
+                    )
+                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                }
+                startActivity(intent)
+            } catch (e: java.lang.Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }

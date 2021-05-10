@@ -54,6 +54,7 @@
     <string name="fe_code">FE Code</string>
     <string name="client_id">Client ID</string>
     <string name="business_summary">Business Summary</string>
+    <string name="business_current_summary">Business This Month Summary</string>
     <string name="collection_summary">Collection Summary</string>
     <string name="par_summary">Par Summary</string>
     <string name="client_name">Client Name</string>

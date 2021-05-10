@@ -15,6 +15,7 @@ import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
 import com.lightmicrofinance.app.utils.Constant
+import com.lightmicrofinance.app.utils.DeviceUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
@@ -94,6 +95,13 @@ class LoginActivity : BaseActivity() {
         val params = HashMap<String, Any>()
         params["FECode"] = binding.edtEmpId.getValue()
         params["Password"] = binding.edtPassword.getValue()
+        params["DeviceUID"] = DeviceUtils.getDeviceId(this)
+        params["DeviceName"] = DeviceUtils.getDeviceName()
+        params["DeviceOS"] = DeviceUtils.getDeviceOS()
+        params["OSVersion"] = DeviceUtils.getDeviceOSNumber()
+        params["DeviceTokenID"] = ""
+        params["DeviceType"] = "Android"
+        params["UserType"] = "Andriod"
 
         Networking
             .with(this)
