@@ -70,6 +70,8 @@ class SearchActivty : BaseActivity() {
             binding.inLoanID.invisible()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION)) {
             binding.linlayCenterName.invisible()
+            binding.inStartDate.visible()
+            binding.inEndDate.visible()
         }
 
         binding.btnSearch.setOnClickListener { SearchData() }
@@ -171,6 +173,8 @@ class SearchActivty : BaseActivity() {
             CollectionFragment.ClientID = binding.edtCleintID.getValue()
             CollectionFragment.LoanID = binding.edtLoanID.getValue()
             CollectionFragment.CenterName = centerName
+            CollectionFragment.StartDate = binding.edtStartDate.getValue()
+            CollectionFragment.EndDate = binding.edtEndDate.getValue()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS)) {
             BusinessFragment.StartDate = binding.edtStartDate.getValue()
             BusinessFragment.EndDate = binding.edtEndDate.getValue()

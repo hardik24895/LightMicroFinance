@@ -662,7 +662,7 @@ class HomeFragment : BaseFragment() {
                         DialogInterface.OnClickListener { dialog, whichButton ->
                             dialog.dismiss()
                             checkPermission()
-                            // downloadFile()
+                           // downloadFile()
 
                         })
                     .show()
@@ -731,7 +731,6 @@ class HomeFragment : BaseFragment() {
         val refid = downloadManager.enqueue(request)
 
     }
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         checkPermission()
         super.onActivityResult(requestCode, resultCode, data)
@@ -745,7 +744,6 @@ class HomeFragment : BaseFragment() {
 
         checkPermission()
     }
-
     fun checkPermission() {
         askPermission(
             Manifest.permission.WRITE_EXTERNAL_STORAGE,

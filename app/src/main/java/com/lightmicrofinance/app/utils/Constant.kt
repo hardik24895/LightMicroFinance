@@ -1,5 +1,7 @@
 package com.lightmicrofinance.app.utils
 
+import com.lightmicrofinance.app.BuildConfig
+
 object Constant {
     const val NA = "NA"
     const val USER_TYPE = "user_type"
@@ -16,7 +18,9 @@ object Constant {
     const val PAR_SUMMARY = "par_summary"
     const val COLLECTION_SUMMARY = "collection_summary"
     const val PENDING = "pending"
-    const val PARTIALY = "Partialy"
+
+    //   const val PARTIALY = "Partialy"
+    const val ALL = "All"
     const val COLLECTED = "Collected"
     const val TYPE = "type"
     const val PASSWORD = "password"
@@ -30,7 +34,8 @@ object Constant {
 
     // const val BASE_URL = "http://societyfy.in/lightmf/"
     // const val BASE_URL = "http://societyfy.in/lightmf_stagging/"
-    const val BASE_URL = "http://ec2-15-207-174-61.ap-south-1.compute.amazonaws.com/"
+
+    const val BASE_URL = BuildConfig.SERVER_URL
     const val API_URL = "${BASE_URL}api/"
     const val APK_DOWNLOAD = "${BASE_URL}android/lmf.apk"
     const val EMP_PROFILE = "${BASE_URL}assets/uploads/user/"

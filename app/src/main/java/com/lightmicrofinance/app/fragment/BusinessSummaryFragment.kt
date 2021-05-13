@@ -1,14 +1,15 @@
 package com.lightmicrofinance.app.fragment
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import com.blogspot.atifsoftwares.animatoolib.Animatoo
 import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.LoginActivity
+import com.lightmicrofinance.app.activity.SearchActivty
 import com.lightmicrofinance.app.databinding.FragementSummaryBusinessBinding
 import com.lightmicrofinance.app.extention.*
 import com.lightmicrofinance.app.modal.BusinessSummaryModal
@@ -18,6 +19,8 @@ import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
+import com.lightmicrofinance.app.utils.Constant
+import com.lightmicrofinance.app.utils.TimeStamp
 import com.lightmicrofinance.app.utils.Utils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -31,9 +34,11 @@ class BusinessSummaryFragment : BaseFragment() {
 
     private val binding get() = _binding!!
 
+
     companion object {
-        var StartDate: String = getYesterdayDate()
+        var StartDate: String = TimeStamp.getSpesificStartDateRange()
         var EndDate: String = getYesterdayDate()
+        var isDateFilter: Boolean = false
 
     }
     var selectedFEId: String = ""
@@ -66,29 +71,67 @@ class BusinessSummaryFragment : BaseFragment() {
        } else {
            _binding?.linlayFEList?.invisible()
        }
+        binding.btnBusinnes.text = resources.getString(R.string.this_month_data)
 
         FEViewClick()
         FESpinnerListner()
+
+        binding.btnBusinnes.setOnClickListener {
+            if (binding.btnBusinnes.text == resources.getString(R.string.this_month_data)) {
+                var StartDate: String = TimeStamp.getSpesificStartDateRange()
+                var EndDate: String = getYesterdayDate()
+                binding.btnBusinnes.text = resources.getString(R.string.all_data)
+                binding.txtSelectedDate.text =
+                    StartDate + " " + resources.getString(R.string.to) + " " + EndDate
+                getSummaryData(false)
+            } else {
+                binding.btnBusinnes.text = resources.getString(R.string.this_month_data)
+                binding.txtSelectedDate.text = "Till " + StartDate
+                getSummaryData(true)
+            }
+        }
+
 
     }
 
     override fun onResume() {
         super.onResume()
 
-        binding.txtSelectedDate.text = "Till " + StartDate
-        getSummaryData()
+        //  binding.txtSelectedDate.text = "Till " + StartDate
+
+        if (isDateFilter) {
+            binding.txtSelectedDate.text =
+                StartDate + " " + resources.getString(R.string.to) + " " + EndDate
+            getSummaryData(false)
+        } else {
+            binding.txtSelectedDate.text = "Till " + StartDate
+            getSummaryData(true)
+        }
+
+        /*if (binding.btnBusinnes.text == resources.getString(R.string.this_month_data)){
+
+            binding.btnBusinnes.text = resources.getString(R.string.all_data)
+            binding.txtSelectedDate.text = StartDate  + " "+ resources.getString(R.string.to)+ " " + EndDate
+            getSummaryData(false)
+        }else{
+            binding.btnBusinnes.text = resources.getString(R.string.this_month_data)
+            binding.txtSelectedDate.text = "Till " + StartDate
+            getSummaryData(true)
+        }*/
+
+        //  getSummaryData(true)
         checkUserSatus()
 
     }
 
-    /* override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-         inflater.inflate(R.menu.home, menu)
-         super.onCreateOptionsMenu(menu, inflater)
-     }
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
 
      override fun onOptionsItemSelected(item: MenuItem): Boolean {
          return when (item.itemId) {
-             *//* R.id.action_add -> {
+             /* R.id.action_add -> {
                  if (checkUserRole(
                          session.roleData.data.visitor.isEdit.toString(),
                          requireContext()
@@ -96,8 +139,9 @@ class BusinessSummaryFragment : BaseFragment() {
                  )
                      showDialog()
                  return true
-             }*//*
+             }*/
             R.id.action_filter -> {
+                isDateFilter = true
                 val intent = Intent(context, SearchActivty::class.java)
                 intent.putExtra(Constant.DATA, Constant.BUSINESS_SUMMARY)
                 startActivity(intent)
@@ -111,9 +155,9 @@ class BusinessSummaryFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-    }*/
+    }
 
-    fun getSummaryData() {
+    fun getSummaryData(isAllData: Boolean) {
         showProgressbar()
         val params = HashMap<String, Any>()
         if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
@@ -122,8 +166,14 @@ class BusinessSummaryFragment : BaseFragment() {
             params["FECode"] = session.user.data?.fECode.toString()
         }
         params["BMCode"] = session.user.data?.bMCode.toString()
-        params["StartDate"] = ""
-        params["EndDate"] = ""
+        if (isAllData) {
+            params["StartDate"] = StartDate
+            params["EndDate"] = EndDate
+        } else {
+            params["StartDate"] = TimeStamp.getSpesificStartDateRange()
+            params["EndDate"] = getYesterdayDate()
+        }
+
 
         Log.d("Request::::>", "getSummaryData: " + params)
 
@@ -333,11 +383,15 @@ class BusinessSummaryFragment : BaseFragment() {
                         //   spinnerAPICall()
                         selectedFEId = ""
 
-                    }else{
+                    } else {
                         selectedFEId = FEListArray.get(position - 1).fECode.toString()
                     }
 
-                    getSummaryData()
+                    if (binding.btnBusinnes.text == resources.getString(R.string.this_month_data)) {
+                        getSummaryData(false)
+                    } else {
+                        getSummaryData(true)
+                    }
                 }
 
             }

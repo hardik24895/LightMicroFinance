@@ -68,10 +68,10 @@ class ReportFragment : BaseFragment() {
                 } else if (position == 1) {
                     (mContext as MainActivity).txtTitle.text =
                         requireActivity().getString(R.string.business_summary)
-                } else if (position == 2) {
+                }/* else if (position==2) {
                     (mContext as MainActivity).txtTitle.text =
                         requireActivity().getString(R.string.business_current_summary)
-                } else {
+                }*/ else {
                     (mContext as MainActivity).txtTitle.text =
                         requireActivity().getString(R.string.par_summary)
                 }
@@ -97,10 +97,10 @@ class ReportFragment : BaseFragment() {
             getString(R.string.business_summary)
         )
 
-        viewPageradapter.addFragment(
-            BusinessCurrentSummaryFragment(),
-            getString(R.string.business_current_summary)
-        )
+        /*  viewPageradapter.addFragment(
+              BusinessCurrentSummaryFragment(),
+              getString(R.string.business_current_summary)
+          )*/
         viewPageradapter.addFragment(ParSummaryFragment(), getString(R.string.par_summary))
 
         _binding?.viewPager?.adapter = viewPageradapter

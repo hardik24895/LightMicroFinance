@@ -129,6 +129,10 @@
 
     <string name="msg_install_latest_version">Please install the latest version of this app.</string>
     <string name="action_update">Update</string>
+    <string name="this_month_data">Show Current Month Data</string>
+    <string name="to"> To </string>
+    <string name="all_data">All Month Data</string>
+    <string name="all">All</string>
 
 
 </resources>

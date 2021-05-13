@@ -176,8 +176,6 @@ class BusinessFragment : BaseFragment(), BusinessAdapter.OnItemSelected {
     }
 
     override fun onResume() {
-
-
         page = 1
         list.clear()
         hasNextPage = true

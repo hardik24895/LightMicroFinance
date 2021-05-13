@@ -9,54 +9,58 @@
         android:id="@+id/txtPending"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/button_absentt"
         android:gravity="center"
         android:paddingHorizontal="@dimen/_10sdp"
         android:paddingVertical="@dimen/_5sdp"
         android:text="@string/pending"
+        android:layout_marginStart="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_3sdp"
         android:textColor="@drawable/selector_attendance_textview"
-        app:layout_constraintEnd_toStartOf="@+id/txtPartialy"
+
+
+        app:layout_constraintEnd_toStartOf="@+id/txtCollected"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.commonProject.customview.TextviewReguler
-        android:id="@+id/txtPartialy"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/button_half_day"
-        android:gravity="center"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:paddingVertical="@dimen/_5sdp"
-        android:text="@string/partialy"
-        android:textColor="@drawable/selector_attendance_textview"
-        app:layout_constraintEnd_toEndOf="@+id/txtCollected"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/txtPending"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <com.commonProject.customview.TextviewReguler
         android:id="@+id/txtCollected"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
         android:background="@drawable/button_present"
         android:gravity="center"
         android:paddingHorizontal="@dimen/_10sdp"
         android:paddingVertical="@dimen/_5sdp"
         android:text="@string/collected"
+        android:layout_marginStart="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_3sdp"
         android:textColor="@drawable/selector_attendance_textview"
-        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintEnd_toStartOf="@+id/txtAll"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/txtPartialy"
+        app:layout_constraintStart_toEndOf="@+id/txtPending"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.commonProject.customview.TextviewReguler
+        android:id="@+id/txtAll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_3sdp"
+        android:layout_marginTop="@dimen/_3sdp"
+        android:layout_marginEnd="@dimen/_3sdp"
+        android:background="@drawable/button_half_day"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_5sdp"
+        android:text="@string/all"
+        android:textColor="@drawable/selector_attendance_textview"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/txtCollected"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linlayCenterName"

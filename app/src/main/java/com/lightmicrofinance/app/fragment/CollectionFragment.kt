@@ -58,6 +58,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         var LoanID: String = ""
         var ClientID: String = ""
         var ClientName: String = ""
+        var StartDate: String = ""
+        var EndDate: String = ""
     }
 
     private lateinit var _binding: FragmentCollectionBinding
@@ -86,7 +88,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         _binding.txtPending.setOnClickListener {
             if (!_binding.txtPending.isSelected) {
                 _binding.txtPending.isSelected = true
-                _binding.txtPartialy.isSelected = false
+                _binding.txtAll.isSelected = false
                 _binding.txtCollected.isSelected = false
                 status = Constant.PENDING
                 getCenterNameList(Constant.PENDING)
@@ -94,13 +96,13 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             }
 
         }
-        _binding.txtPartialy.setOnClickListener {
-            if (!_binding.txtPartialy.isSelected) {
+        _binding.txtAll.setOnClickListener {
+            if (!_binding.txtAll.isSelected) {
                 _binding.txtPending.isSelected = false
-                _binding.txtPartialy.isSelected = true
+                _binding.txtAll.isSelected = true
                 _binding.txtCollected.isSelected = false
-                status = Constant.PARTIALY
-                getCenterNameList(Constant.PARTIALY)
+                status = Constant.ALL
+                getCenterNameList(Constant.ALL)
                 //getRefreshData()
             }
 
@@ -109,7 +111,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         _binding.txtCollected.setOnClickListener {
             if (!_binding.txtCollected.isSelected) {
                 _binding.txtPending.isSelected = false
-                _binding.txtPartialy.isSelected = false
+                _binding.txtAll.isSelected = false
                 _binding.txtCollected.isSelected = true
                 status = Constant.COLLECTED
                 getCenterNameList(Constant.COLLECTED)
@@ -132,6 +134,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             ClientID = ""
             LoanID = ""
             ClientName = ""
+            StartDate = ""
+            EndDate = ""
             page = 1
             list.clear()
             hasNextPage = true
@@ -158,6 +162,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         ClientID = ""
         LoanID = ""
         ClientName = ""
+        StartDate = ""
+        EndDate = ""
         page = 1
         list.clear()
         setupRecyclerView()
@@ -225,8 +231,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         checkUserSatus()
         if (status == Constant.PENDING) {
             _binding.txtPending.isSelected = true
-        } else if (status == Constant.PARTIALY) {
-            _binding.txtPartialy.isSelected = true
+        } else if (status == Constant.ALL) {
+            _binding.txtAll.isSelected = true
         } else {
             _binding.txtCollected.isSelected = true
         }
@@ -247,8 +253,8 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
     fun spinnerAPICall() {
         if (status == Constant.PENDING) {
             _binding.txtPending.isSelected = true
-        } else if (status == Constant.PARTIALY) {
-            _binding.txtPartialy.isSelected = true
+        } else if (status == Constant.ALL) {
+            _binding.txtAll.isSelected = true
         } else {
             _binding.txtCollected.isSelected = true
         }
@@ -289,7 +295,10 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         params["ClientID"] = ClientID
         params["ClientName"] = ClientName
         params["CollectionType"] = status
-
+        if (!StartDate.isEmpty() && !EndDate.isEmpty()) {
+            params["StartDate"] = StartDate
+            params["EndDate"] = EndDate
+        }
 
         Log.d("Request::::>", "getCollectionList: " + params)
         Networking

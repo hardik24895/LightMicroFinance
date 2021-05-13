@@ -84,11 +84,13 @@ class AddCollectionActivity : BaseActivity() {
                 view: DatePicker?, year: Int, monthOfYear: Int,
                 dayOfMonth: Int
             ) {
+                val tz = TimeZone.getTimeZone("GMT+05:30")
+                myCalendar1.timeZone = tz
                 myCalendar1.set(Calendar.YEAR, year)
                 myCalendar1.set(Calendar.MONTH, monthOfYear)
                 myCalendar1.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val myFormat = "dd-MM-yyyy" //In which you need put here
-                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
                 binding.edDate.setText(sdf.format(myCalendar1.time))
             }
         }
@@ -112,11 +114,13 @@ class AddCollectionActivity : BaseActivity() {
                 view: DatePicker?, year: Int, monthOfYear: Int,
                 dayOfMonth: Int
             ) {
+                val tz = TimeZone.getTimeZone("GMT+05:30")
+                myCalendar2.timeZone = tz
                 myCalendar2.set(Calendar.YEAR, year)
                 myCalendar2.set(Calendar.MONTH, monthOfYear)
                 myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val myFormat = "dd-MM-yyyy" //In which you need put here
-                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
                 binding.edPromiseDate.setText(sdf.format(myCalendar2.time))
             }
         }
@@ -232,7 +236,7 @@ class AddCollectionActivity : BaseActivity() {
 
         if (intent.getStringExtra(Constant.TYPE) == Constant.PENDING) {
             binding.imgCardBg.setImageResource(R.drawable.orange_card)
-        } else if (intent.getStringExtra(Constant.TYPE) == Constant.PARTIALY) {
+        } else if (intent.getStringExtra(Constant.TYPE) == Constant.ALL) {
             binding.imgCardBg.setImageResource(R.drawable.blue_card)
         } else {
             binding.imgCardBg.setImageResource(R.drawable.green_card)
@@ -424,6 +428,11 @@ class AddCollectionActivity : BaseActivity() {
         params["Pending"] = binding.txtPending.text.toString().substring(2)
         params["Percentage"] = removeLastChar(binding.txtPercentage.text.toString())
         params["Remark"] = binding.edtRemarks.getValue()
+        val today = Date()
+        val format = SimpleDateFormat("yyyy-MM-dd hh:mm:ss a")
+        val dateToStr = format.format(today)
+        //  params["TimeZone"] = System.currentTimeMillis()
+        params["TimeZone"] = dateToStr
         if (reasonId != "-1") {
             params["Reason"] =
                 reasonNameListArray.get(binding.spReasonName.selectedItemPosition - 1).reason.toString()

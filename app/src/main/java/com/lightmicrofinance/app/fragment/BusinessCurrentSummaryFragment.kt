@@ -1,5 +1,4 @@
 package com.lightmicrofinance.app.fragment
-
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -38,7 +37,6 @@ class BusinessCurrentSummaryFragment : BaseFragment() {
         var EndDate: String = getYesterdayDate()
 
     }
-
     var selectedFEId: String = ""
     var FENameList: ArrayList<String> = ArrayList()
     var adapterFE: ArrayAdapter<String>? = null

@@ -32,9 +32,14 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "SERVER_URL", '"http://societyfy.in/lightmf/"'
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "SERVER_URL", '"http://ec2-15-207-174-61.ap-south-1.compute.amazonaws.com/"'
         }
     }
     compileOptions {
