@@ -272,8 +272,10 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             _binding.txtPending.isSelected = true
         } else if (status == Constant.ALL) {
             _binding.txtAll.isSelected = true
-        } else {
+        } else if (status == Constant.COLLECTED) {
             _binding.txtCollected.isSelected = true
+        } else {
+            _binding.txtVisitDone.isSelected = true
         }
         page = 1
         list.clear()
