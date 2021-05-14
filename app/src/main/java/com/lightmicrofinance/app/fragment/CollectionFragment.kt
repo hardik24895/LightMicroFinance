@@ -41,7 +41,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
     var centerNameListArray: ArrayList<CenternameDataItem> = ArrayList()
     var itemCenterNameType: List<SearchableItem>? = null
     private val list: MutableList<CollectionDataItem> = mutableListOf()
-    var status = Constant.PENDING
+    var status = Constant.ALL
     var page: Int = 1
     var hasNextPage: Boolean = true
 
@@ -79,7 +79,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getCenterNameList(Constant.PENDING)
+        getCenterNameList(Constant.ALL)
         centerNameSpinnerListner()
         centerNameViewClick()
         FESpinnerListner()
@@ -90,6 +90,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                 _binding.txtPending.isSelected = true
                 _binding.txtAll.isSelected = false
                 _binding.txtCollected.isSelected = false
+                _binding.txtVisitDone.isSelected = false
                 status = Constant.PENDING
                 getCenterNameList(Constant.PENDING)
 
@@ -101,6 +102,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                 _binding.txtPending.isSelected = false
                 _binding.txtAll.isSelected = true
                 _binding.txtCollected.isSelected = false
+                _binding.txtVisitDone.isSelected = false
                 status = Constant.ALL
                 getCenterNameList(Constant.ALL)
                 //getRefreshData()
@@ -113,8 +115,21 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
                 _binding.txtPending.isSelected = false
                 _binding.txtAll.isSelected = false
                 _binding.txtCollected.isSelected = true
+                _binding.txtVisitDone.isSelected = false
                 status = Constant.COLLECTED
                 getCenterNameList(Constant.COLLECTED)
+                //getRefreshData()
+            }
+
+        }
+        _binding.txtVisitDone.setOnClickListener {
+            if (!_binding.txtVisitDone.isSelected) {
+                _binding.txtPending.isSelected = false
+                _binding.txtAll.isSelected = false
+                _binding.txtCollected.isSelected = false
+                _binding.txtVisitDone.isSelected = true
+                status = Constant.PAYMENT
+                getCenterNameList(Constant.PAYMENT)
                 //getRefreshData()
             }
 
@@ -233,8 +248,10 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
             _binding.txtPending.isSelected = true
         } else if (status == Constant.ALL) {
             _binding.txtAll.isSelected = true
-        } else {
+        } else if (status == Constant.COLLECTED) {
             _binding.txtCollected.isSelected = true
+        } else {
+            _binding.txtVisitDone.isSelected = true
         }
         getCenterNameList2(status)
 
@@ -497,6 +514,7 @@ class CollectionFragment : BaseFragment(), CollectionAdapter.OnItemSelected {
         params["Type"] = type
         params["FECode"] = session.user.data?.fECode.toString()
         params["BMCode"] = session.user.data?.bMCode.toString()
+        Log.d("Request::::>", "getCenterName: " + params)
         Networking
             .with(requireContext())
             .getServices()

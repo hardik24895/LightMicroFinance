@@ -166,12 +166,9 @@ class BusinessSummaryFragment : BaseFragment() {
             params["FECode"] = session.user.data?.fECode.toString()
         }
         params["BMCode"] = session.user.data?.bMCode.toString()
-        if (isAllData) {
+        if (!isAllData) {
             params["StartDate"] = StartDate
             params["EndDate"] = EndDate
-        } else {
-            params["StartDate"] = TimeStamp.getSpesificStartDateRange()
-            params["EndDate"] = getYesterdayDate()
         }
 
 
@@ -243,7 +240,8 @@ class BusinessSummaryFragment : BaseFragment() {
                         binding.textDistAmountDifferent.setTextColor(Color.parseColor(data?.disbAmount?.color.toString()))
                         binding.textDistAmountAchived.setTextColor(Color.parseColor(data?.disbAmount?.color.toString()))
                         binding.textDistAmountAchived.text = data?.disbAmount?.percentage
-
+                        StartDate = TimeStamp.getSpesificStartDateRange()
+                        EndDate = getYesterdayDate()
                     } else {
                         showAlert(response.message.toString())
                     }

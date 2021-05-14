@@ -133,6 +133,7 @@
     <string name="to"> To </string>
     <string name="all_data">All Month Data</string>
     <string name="all">All</string>
+    <string name="visit_done">Visit Done</string>
 
 
 </resources>

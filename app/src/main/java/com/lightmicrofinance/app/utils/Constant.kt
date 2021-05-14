@@ -22,6 +22,7 @@ object Constant {
     //   const val PARTIALY = "Partialy"
     const val ALL = "All"
     const val COLLECTED = "Collected"
+    const val PAYMENT = "Payment"
     const val TYPE = "type"
     const val PASSWORD = "password"
     const val SITE = "site"

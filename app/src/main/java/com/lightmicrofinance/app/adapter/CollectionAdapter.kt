@@ -58,7 +58,7 @@ class CollectionAdapter(
 
             if (status == Constant.PENDING) {
                 binding.imgCardBg.setImageResource(R.drawable.orange_card)
-            } else if (status == Constant.ALL) {
+            } else if (status == Constant.ALL || status == Constant.PAYMENT) {
                 binding.imgCardBg.setImageResource(R.drawable.blue_card)
             } else {
                 binding.imgCardBg.setImageResource(R.drawable.green_card)

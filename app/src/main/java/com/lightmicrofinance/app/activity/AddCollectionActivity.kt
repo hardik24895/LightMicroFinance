@@ -236,7 +236,10 @@ class AddCollectionActivity : BaseActivity() {
 
         if (intent.getStringExtra(Constant.TYPE) == Constant.PENDING) {
             binding.imgCardBg.setImageResource(R.drawable.orange_card)
-        } else if (intent.getStringExtra(Constant.TYPE) == Constant.ALL) {
+        } else if (intent.getStringExtra(Constant.TYPE) == Constant.ALL || intent.getStringExtra(
+                Constant.TYPE
+            ) == Constant.PAYMENT
+        ) {
             binding.imgCardBg.setImageResource(R.drawable.blue_card)
         } else {
             binding.imgCardBg.setImageResource(R.drawable.green_card)
