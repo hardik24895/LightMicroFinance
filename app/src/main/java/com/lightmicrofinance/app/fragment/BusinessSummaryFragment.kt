@@ -86,7 +86,7 @@ class BusinessSummaryFragment : BaseFragment() {
                 getSummaryData(false)
             } else {
                 binding.btnBusinnes.text = resources.getString(R.string.this_month_data)
-                binding.txtSelectedDate.text = "Till " + StartDate
+                binding.txtSelectedDate.text = "Till " + EndDate
                 getSummaryData(true)
             }
         }
@@ -104,7 +104,7 @@ class BusinessSummaryFragment : BaseFragment() {
                 StartDate + " " + resources.getString(R.string.to) + " " + EndDate
             getSummaryData(false)
         } else {
-            binding.txtSelectedDate.text = "Till " + StartDate
+            binding.txtSelectedDate.text = "Till " + EndDate
             getSummaryData(true)
         }
 

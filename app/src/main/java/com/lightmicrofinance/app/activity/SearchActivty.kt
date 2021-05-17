@@ -120,7 +120,7 @@ class SearchActivty : BaseActivity() {
                 myCalendar1[Calendar.MONTH],
                 myCalendar1[Calendar.DAY_OF_MONTH]
             )
-            dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis - 86400000L)
+           dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis - 86400000L)
             dialog.show()
             //  showPastDateTimePicker(this@SearchActivty, binding.edtStartDate)
         }
@@ -142,7 +142,7 @@ class SearchActivty : BaseActivity() {
             val f = SimpleDateFormat("dd-MM-yyyy")
             val d = f.parse(binding.edtStartDate.getValue())
             dialog.getDatePicker().setMinDate(d.time)
-            dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis - 86400000L)
+            // dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis - 86400000L)
             dialog.show()
         }
 
