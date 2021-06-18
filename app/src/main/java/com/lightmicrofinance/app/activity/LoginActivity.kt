@@ -75,9 +75,9 @@ class LoginActivity : BaseActivity() {
             binding.edtEmpId.isEmpty() -> {
                 binding.mainView.showSnackBar(getString(R.string.enter_empid))
             }
-            binding.edtEmpId.getValue().length != 8 -> {
-                binding.mainView.showSnackBar(getString(R.string.enter_valid_empid))
-            }
+//            binding.edtEmpId.getValue().length != 8 -> {
+//                binding.mainView.showSnackBar(getString(R.string.enter_valid_empid))
+//            }
             binding.edtPassword.getValue().length < 6 -> {
                 binding.mainView.showSnackBar(getString(R.string.enter_valid_password))
             }

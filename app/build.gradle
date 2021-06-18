@@ -9,14 +9,14 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        LMF {
-            storeFile file('E:\\SaggiSoftware\\play store\\LMF\\lmf.jks')
-            storePassword 'LMF@123'
-            keyAlias 'Alias'
-            keyPassword 'LMF@123'
-        }
-    }
+//    signingConfigs {
+//        LMF {
+//            storeFile file('E:\\SaggiSoftware\\play store\\LMF\\lmf.jks')
+//            storePassword 'LMF@123'
+//            keyAlias 'Alias'
+//            keyPassword 'LMF@123'
+//        }
+//    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -58,7 +58,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
-            signingConfig signingConfigs.LMF
+//            signingConfig signingConfigs.LMF
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }

@@ -37,7 +37,7 @@ class BusinessSummaryFragment : BaseFragment() {
 
     companion object {
         var StartDate: String = TimeStamp.getSpesificStartDateRange()
-        var EndDate: String = getYesterdayDate()
+        var EndDate: String = getLastDateOfMonth()
         var isDateFilter: Boolean = false
 
     }
@@ -85,6 +85,7 @@ class BusinessSummaryFragment : BaseFragment() {
                     StartDate + " " + resources.getString(R.string.to) + " " + EndDate
                 getSummaryData(false)
             } else {
+                var EndDate: String = getLastDateOfMonth()
                 binding.btnBusinnes.text = resources.getString(R.string.this_month_data)
                 binding.txtSelectedDate.text = "Till " + EndDate
                 getSummaryData(true)
@@ -241,7 +242,7 @@ class BusinessSummaryFragment : BaseFragment() {
                         binding.textDistAmountAchived.setTextColor(Color.parseColor(data?.disbAmount?.color.toString()))
                         binding.textDistAmountAchived.text = data?.disbAmount?.percentage
                         StartDate = TimeStamp.getSpesificStartDateRange()
-                        EndDate = getYesterdayDate()
+                        EndDate = getLastDateOfMonth()
                     } else {
                         showAlert(response.message.toString())
                     }
