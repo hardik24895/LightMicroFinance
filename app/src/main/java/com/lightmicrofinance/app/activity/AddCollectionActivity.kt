@@ -84,11 +84,13 @@ class AddCollectionActivity : BaseActivity() {
                 view: DatePicker?, year: Int, monthOfYear: Int,
                 dayOfMonth: Int
             ) {
+                val tz = TimeZone.getTimeZone("GMT+05:30")
+                myCalendar1.timeZone = tz
                 myCalendar1.set(Calendar.YEAR, year)
                 myCalendar1.set(Calendar.MONTH, monthOfYear)
                 myCalendar1.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val myFormat = "dd-MM-yyyy" //In which you need put here
-                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
                 binding.edDate.setText(sdf.format(myCalendar1.time))
             }
         }
@@ -112,11 +114,13 @@ class AddCollectionActivity : BaseActivity() {
                 view: DatePicker?, year: Int, monthOfYear: Int,
                 dayOfMonth: Int
             ) {
+                val tz = TimeZone.getTimeZone("GMT+05:30")
+                myCalendar2.timeZone = tz
                 myCalendar2.set(Calendar.YEAR, year)
                 myCalendar2.set(Calendar.MONTH, monthOfYear)
                 myCalendar2.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 val myFormat = "dd-MM-yyyy" //In which you need put here
-                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                val sdf = SimpleDateFormat(myFormat, Locale.getDefault())
                 binding.edPromiseDate.setText(sdf.format(myCalendar2.time))
             }
         }
@@ -145,21 +149,51 @@ class AddCollectionActivity : BaseActivity() {
                 val originalCOllection = collectionDataItem?.originalCollection?.toFloat()!!
                 val currentDemand = collectionDataItem?.currentDemand?.toFloat()!!
 
+
                 var regularCollection = 0f
                 var advanceCOllection = 0f
 
                 var df = DecimalFormat("##.##")
 
-                if (totalCollection <= originalDemand) {
-                    regularCollection = totalCollection
+                /*    j2 = "Original Demand"
+                    l2 = "Original Collection"
+                    k2 = "Current Demand"
+                    m2 = "Today's collection"
+
+                  =IF(IF(J2-L2-K2<0,0,J2-L2-K2)+L2+M2<J2,IF(J2-L2-K2<0,0,J2-L2-K2)+L2+M2,J2)*/
+
+
+
+                if (originalDemand - originalCOllection - currentDemand <= 0) {
+                    regularCollection = 0f
                 } else {
-                    regularCollection = originalDemand
+                    regularCollection = originalDemand - originalCOllection - currentDemand
                 }
 
-                if (originalCOllection < originalDemand - currentDemand) {
-                    regularCollection =
-                        regularCollection + originalDemand - currentDemand - originalCOllection
+                if (regularCollection + originalCOllection + todayCOllection < originalDemand) {
+
+                    if (originalDemand - originalCOllection - currentDemand <= 0) {
+                        regularCollection = 0f
+                    } else {
+                        regularCollection = originalDemand - originalCOllection - currentDemand
+                    }
+                    regularCollection = originalCOllection + todayCOllection + regularCollection
+                } else {
+                    regularCollection = originalDemand
+
                 }
+
+
+                /* if (totalCollection <= originalDemand) {
+                     regularCollection = totalCollection
+                 } else {
+                     regularCollection = originalDemand
+                 }
+
+                 if (originalCOllection < originalDemand - currentDemand) {
+                     regularCollection =
+                         regularCollection + originalDemand - currentDemand - originalCOllection
+                 }*/
 
                 if (totalCollection - regularCollection < 0) {
                     advanceCOllection = 0f
@@ -202,7 +236,10 @@ class AddCollectionActivity : BaseActivity() {
 
         if (intent.getStringExtra(Constant.TYPE) == Constant.PENDING) {
             binding.imgCardBg.setImageResource(R.drawable.orange_card)
-        } else if (intent.getStringExtra(Constant.TYPE) == Constant.PARTIALY) {
+        } else if (intent.getStringExtra(Constant.TYPE) == Constant.ALL || intent.getStringExtra(
+                Constant.TYPE
+            ) == Constant.PAYMENT
+        ) {
             binding.imgCardBg.setImageResource(R.drawable.blue_card)
         } else {
             binding.imgCardBg.setImageResource(R.drawable.green_card)
@@ -274,11 +311,11 @@ class AddCollectionActivity : BaseActivity() {
                 addCollection()
 
                 //  Logger.d("reason", reasonNameListArray.get(binding.spReasonName.selectedItemPosition - 1).reason.toString())
-               /* Logger.d("percentage", removeLastChar(binding.txtPercentage.text.toString()))
-                Logger.d("pending", binding.txtPending.text.toString().substring(2))
-                Logger.d("regular", binding.txtRegularLocation.text.toString().substring(2))
-                Logger.d("totalCollection", binding.txtTotalCollection.text.toString().substring(2))
-                Logger.d("advance", binding.txtAdvanceCollection.text.toString().substring(2))*/
+                /* Logger.d("percentage", removeLastChar(binding.txtPercentage.text.toString()))
+                 Logger.d("pending", binding.txtPending.text.toString().substring(2))
+                 Logger.d("regular", binding.txtRegularLocation.text.toString().substring(2))
+                 Logger.d("totalCollection", binding.txtTotalCollection.text.toString().substring(2))
+                 Logger.d("advance", binding.txtAdvanceCollection.text.toString().substring(2))*/
 
 
             }
@@ -394,6 +431,11 @@ class AddCollectionActivity : BaseActivity() {
         params["Pending"] = binding.txtPending.text.toString().substring(2)
         params["Percentage"] = removeLastChar(binding.txtPercentage.text.toString())
         params["Remark"] = binding.edtRemarks.getValue()
+        val today = Date()
+        val format = SimpleDateFormat("yyyy-MM-dd hh:mm:ss a")
+        val dateToStr = format.format(today)
+        //  params["TimeZone"] = System.currentTimeMillis()
+        params["TimeZone"] = dateToStr
         if (reasonId != "-1") {
             params["Reason"] =
                 reasonNameListArray.get(binding.spReasonName.selectedItemPosition - 1).reason.toString()
@@ -438,8 +480,49 @@ class AddCollectionActivity : BaseActivity() {
                 }
 
                 override fun onFailed(code: Int, message: String) {
-                    showAlert(message)
+                    showAlert(getString(R.string.show_server_error))
                     hideProgressbar()
+                }
+
+            }).addTo(autoDisposable)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkUserSatus()
+    }
+
+    fun checkUserSatus() {
+        val params = HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
+
+        Networking
+            .with(this)
+            .getServices()
+            .checkUserStatus(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<UserStatusModal>() {
+                override fun onSuccess(response: UserStatusModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            if (data.status == "0") {
+                                session.isLoggedIn = false
+                                goToActivityAndClearTask<LoginActivity>()
+                            }
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(getString(R.string.show_server_error))
                 }
 
             }).addTo(autoDisposable)

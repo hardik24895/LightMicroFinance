@@ -59,6 +59,7 @@ class ChangePasswordActivity : BaseActivity() {
         showProgressbar()
         val params = HashMap<String, Any>()
         params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
         params["Password"] = binding.edtOldPwd.getValue()
         params["NewPassword"] = binding.edtNewPassword.getValue()
 
@@ -87,7 +88,7 @@ class ChangePasswordActivity : BaseActivity() {
                 }
 
                 override fun onFailed(code: Int, message: String) {
-                    showAlert(message)
+                    showAlert(getString(R.string.show_server_error))
                     hideProgressbar()
                 }
 

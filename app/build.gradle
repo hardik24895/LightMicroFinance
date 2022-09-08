@@ -9,6 +9,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        LMF {
+            storeFile file('E:\\SaggiSoftware\\play store\\LMF\\lmf.jks')
+            storePassword 'LMF@123'
+            keyAlias 'Alias'
+            keyPassword 'LMF@123'
+        }
+    }
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
@@ -16,17 +24,22 @@ android {
         applicationId "com.lightmicrofinance.app"
         minSdkVersion 19
         targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        versionCode 9
+        versionName "1.8"
         multiDexEnabled true
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "SERVER_URL", '"http://societyfy.in/lightmf/"'
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "SERVER_URL", '"http://ec2-15-207-174-61.ap-south-1.compute.amazonaws.com/"'
         }
     }
     compileOptions {
@@ -45,6 +58,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            signingConfig signingConfigs.LMF
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -152,6 +166,7 @@ dependencies {
 
     //graph view
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
 
     //progressbar
     //implementation 'com.mikhaellopez:circularprogressbar:3.0.3'

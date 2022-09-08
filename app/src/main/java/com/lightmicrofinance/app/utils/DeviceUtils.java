@@ -82,7 +82,7 @@ public class DeviceUtils {
      * @return
      */
     public static String getDeviceId(Context context) {
-        String AndroidId = null;
+        String AndroidId = "";
         try {
             AndroidId = Settings.Secure.getString(context.getContentResolver(),
                     Settings.Secure.ANDROID_ID);

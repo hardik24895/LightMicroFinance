@@ -14,6 +14,7 @@ import com.lightmicrofinance.app.extention.*
 import com.lightmicrofinance.app.fragment.*
 import com.lightmicrofinance.app.modal.CenternameDataItem
 import com.lightmicrofinance.app.modal.CenternameListModal
+import com.lightmicrofinance.app.modal.UserStatusModal
 import com.lightmicrofinance.app.network.CallbackObserver
 import com.lightmicrofinance.app.network.Networking
 import com.lightmicrofinance.app.network.addTo
@@ -45,10 +46,39 @@ class SearchActivty : BaseActivity() {
         val view = binding.root
         setContentView(view)
         binding.includes.txtTitle.text = getString(R.string.search)
+        binding.includes.imgBack.setOnClickListener { finish() }
 
         binding.edtStartDate.setText(TimeStamp.getSpesificStartDateRange())
         binding.edtEndDate.setText(getYesterdayDate())
 
+        if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION_SUMMARY))
+            binding.edtStartDate.setText(TimeStamp.getStartDateRange())
+        else
+            binding.edtStartDate.setText(TimeStamp.getSpesificStartDateRange())
+
+        if (intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.BUSINESS) || intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.BUSINESS_SUMMARY) || intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.PAR_SUMMARY) || intent.getStringExtra(Constant.DATA)!!
+                .equals(Constant.COLLECTION_SUMMARY)
+        ) {
+            binding.inStartDate.visible()
+            binding.inEndDate.visible()
+            binding.linlayCenterName.invisible()
+            binding.inCleintID.invisible()
+            binding.inCleintName.invisible()
+            binding.inLoanID.invisible()
+        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION)) {
+            binding.linlayCenterName.invisible()
+            binding.inStartDate.visible()
+            binding.inEndDate.visible()
+        }
+
+        binding.btnSearch.setOnClickListener { SearchData() }
+
+        getCenterNameList()
+        centerNameSpinnerListner()
+        centerNameViewClick()
 
         val date: DatePickerDialog.OnDateSetListener = object : DatePickerDialog.OnDateSetListener {
             override fun onDateSet(
@@ -79,29 +109,6 @@ class SearchActivty : BaseActivity() {
                 }
             }
 
-        binding.includes.imgBack.setOnClickListener { finish() }
-
-        if (intent.getStringExtra(Constant.DATA)!!
-                .equals(Constant.BUSINESS) || intent.getStringExtra(Constant.DATA)!!
-                .equals(Constant.BUSINESS_SUMMARY) || intent.getStringExtra(Constant.DATA)!!
-                .equals(Constant.PAR_SUMMARY) || intent.getStringExtra(Constant.DATA)!!
-                .equals(Constant.COLLECTION_SUMMARY)
-        ) {
-            binding.inStartDate.visible()
-            binding.inEndDate.visible()
-            binding.linlayCenterName.invisible()
-            binding.inCleintID.invisible()
-            binding.inCleintName.invisible()
-            binding.inLoanID.invisible()
-        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION)) {
-            binding.linlayCenterName.invisible()
-        }
-
-        binding.btnSearch.setOnClickListener { SearchData() }
-
-        getCenterNameList()
-        centerNameSpinnerListner()
-        centerNameViewClick()
 
 
 
@@ -113,7 +120,7 @@ class SearchActivty : BaseActivity() {
                 myCalendar1[Calendar.MONTH],
                 myCalendar1[Calendar.DAY_OF_MONTH]
             )
-            dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis - 86400000L)
+           dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis - 86400000L)
             dialog.show()
             //  showPastDateTimePicker(this@SearchActivty, binding.edtStartDate)
         }
@@ -135,7 +142,7 @@ class SearchActivty : BaseActivity() {
             val f = SimpleDateFormat("dd-MM-yyyy")
             val d = f.parse(binding.edtStartDate.getValue())
             dialog.getDatePicker().setMinDate(d.time)
-            dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis - 86400000L)
+            // dialog.getDatePicker().setMaxDate(Calendar.getInstance().timeInMillis - 86400000L)
             dialog.show()
         }
 
@@ -159,22 +166,21 @@ class SearchActivty : BaseActivity() {
         if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.PAR)) {
             ParFragment.CenterName = centerName
             ParFragment.ClientID = binding.edtCleintID.getValue()
-            ParFragment.CenterName = centerName
+            ParFragment.ClientName = binding.edtCleintName.getValue()
             ParFragment.LoanID = binding.edtLoanID.getValue()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION)) {
             CollectionFragment.ClientName = binding.edtCleintName.getValue()
             CollectionFragment.ClientID = binding.edtCleintID.getValue()
             CollectionFragment.LoanID = binding.edtLoanID.getValue()
             CollectionFragment.CenterName = centerName
+            CollectionFragment.StartDate = binding.edtStartDate.getValue()
+            CollectionFragment.EndDate = binding.edtEndDate.getValue()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS)) {
             BusinessFragment.StartDate = binding.edtStartDate.getValue()
             BusinessFragment.EndDate = binding.edtEndDate.getValue()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.BUSINESS_SUMMARY)) {
             BusinessSummaryFragment.StartDate = binding.edtStartDate.getValue()
             BusinessSummaryFragment.EndDate = binding.edtEndDate.getValue()
-        } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.PAR_SUMMARY)) {
-            ParSummaryFragment.StartDate = binding.edtStartDate.getValue()
-            ParSummaryFragment.EndDate = binding.edtEndDate.getValue()
         } else if (intent.getStringExtra(Constant.DATA)!!.equals(Constant.COLLECTION_SUMMARY)) {
             CollectionSummaryFragment.StartDate = binding.edtStartDate.getValue()
             CollectionSummaryFragment.EndDate = binding.edtEndDate.getValue()
@@ -189,11 +195,13 @@ class SearchActivty : BaseActivity() {
     private fun centerNameViewClick() {
 
         binding.view2.setOnClickListener {
-            SearchableDialog(this@SearchActivty,
-                itemCenterNameType!!,
-                getString(R.string.center_name), { item, _ ->
-                    binding.spCenterName.setSelection(item.id.toInt())
-                }).show()
+            itemCenterNameType?.let { it1 ->
+                SearchableDialog(this@SearchActivty,
+                    it1,
+                    getString(R.string.center_name), { item, _ ->
+                        binding.spCenterName.setSelection(item.id.toInt())
+                    }).show()
+            }
         }
 
     }
@@ -226,11 +234,12 @@ class SearchActivty : BaseActivity() {
 
     fun getCenterNameList() {
         val params = HashMap<String, Any>()
-        params[""] = ""
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
         Networking
             .with(this@SearchActivty)
             .getServices()
-            .getCenterName(Networking.wrapParams(params))
+            .getParCenterName(Networking.wrapParams(params))
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object : CallbackObserver<CenternameListModal>() {
@@ -271,5 +280,46 @@ class SearchActivty : BaseActivity() {
                 }
 
             }).addTo(autoDisposable)
+    }
+
+    fun checkUserSatus() {
+        val params = HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
+
+        Networking
+            .with(this)
+            .getServices()
+            .checkUserStatus(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<UserStatusModal>() {
+                override fun onSuccess(response: UserStatusModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            if (data.status == "0") {
+                                session.isLoggedIn = false
+                                goToActivityAndClearTask<LoginActivity>()
+                            }
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(getString(R.string.show_server_error))
+                }
+
+            }).addTo(autoDisposable)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkUserSatus()
     }
 }

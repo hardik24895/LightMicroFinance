@@ -7,9 +7,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.ViewPager
 import com.lightmicrofinance.app.R
+import com.lightmicrofinance.app.activity.LoginActivity
 import com.lightmicrofinance.app.activity.MainActivity
 import com.lightmicrofinance.app.adapter.ViewPagerPagerAdapter
 import com.lightmicrofinance.app.databinding.FragmentReportBinding
+import com.lightmicrofinance.app.extention.goToActivityAndClearTask
+import com.lightmicrofinance.app.extention.showAlert
+import com.lightmicrofinance.app.modal.UserStatusModal
+import com.lightmicrofinance.app.network.CallbackObserver
+import com.lightmicrofinance.app.network.Networking
+import com.lightmicrofinance.app.network.addTo
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class ReportFragment : BaseFragment() {
@@ -59,7 +68,10 @@ class ReportFragment : BaseFragment() {
                 } else if (position == 1) {
                     (mContext as MainActivity).txtTitle.text =
                         requireActivity().getString(R.string.business_summary)
-                } else {
+                }/* else if (position==2) {
+                    (mContext as MainActivity).txtTitle.text =
+                        requireActivity().getString(R.string.business_current_summary)
+                }*/ else {
                     (mContext as MainActivity).txtTitle.text =
                         requireActivity().getString(R.string.par_summary)
                 }
@@ -84,6 +96,11 @@ class ReportFragment : BaseFragment() {
             BusinessSummaryFragment(),
             getString(R.string.business_summary)
         )
+
+        /*  viewPageradapter.addFragment(
+              BusinessCurrentSummaryFragment(),
+              getString(R.string.business_current_summary)
+          )*/
         viewPageradapter.addFragment(ParSummaryFragment(), getString(R.string.par_summary))
 
         _binding?.viewPager?.adapter = viewPageradapter
@@ -91,5 +108,44 @@ class ReportFragment : BaseFragment() {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        checkUserSatus()
+    }
 
+    fun checkUserSatus() {
+        val params = java.util.HashMap<String, Any>()
+        params["FECode"] = session.user.data?.fECode.toString()
+        params["BMCode"] = session.user.data?.bMCode.toString()
+
+        Networking
+            .with(requireContext())
+            .getServices()
+            .checkUserStatus(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<UserStatusModal>() {
+                override fun onSuccess(response: UserStatusModal) {
+                    val data = response.data
+                    if (response.error == false) {
+                        if (data != null) {
+                            if (data.status == "0") {
+                                session.isLoggedIn = false
+                                goToActivityAndClearTask<LoginActivity>()
+                            }
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(getString(R.string.show_server_error))
+                }
+
+            }).addTo(autoDisposable)
+    }
 }

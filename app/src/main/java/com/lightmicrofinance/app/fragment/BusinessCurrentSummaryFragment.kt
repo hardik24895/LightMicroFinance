@@ -1,6 +1,5 @@
 package com.lightmicrofinance.app.fragment
-
-
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,9 +9,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.lightmicrofinance.app.R
 import com.lightmicrofinance.app.activity.LoginActivity
-import com.lightmicrofinance.app.databinding.FragamentCollectionSummaryBinding
+import com.lightmicrofinance.app.databinding.FragementSummaryBusinessBinding
 import com.lightmicrofinance.app.extention.*
-import com.lightmicrofinance.app.modal.CollectionSummaryReportModal
+import com.lightmicrofinance.app.modal.BusinessSummaryModal
 import com.lightmicrofinance.app.modal.FEDataItem
 import com.lightmicrofinance.app.modal.FEDateModel
 import com.lightmicrofinance.app.modal.UserStatusModal
@@ -27,18 +26,17 @@ import tech.hibk.searchablespinnerlibrary.SearchableDialog
 import tech.hibk.searchablespinnerlibrary.SearchableItem
 
 
-class CollectionSummaryFragment : BaseFragment() {
+class BusinessCurrentSummaryFragment : BaseFragment() {
 
-    private var _binding: FragamentCollectionSummaryBinding? = null
+    private var _binding: FragementSummaryBusinessBinding? = null
 
     private val binding get() = _binding!!
 
     companion object {
-        var StartDate: String = TimeStamp.getStartDateRange()
+        var StartDate: String = TimeStamp.getSpesificStartDateRange()
         var EndDate: String = getYesterdayDate()
 
     }
-
     var selectedFEId: String = ""
     var FENameList: ArrayList<String> = ArrayList()
     var adapterFE: ArrayAdapter<String>? = null
@@ -50,7 +48,7 @@ class CollectionSummaryFragment : BaseFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragamentCollectionSummaryBinding.inflate(inflater, container, false)
+        _binding = FragementSummaryBusinessBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
     }
@@ -63,13 +61,12 @@ class CollectionSummaryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-       if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
-           getFEList()
-           _binding?.linlayFEList?.visible()
-       } else {
-           _binding?.linlayFEList?.invisible()
-       }
-
+        if (Utils.checkUserIsBM(session.user.data?.userType.toString())) {
+            getFEList()
+            _binding?.linlayFEList?.visible()
+        } else {
+            _binding?.linlayFEList?.invisible()
+        }
 
         FEViewClick()
         FESpinnerListner()
@@ -79,9 +76,10 @@ class CollectionSummaryFragment : BaseFragment() {
     override fun onResume() {
         super.onResume()
 
-        binding.txtSelectedDate.text = "Till " + EndDate
+        binding.txtSelectedDate.text = StartDate + " TO " + EndDate
         getSummaryData()
         checkUserSatus()
+
     }
 
     /* override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -102,7 +100,7 @@ class CollectionSummaryFragment : BaseFragment() {
              }*//*
             R.id.action_filter -> {
                 val intent = Intent(context, SearchActivty::class.java)
-                intent.putExtra(Constant.DATA, Constant.COLLECTION_SUMMARY)
+                intent.putExtra(Constant.DATA, Constant.BUSINESS_SUMMARY)
                 startActivity(intent)
                 Animatoo.animateCard(context)
                 return true
@@ -125,51 +123,77 @@ class CollectionSummaryFragment : BaseFragment() {
             params["FECode"] = session.user.data?.fECode.toString()
         }
         params["BMCode"] = session.user.data?.bMCode.toString()
-        params["StartDate"] = ""
-        params["EndDate"] = ""
+        params["StartDate"] = StartDate
+        params["EndDate"] = EndDate
 
         Log.d("Request::::>", "getSummaryData: " + params)
 
         Networking
             .with(requireContext())
             .getServices()
-            .getCollectionSummaryReport(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .getBusinessSammary(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : CallbackObserver<CollectionSummaryReportModal>() {
-                override fun onSuccess(response: CollectionSummaryReportModal) {
+            .subscribeWith(object : CallbackObserver<BusinessSummaryModal>() {
+                override fun onSuccess(response: BusinessSummaryModal) {
                     val data = response.data
                     hideProgressbar()
                     if (response.error == false) {
+                        binding.txtLENewPlan.text = data?.lENew?.lENew
+                        binding.txtLENewActual.text = data?.lENew?.achLENew
+                        binding.txtLENewDifferent.text = data?.lENew?.diff
+                        binding.txtLENewDifferent.setTextColor(Color.parseColor(data?.lENew?.color.toString()))
+                        binding.txtLENewAchived.setTextColor(Color.parseColor(data?.lENew?.color.toString()))
+                        binding.txtLENewAchived.text = data?.lENew?.percentage
 
-                        binding.txtCleintsCollected.text = data?.client?.collected
-                        binding.txtCleintsPartialy.text = data?.client?.partialy
-                        binding.txtCleintsPending.text = data?.client?.pending
-                        binding.txtCleintsGtotal.text = data?.client?.total
+                        binding.txtLEReNewPlan.text = data?.lERenew?.lERenew
+                        binding.txtLEReNewActual.text = data?.lERenew?.achLERenew
+                        binding.txtLEReNewDifferent.text = data?.lERenew?.diff
+                        binding.txtLEReNewDifferent.setTextColor(Color.parseColor(data?.lERenew?.color.toString()))
+                        binding.txtLEReNewAchived.setTextColor(Color.parseColor(data?.lERenew?.color.toString()))
+                        binding.txtLEReNewAchived.text = data?.lERenew?.percentage
 
-                        binding.txtDemandCollected.text = data?.demand?.collected
-                        binding.txtDemandPartialy.text = data?.demand?.partialy
-                        binding.txtDemandPending.text = data?.demand?.pending
-                        binding.txtDemandGtotal.text = data?.demand?.total
+                        binding.txtTotalLEPlan.text = data?.totalLE?.totalLE
+                        binding.txtTotalLEActual.text = data?.totalLE?.achTotalLE
+                        binding.txtTotalLEDifferent.text = data?.totalLE?.diff
+                        binding.txtTotalLEDifferent.setTextColor(Color.parseColor(data?.totalLE?.color.toString()))
+                        binding.txtTotalLEAchived.setTextColor(Color.parseColor(data?.totalLE?.color.toString()))
+                        binding.txtTotalLEAchived.text = data?.totalLE?.percentage
 
+                        binding.txtDDPlan.text = data?.dDDone?.dDDone
+                        binding.txtDDActual.text = data?.dDDone?.achDDDone
+                        binding.txtDDDifferent.text = data?.dDDone?.diff
+                        binding.txtDDDifferent.setTextColor(Color.parseColor(data?.dDDone?.color.toString()))
+                        binding.txtDDAchived.setTextColor(Color.parseColor(data?.dDDone?.color.toString()))
+                        binding.txtDDAchived.text = data?.dDDone?.percentage
 
-                        binding.txtCollectionCollected.text = data?.collection?.collected
-                        binding.txtCollectionPartialy.text = data?.collection?.partialy
-                        binding.txtCollectionPending.text = data?.collection?.pending
-                        binding.txtCollectionGtotal.text = data?.collection?.total
+                        binding.txtDDvePlan.text = data?.dDPositive?.dDPositive
+                        binding.txtDDveActual.text = data?.dDPositive?.achDDPositive
+                        binding.txtDDveDifferent.text = data?.dDPositive?.diff
+                        binding.txtDDveDifferent.setTextColor(Color.parseColor(data?.dDPositive?.color.toString()))
+                        binding.txtDDveAchived.setTextColor(Color.parseColor(data?.dDPositive?.color.toString()))
+                        binding.txtDDveAchived.text = data?.dDPositive?.percentage
 
+                        binding.txtGRTPlan.text = data?.gRT?.gRT
+                        binding.txtGRTActual.text = data?.gRT?.achGRT
+                        binding.txtGRTDifferent.text = data?.gRT?.diff
+                        binding.txtGRTDifferent.setTextColor(Color.parseColor(data?.gRT?.color.toString()))
+                        binding.txtGRTAchived.setTextColor(Color.parseColor(data?.gRT?.color.toString()))
+                        binding.txtGRTAchived.text = data?.gRT?.percentage
 
-                        binding.txtPendingpCollected.text = data?.pending?.collected
-                        binding.txtPendingpPartialy.text = data?.pending?.partialy
-                        binding.txtPendingpPending.text = data?.pending?.pending
-                        binding.txtPendingpGtotal.text = data?.pending?.total
+                        binding.textDistClientPlan.text = data?.disbClient?.disbClient
+                        binding.textDistClientActual.text = data?.disbClient?.achDisbClient
+                        binding.textDistClientDifferent.text = data?.disbClient?.diff
+                        binding.textDistClientDifferent.setTextColor(Color.parseColor(data?.disbClient?.color.toString()))
+                        binding.textDistClientAchived.setTextColor(Color.parseColor(data?.disbClient?.color.toString()))
+                        binding.textDistClientAchived.text = data?.disbClient?.percentage
 
-
-                        binding.txtParcentageCollected.text = data?.percentage?.collected
-                        binding.txtParcentagePartialy.text = data?.percentage?.partialy
-                        binding.txtParcentagePending.text = data?.percentage?.pending
-                        binding.txtParcentageGtotal.text = data?.percentage?.total
-
+                        binding.textDistAmountPlan.text = data?.disbAmount?.disbAmount
+                        binding.textDistAmountActual.text = data?.disbAmount?.achDisbAmount
+                        binding.textDistAmountDifferent.text = data?.disbAmount?.diff
+                        binding.textDistAmountDifferent.setTextColor(Color.parseColor(data?.disbAmount?.color.toString()))
+                        binding.textDistAmountAchived.setTextColor(Color.parseColor(data?.disbAmount?.color.toString()))
+                        binding.textDistAmountAchived.text = data?.disbAmount?.percentage
 
                     } else {
                         showAlert(response.message.toString())
@@ -302,7 +326,7 @@ class CollectionSummaryFragment : BaseFragment() {
                 position: Int,
                 id: Long
             ) {
-                if (position != -1 && FEListArray.size > position-1) {
+                if (position != -1 && FEListArray.size > position - 1) {
                     if (position == 0) {
                         //    CenterName = ""
                         // spinnerAPICall2()
@@ -310,10 +334,9 @@ class CollectionSummaryFragment : BaseFragment() {
                         //   spinnerAPICall()
                         selectedFEId = ""
 
-                    }else{
+                    } else {
                         selectedFEId = FEListArray.get(position - 1).fECode.toString()
                     }
-
 
                     getSummaryData()
                 }

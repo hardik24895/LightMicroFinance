@@ -1,60 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.commonProject.customview.TextviewReguler
-        android:id="@+id/txtPending"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/button_absentt"
-        android:gravity="center"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:paddingVertical="@dimen/_5sdp"
-        android:text="@string/pending"
-        android:textColor="@drawable/selector_attendance_textview"
-        app:layout_constraintEnd_toStartOf="@+id/txtPartialy"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <com.commonProject.customview.TextviewReguler
-        android:id="@+id/txtPartialy"
-        android:layout_width="0dp"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScroll"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/button_half_day"
-        android:gravity="center"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:paddingVertical="@dimen/_5sdp"
-        android:text="@string/partialy"
-        android:textColor="@drawable/selector_attendance_textview"
-        app:layout_constraintEnd_toEndOf="@+id/txtCollected"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/txtPending"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.commonProject.customview.TextviewReguler
-        android:id="@+id/txtCollected"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:background="@drawable/button_present"
-        android:gravity="center"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:paddingVertical="@dimen/_5sdp"
-        android:text="@string/collected"
-        android:textColor="@drawable/selector_attendance_textview"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="horizontal"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/txtPartialy"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content">
+
+            <com.commonProject.customview.TextviewReguler
+                android:id="@+id/txtAll"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:background="@drawable/button_half_day"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_5sdp"
+                android:text="@string/all"
+                android:textColor="@drawable/selector_attendance_textview"
+                android:visibility="visible"
+
+                app:layout_constraintEnd_toStartOf="@+id/txtPending"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.commonProject.customview.TextviewReguler
+                android:id="@+id/txtPending"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:background="@drawable/button_absentt"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_5sdp"
+                android:text="@string/pending"
+                android:textColor="@drawable/selector_attendance_textview"
+                app:layout_constraintEnd_toStartOf="@+id/txtCollected"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/txtAll"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.commonProject.customview.TextviewReguler
+                android:id="@+id/txtCollected"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:background="@drawable/button_present"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_5sdp"
+
+                android:text="@string/collected"
+                android:textColor="@drawable/selector_attendance_textview"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/txtPending"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.commonProject.customview.TextviewReguler
+                android:id="@+id/txtVisitDone"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_3sdp"
+                android:background="@drawable/button_half_day"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_5sdp"
+
+                android:text="@string/visit_done"
+                android:textColor="@drawable/selector_attendance_textview"
+                app:layout_constraintEnd_toEndOf="parent"
+
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/txtCollected"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </HorizontalScrollView>
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,7 +114,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCollected">
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScroll">
 
 
         <tech.hibk.searchablespinnerlibrary.SearchableSpinner
@@ -100,13 +147,58 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linlayFEList"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/bg_spinner"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linlayCenterName"
+        tools:visibility="visible">
+
+
+        <tech.hibk.searchablespinnerlibrary.SearchableSpinner
+            android:id="@+id/spFEList"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_3sdp"
+            android:clickable="false"
+            android:focusable="false"
+            android:padding="@dimen/_5sdp"
+            app:cancelButtonColor="@color/black"
+            app:cancelButtontext="CLOSE"
+            app:dialogTitle="@string/center_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:nothingSelectedText="@string/center_name"
+            app:onlyLightTheme="true" />
+
+        <View
+            android:id="@+id/viewFE"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/spFEList"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/spFEList" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linlayCenterName">
+        app:layout_constraintTop_toBottomOf="@+id/linlayFEList">
 
         <include
             android:id="@+id/rvSwipe"

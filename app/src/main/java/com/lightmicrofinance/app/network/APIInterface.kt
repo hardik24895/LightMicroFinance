@@ -50,6 +50,10 @@ interface APIInterface {
     @POST("collection/GetCenters")
     fun getCenterName(@Body body: RequestBody): Observable<Response<CenternameListModal>>
 
+    @POST("par/GetCenters")
+    fun getParCenterName(@Body body: RequestBody): Observable<Response<CenternameListModal>>
+
+
     @POST("cms/getPage")
     fun getCMS(@Body body: RequestBody): Observable<Response<CMSDataModal>>
 
@@ -70,4 +74,15 @@ interface APIInterface {
 
     @POST("goalsheet/getGoalSheet")
     fun getGoalSheet(@Body body: RequestBody): Observable<Response<GoalsheetModal>>
+
+    @POST("user/getFeList")
+    fun getFEList(@Body body: RequestBody): Observable<Response<FEDateModel>>
+
+    @POST("user/checkUserStatus")
+    fun checkUserStatus(@Body body: RequestBody): Observable<Response<UserStatusModal>>
+
+    @POST("config/getConfig")
+    fun getConfig(@Body body: RequestBody): Observable<Response<ConfigDataModel>>
+
+
 }

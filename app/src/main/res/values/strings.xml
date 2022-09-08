@@ -8,6 +8,7 @@
     <string name="partialy">Partially</string>
     <string name="collected">Collected</string>
     <string name="center_name">Center Name</string>
+    <string name="select_field_executive">Select Field Executive</string>
     <string name="payment_received">Payment Received</string>
     <string name="full">Full</string>
     <string name="partial">Partial</string>
@@ -53,6 +54,7 @@
     <string name="fe_code">FE Code</string>
     <string name="client_id">Client ID</string>
     <string name="business_summary">Business Summary</string>
+    <string name="business_current_summary">Business This Month Summary</string>
     <string name="collection_summary">Collection Summary</string>
     <string name="par_summary">Par Summary</string>
     <string name="client_name">Client Name</string>
@@ -124,6 +126,14 @@
     <string name="original_demand">Original Demand</string>
     <string name="current_demand">Current Demand</string>
     <string name="today_collection">Today\'s Collection</string>
+
+    <string name="msg_install_latest_version">Please install the latest version of this app.</string>
+    <string name="action_update">Update</string>
+    <string name="this_month_data">Show Current Month Data</string>
+    <string name="to"> To </string>
+    <string name="all_data">All Month Data</string>
+    <string name="all">All</string>
+    <string name="visit_done">Visit Done</string>
 
 
 </resources>

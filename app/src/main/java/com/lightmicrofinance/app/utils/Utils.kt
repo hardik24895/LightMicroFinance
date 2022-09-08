@@ -4,6 +4,7 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.ContentResolver
 import android.content.Context
+import android.content.pm.PackageInfo
 import android.content.res.Resources
 import android.graphics.RectF
 import android.location.LocationManager
@@ -35,6 +36,11 @@ import kotlin.math.roundToInt
 
 
 object Utils {
+
+    fun checkUserIsBM(userType: String): Boolean {
+        return userType == Constant.BM
+
+    }
 
 
     fun isNetworkAvailable(context: Context): Boolean {
@@ -353,5 +359,24 @@ object Utils {
             }, str.indexOf(spanableText), str.indexOf(spanableText) + spanableText.length, 0)
         }
         return ssb
+    }
+
+    /***
+     * Get Applicaiton version Code
+     *
+     * @return
+     */
+    fun getAppVersionCode(context: Context): Int {
+        var VersionID = 1
+        try {
+            val pInfo: PackageInfo =
+                context.getPackageManager().getPackageInfo(context.getPackageName(), 0)
+            VersionID = pInfo.versionCode
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+            //  ErrorLog.SaveErrorLog(e)
+        } finally {
+            return VersionID
+        }
     }
 }

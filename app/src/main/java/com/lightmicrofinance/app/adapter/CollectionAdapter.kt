@@ -27,12 +27,12 @@ class CollectionAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
-        binding =   RowCollectionBinding.inflate(
+        binding = RowCollectionBinding.inflate(
             LayoutInflater
                 .from(parent.getContext()), parent, false
         )
         return ItemHolder(
-           binding
+            binding
         )
     }
 
@@ -58,7 +58,7 @@ class CollectionAdapter(
 
             if (status == Constant.PENDING) {
                 binding.imgCardBg.setImageResource(R.drawable.orange_card)
-            } else if (status == Constant.PARTIALY) {
+            } else if (status == Constant.ALL || status == Constant.PAYMENT) {
                 binding.imgCardBg.setImageResource(R.drawable.blue_card)
             } else {
                 binding.imgCardBg.setImageResource(R.drawable.green_card)
@@ -70,7 +70,7 @@ class CollectionAdapter(
             binding.txtDate.text = data.dueDate
             binding.txtBranchName.text = data.branch
             binding.txtClientName.text = data.clientName
-            binding.txtAmount.text = "₹ "+ data.originalDemand
+            binding.txtAmount.text = "₹ " + data.originalDemand
 
             itemView.setOnClickListener { listener.onItemSelect(adapterPosition, data, "MainView") }
 

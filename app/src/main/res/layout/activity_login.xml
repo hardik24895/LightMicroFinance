@@ -142,6 +142,7 @@
                 android:padding="@dimen/_5sdp"
                 android:text="@string/forgot_password"
                 android:textColor="@color/black"
+                android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@+id/view"
                 app:layout_constraintTop_toBottomOf="@+id/til2" />
 
