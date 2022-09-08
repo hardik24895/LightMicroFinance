@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="@dimen/_10sdp"
-    app:cardElevation="0dp"
-    android:layout_margin="@dimen/_5sdp"
-    app:cardMaxElevation="0dp">
+    app:cardElevation="@dimen/_5sdp"
+    app:cardUseCompatPadding="true">
 
     <ImageView
         android:id="@+id/imgCardBg"
@@ -82,6 +80,7 @@
             android:text="Jawan Sinhji ka Khera"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtCleintID"
             app:layout_constraintStart_toStartOf="@+id/txtFeCode"
             app:layout_constraintTop_toBottomOf="@+id/txtfeName" />
 
@@ -118,6 +117,7 @@
             android:textColor="@color/colorWhite"
             app:layout_constraintStart_toStartOf="@+id/txtFeCode"
             app:layout_constraintTop_toBottomOf="@+id/txtFeName" />
+
         <com.commonProject.customview.TextviewMedium
             android:id="@+id/txtBranchName"
             android:layout_width="0dp"
@@ -126,6 +126,7 @@
             android:text="Ameth"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtDPD"
             app:layout_constraintStart_toStartOf="@+id/txtFeCode"
             app:layout_constraintTop_toBottomOf="@+id/txtbranchname" />
 
@@ -159,6 +160,7 @@
             android:textColor="@color/colorWhite"
             app:layout_constraintStart_toStartOf="@+id/txtFeCode"
             app:layout_constraintTop_toBottomOf="@+id/txtBranchName" />
+
         <com.commonProject.customview.TextviewMedium
             android:id="@+id/txtCenterName"
             android:layout_width="0dp"
@@ -167,6 +169,7 @@
             android:text="Ahemdabad"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtBucket"
             app:layout_constraintStart_toStartOf="@+id/txtFeCode"
             app:layout_constraintTop_toBottomOf="@+id/txtcentername" />
 
@@ -200,6 +203,7 @@
             android:textColor="@color/colorWhite"
             app:layout_constraintStart_toStartOf="@+id/txtFeCode"
             app:layout_constraintTop_toBottomOf="@+id/txtCenterName" />
+
         <com.commonProject.customview.TextviewMedium
             android:id="@+id/txtClientName"
             android:layout_width="0dp"
@@ -208,6 +212,7 @@
             android:text="Mr. Hardik Vala"
             android:textColor="@color/colorWhite"
             android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtAmount"
             app:layout_constraintStart_toStartOf="@+id/txtFeCode"
             app:layout_constraintTop_toBottomOf="@+id/txtclientname" />
 

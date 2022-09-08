@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:220828946682:android:324ae6b83e7ffdbcf0f943",
         "android_client_info": {
-          "package_name": "com.lightmicrofinance.commonproject"
+          "package_name": "com.lightmicrofinance.app"
         }
       },
       "oauth_client": [
@@ -39,7 +39,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:220828946682:android:454747a97b50837df0f943",
         "android_client_info": {
-          "package_name": "com.lightmicrofinance.commonproject"
+          "package_name": "com.lightmicrofinance.app"
         }
       },
       "oauth_client": [

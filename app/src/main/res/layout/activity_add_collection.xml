@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/mainview"
     android:layout_height="match_parent">
 
 
@@ -32,10 +33,10 @@
                 android:id="@+id/card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
+                app:cardElevation="@dimen/_5sdp"
                 app:cardCornerRadius="@dimen/_10sdp"
-                app:cardElevation="0dp"
-                app:cardMaxElevation="0dp"
+                app:cardUseCompatPadding="true"
+
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -58,7 +59,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
-                        android:text="@string/loan_ac_number"
+                        android:text="@string/client_id"
                         android:textColor="@color/colorWhite"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -74,7 +75,7 @@
                         app:layout_constraintTop_toTopOf="@+id/txtloanac" />
 
                     <com.commonProject.customview.TextviewMedium
-                        android:id="@+id/txtLoanAcNo"
+                        android:id="@+id/txtCleintId"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:paddingVertical="@dimen/_2sdp"
@@ -103,7 +104,7 @@
                         android:text="@string/center_name"
                         android:textColor="@color/colorWhite"
                         app:layout_constraintStart_toStartOf="@+id/txtloanac"
-                        app:layout_constraintTop_toBottomOf="@+id/txtLoanAcNo" />
+                        app:layout_constraintTop_toBottomOf="@+id/txtCleintId" />
 
                     <com.commonProject.customview.TextviewMedium
                         android:id="@+id/txtCenterName"
@@ -143,7 +144,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/date"
+                        android:text="@string/due_date"
                         android:textColor="@color/colorWhite"
                         app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
                         app:layout_constraintTop_toBottomOf="@+id/txtCenterName" />
@@ -187,7 +188,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_3sdp"
-                        android:text="@string/outstanding_amount"
+                        android:text="@string/current_demand"
                         android:textColor="@color/colorWhite"
                         app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
                         app:layout_constraintTop_toBottomOf="@+id/txtDate" />
@@ -202,6 +203,135 @@
                         android:textSize="@dimen/_13ssp"
                         app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
                         app:layout_constraintTop_toBottomOf="@+id/txtamount" />
+
+
+                    <com.commonProject.customview.TextviewReguler
+                        android:id="@+id/txtoriginalcollection"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="@string/original_collection"
+                        android:textColor="@color/colorWhite"
+                        app:layout_constraintStart_toStartOf="@+id/txtloanac"
+                        app:layout_constraintTop_toBottomOf="@+id/txtAmount" />
+
+                    <com.commonProject.customview.TextviewMedium
+                        android:id="@+id/txtOriginalCollection"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/_2sdp"
+                        android:text="0000"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintStart_toStartOf="@+id/txtloanac"
+                        app:layout_constraintTop_toBottomOf="@+id/txtoriginalcollection" />
+
+
+                    <com.commonProject.customview.TextviewReguler
+                        android:id="@+id/txtoriginaldemand"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="@string/original_demand"
+                        android:textColor="@color/colorWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
+                        app:layout_constraintTop_toBottomOf="@+id/txtAmount" />
+
+                    <com.commonProject.customview.TextviewMedium
+                        android:id="@+id/txtOriginalDemand"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/_2sdp"
+                        android:text="₹150000"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
+                        app:layout_constraintTop_toBottomOf="@+id/txtoriginaldemand" />
+
+                    <com.commonProject.customview.TextviewReguler
+                        android:id="@+id/txtregularcollection"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="@string/regular_collection"
+                        android:textColor="@color/colorWhite"
+                        app:layout_constraintStart_toStartOf="@+id/txtloanac"
+                        app:layout_constraintTop_toBottomOf="@+id/txtOriginalCollection" />
+
+                    <com.commonProject.customview.TextviewMedium
+                        android:id="@+id/txtRegularCollection"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/_2sdp"
+                        android:text="0000"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintStart_toStartOf="@+id/txtloanac"
+                        app:layout_constraintTop_toBottomOf="@+id/txtregularcollection" />
+
+                    <com.commonProject.customview.TextviewReguler
+                        android:id="@+id/txttotalcollections"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="@string/total_collection"
+                        android:textColor="@color/colorWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
+                        app:layout_constraintTop_toBottomOf="@+id/txtOriginalDemand" />
+
+                    <com.commonProject.customview.TextviewMedium
+                        android:id="@+id/txtTotalCollections"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/_2sdp"
+                        android:text="₹150000"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
+                        app:layout_constraintTop_toBottomOf="@+id/txttotalcollections" />
+
+                    <com.commonProject.customview.TextviewReguler
+                        android:id="@+id/txtpendings"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="@string/pending"
+                        android:textColor="@color/colorWhite"
+                        app:layout_constraintStart_toStartOf="@+id/txtloanac"
+                        app:layout_constraintTop_toBottomOf="@+id/txtRegularCollection" />
+
+                    <com.commonProject.customview.TextviewMedium
+                        android:id="@+id/txtPendings"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/_2sdp"
+                        android:text="0000"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintStart_toStartOf="@+id/txtloanac"
+                        app:layout_constraintTop_toBottomOf="@+id/txtpendings" />
+
+                    <com.commonProject.customview.TextviewReguler
+                        android:id="@+id/txtperc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_3sdp"
+                        android:text="@string/percentage"
+                        android:textColor="@color/colorWhite"
+                        app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
+                        app:layout_constraintTop_toBottomOf="@+id/txtTotalCollections" />
+
+                    <com.commonProject.customview.TextviewMedium
+                        android:id="@+id/txtPrec"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:paddingVertical="@dimen/_2sdp"
+                        android:text="₹150000"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="@dimen/_13ssp"
+                        app:layout_constraintEnd_toEndOf="@+id/txtLoanID"
+                        app:layout_constraintTop_toBottomOf="@+id/txtperc" />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
@@ -220,7 +350,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/card">
 
                 <EditText
-                    android:id="@+id/edtDate"
+                    android:id="@+id/edDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
@@ -289,7 +419,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:dividerPadding="@dimen/_2sdp"
-                android:hint="@string/payment_received"
+                android:hint="@string/today_collection"
                 android:textColorHint="@color/icon_color"
                 app:boxBackgroundColor="#FFF"
                 app:layout_constraintEnd_toEndOf="@+id/card"
@@ -301,15 +431,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
-                    android:focusable="false"
                     android:fontFamily="@font/poppins_regular"
-                    android:inputType="date"
-                    android:maxLength="10"
+                    android:inputType="number"
+                    android:maxLength="11"
                     android:singleLine="true"
                     android:textColor="@color/black" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:visibility="gone"
+                tools:visibility="visible"
                 android:id="@+id/linlayReason"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -350,6 +481,34 @@
                     app:layout_constraintTop_toTopOf="@+id/spReasonName" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inPromiseDate"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:dividerPadding="@dimen/_2sdp"
+                android:hint="@string/date"
+                android:textColorHint="@color/icon_color"
+                android:visibility="gone"
+                app:boxBackgroundColor="#FFF"
+                app:layout_constraintEnd_toEndOf="@+id/card"
+                app:layout_constraintStart_toStartOf="@+id/card"
+                app:layout_constraintTop_toBottomOf="@+id/linlayReason">
+
+                <EditText
+                    android:id="@+id/edPromiseDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@android:color/transparent"
+                    android:focusable="false"
+                    android:fontFamily="@font/poppins_regular"
+                    android:inputType="date"
+                    android:maxLength="10"
+                    android:singleLine="true"
+                    android:textColor="@color/black" />
+            </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/inRemarks"
                 android:layout_width="0dp"
@@ -361,7 +520,7 @@
                 app:boxBackgroundColor="#FFF"
                 app:layout_constraintEnd_toEndOf="@+id/card"
                 app:layout_constraintStart_toStartOf="@+id/card"
-                app:layout_constraintTop_toBottomOf="@+id/linlayReason">
+                app:layout_constraintTop_toBottomOf="@+id/inPromiseDate">
 
                 <EditText
                     android:id="@+id/edtRemarks"
@@ -378,12 +537,11 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_5sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginBottom="50dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/inRemarks">
@@ -413,7 +571,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_2sdp"
-                    android:text="2500"
+                    tools:text="2500"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintStart_toStartOf="@+id/txttotalcollection"
@@ -424,7 +582,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_2sdp"
-                    android:text="200"
+                    tools:text="200"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintEnd_toEndOf="@+id/txtregularlocation"
@@ -456,7 +614,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_2sdp"
-                    android:text="500"
+                    tools:text="500"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintStart_toStartOf="@+id/txtadavancecollection"
@@ -467,7 +625,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_2sdp"
-                    android:text="20"
+                    tools:text="20"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintEnd_toEndOf="@+id/txtpending"
@@ -488,7 +646,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingVertical="@dimen/_2sdp"
-                    android:text="125%"
+                    tools:text="125%"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintStart_toStartOf="@+id/txtpercentage"
@@ -496,24 +654,24 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <com.commonProject.customview.ButtonReguler
+                android:id="@+id/btnSubmit"
+                style="@style/CustomPressButton"
+                android:layout_width="0dp"
+
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:text="@string/submit"
+                android:textColor="@color/colorWhite"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-
-    <com.commonProject.customview.ButtonReguler
-        android:id="@+id/btnSubmit"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_18sdp"
-        android:background="@color/colorPrimary"
-        android:text="@string/submit"
-        android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@
     <string name="you_dont_have_a_rights">You dont have a rights</string>
     <string name="please_wait">Please wait..</string>
     <string name="pending">Pending</string>
+    <string name="g_total">Grand TOtal</string>
     <string name="partialy">Partially</string>
     <string name="collected">Collected</string>
     <string name="center_name">Center Name</string>
@@ -11,7 +12,7 @@
     <string name="full">Full</string>
     <string name="partial">Partial</string>
     <string name="not_received">Not Received</string>
-
+    <string name="RS">\u20b9 </string>
     <string name="reason">Reason</string>
     <string name="remark">Remarks</string>
     <string name="submit">Submit</string>
@@ -51,6 +52,9 @@
     <string name="logout">Logout</string>
     <string name="fe_code">FE Code</string>
     <string name="client_id">Client ID</string>
+    <string name="business_summary">Business Summary</string>
+    <string name="collection_summary">Collection Summary</string>
+    <string name="par_summary">Par Summary</string>
     <string name="client_name">Client Name</string>
     <string name="par_amount">PAR Amount</string>
     <string name="over_due_amount">Over Due Amount</string>
@@ -91,10 +95,35 @@
     <string name="disb_client">Disb Client</string>
     <string name="disb_amount">Disb Amount</string>
 
-    <string name="plan_amount">100</string>
-    <string name="actual_amount">125</string>
-    <string name="diff_amount">65.00</string>
-    <string name="per_achived_amount">80.03%</string>
+    <string name="plan_amount">0</string>
+    <string name="actual_amount">0</string>
+    <string name="diff_amount">0</string>
+    <string name="per_achived_amount">0%</string>
+    <string name="clients">Clients</string>
+    <string name="buckets">Buckets</string>
+
+    <string name="od_amount">OD Amount</string>
+    <string name="_1_to_30"><u>1 to 30</u> </string>
+    <string name="_31_to_60"><u>31 to 60</u></string>
+    <string name="_61_to_90"><u>61 to 90</u></string>
+    <string name="_91_to_180"><u>91 to 180</u></string>
+    <string name="_180_above"><u>180 above</u></string>
+    <string name="demand">Demand</string>
+    <string name="due_date">Due Date</string>
+    <string name="emplyeer_name">Employee Code</string>
+    <string name="month">Month</string>
+    <string name="opening_cleints">Opening Clients</string>
+    <string name="new_add">New Clients Add</string>
+    <string name="ma_cleints">Mature/Closed Clients</string>
+    <string name="re_new_dis">Renew Dis.</string>
+    <string name="closing_cleints">Closing Clients</string>
+    <string name="collection_par">Collection %</string>
+    <string name="total_ds_cleint">Total Dis.</string>
+    <string name="goal_sheet">Goal Sheet</string>
+    <string name="original_collection">Original Collection</string>
+    <string name="original_demand">Original Demand</string>
+    <string name="current_demand">Current Demand</string>
+    <string name="today_collection">Today\'s Collection</string>
 
 
 </resources>

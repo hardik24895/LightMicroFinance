@@ -10,6 +10,9 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="green">#248601</color>
+    <color name="partialy_color">#CD4A00</color>
+    <color name="pending_color">#1E7F95</color>
     <color name="txtgray">#777777</color>
     <color name="orange">#FFA500</color>
     <color name="light_grey_1">#A3A2A2</color>

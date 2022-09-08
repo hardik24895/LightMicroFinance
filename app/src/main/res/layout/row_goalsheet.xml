@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/_10sdp"
+    app:cardElevation="@dimen/_5sdp"
+    app:cardUseCompatPadding="true">
+
+    <ImageView
+        android:id="@+id/imgCardBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/bussiness_bg" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_5sdp">
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtEmployeerName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:text="@string/emplyeer_name"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txbranch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/branch_name"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintBottom_toBottomOf="@+id/txtEmployeerName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtEmployeerCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="25-03-2021"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmployeerName" />
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtBranchName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="Morbi"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/txtEmployeerCode"
+            app:layout_constraintEnd_toEndOf="@+id/txbranch"
+            app:layout_constraintTop_toBottomOf="@+id/txtEmployeerName" />
+
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtmony"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:text="@string/month"
+            android:textColor="@color/colorWhite"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtBranchName" />
+
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="25-03-2021"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtmony" />
+
+
+        <View
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".5"
+            android:background="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtMonth" />
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:paddingVertical="@dimen/_5sdp"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtarget"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtarget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="@string/target"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txachived"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtitle"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txachived"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_5sdp"
+            android:text="@string/achived"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtarget"
+            app:layout_constraintTop_toBottomOf="@+id/view" />
+
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtOpeningCleints"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/opening_cleints"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtarget"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtitle" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtOpeningCleintsNewTarget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txachived"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtitle"
+            app:layout_constraintTop_toBottomOf="@+id/txtitle" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtachOpeningClients"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtarget"
+            app:layout_constraintTop_toBottomOf="@+id/txtitle" />
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".2"
+            android:background="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtOpeningCleints" />
+
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtNewCleints"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/new_add"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtarget"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtNewCleintsTarget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txachived"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtitle"
+            app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtachNewClients"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtarget"
+            app:layout_constraintTop_toBottomOf="@+id/view1" />
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".2"
+            android:background="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtNewCleints" />
+
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtcloseCleints"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/ma_cleints"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtarget"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtcloseCleintsTarget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txachived"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtitle"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtachClosedClients"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtarget"
+            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".2"
+            android:background="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtcloseCleints" />
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtrenewDs"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/re_new_dis"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtarget"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtrenewDsTarget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txachived"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtitle"
+            app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtachRenewDis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtarget"
+            app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".2"
+            android:background="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtrenewDs" />
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtClosingCleints"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/closing_cleints"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtarget"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtClosingCleintsTarget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txachived"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtitle"
+            app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtachClosingCliens"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtarget"
+            app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".2"
+            android:background="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtClosingCleints" />
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtCollection"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/collection_par"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtarget"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtCollectionTarget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txachived"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtitle"
+            app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtachCollectionpr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtarget"
+            app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+        <View
+            android:id="@+id/view6"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginTop="@dimen/_3sdp"
+            android:alpha=".2"
+            android:background="@color/colorWhite"
+            app:layout_constraintEnd_toEndOf="@+id/txtBranchName"
+            app:layout_constraintStart_toStartOf="@+id/txtEmployeerCode"
+            app:layout_constraintTop_toBottomOf="@+id/txtCollection" />
+
+
+        <com.commonProject.customview.TextviewMedium
+            android:id="@+id/txtTotalds"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="@string/total_ds_cleint"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txtarget"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txDSBTarget"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toStartOf="@+id/txachived"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtitle"
+            app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+        <com.commonProject.customview.TextviewReguler
+            android:id="@+id/txtachTotalDis"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingVertical="@dimen/_2sdp"
+            android:text="0"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/txtarget"
+            app:layout_constraintTop_toBottomOf="@+id/view6" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

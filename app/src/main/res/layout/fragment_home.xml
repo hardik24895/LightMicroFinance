@@ -3,204 +3,73 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_8sdp">
+    android:background="@color/light_grey">
 
-    <com.github.mikephil.charting.charts.CombinedChart
-        android:id="@+id/barChart_view"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:cardElevation="@dimen/_4sdp"
-        android:layout_weight="1"
-        android:visibility="gone"
-        app:cardCornerRadius="@dimen/_8sdp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/cardView2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
-        <ImageView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/pic" />
+            android:layout_height="match_parent">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="#BE000000" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHome"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-
-            <com.commonProject.customview.TextviewSemiBold
-                android:id="@+id/txtTargetAmount"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="\u20b9 100000"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_22ssp" />
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_50sdp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-            <View
-                android:layout_marginVertical="@dimen/_4sdp"
-                android:background="@color/colorWhite"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="1dp"/>
+                <com.github.siyamed.shapeimageview.CircularImageView
+                    android:id="@+id/imgdot1"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:src="@drawable/bg_selected_dot_collected"
 
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtTargetTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/target"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_16ssp" />
-        </LinearLayout>
+                    />
 
-    </androidx.cardview.widget.CardView>
+                <com.github.siyamed.shapeimageview.CircularImageView
+                    android:id="@+id/imgdot2"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:background="@drawable/bg_unselected_dot"
 
+                    />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        app:cardCornerRadius="@dimen/_8sdp"
-        app:cardElevation="@dimen/_4sdp"
-        android:visibility="gone"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toTopOf="@+id/cardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3">
+                <com.github.siyamed.shapeimageview.CircularImageView
+                    android:id="@+id/imgdot3"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:background="@drawable/bg_unselected_dot"
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/pic1" />
+                    />
+
+                <com.github.siyamed.shapeimageview.CircularImageView
+                    android:id="@+id/imgdot4"
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:background="@drawable/bg_unselected_dot" />
+
+            </LinearLayout>
+        </RelativeLayout>
 
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="#BE000000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-
-            <com.commonProject.customview.TextviewSemiBold
-                android:id="@+id/txtTotalCollectionAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="\u20b9 87000"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_22ssp" />
-
-            <View
-                android:layout_marginVertical="@dimen/_4sdp"
-                android:background="@color/colorWhite"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="1dp"/>
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtTotalCollectionTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/total_collection"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_16ssp" />
-        </LinearLayout>
-
-
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView"
-        android:layout_width="match_parent"
-        app:cardElevation="@dimen/_4sdp"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        android:layout_weight="1"
-        app:cardCornerRadius="@dimen/_8sdp"
-        app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="@drawable/pic2" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:src="#BE000000" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="vertical">
-
-
-            <com.commonProject.customview.TextviewSemiBold
-                android:id="@+id/txtCollectionPersentageAmount"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="87 %"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_22ssp" />
-
-            <View
-                android:layout_marginVertical="@dimen/_4sdp"
-                android:background="@color/colorWhite"
-                android:layout_width="@dimen/_120sdp"
-                android:layout_height="1dp"/>
-
-            <com.commonProject.customview.TextviewReguler
-                android:id="@+id/txtCollectionPersentageTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/collection_percentage"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_16ssp" />
-        </LinearLayout>
-
-    </androidx.cardview.widget.CardView>
+    </FrameLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
