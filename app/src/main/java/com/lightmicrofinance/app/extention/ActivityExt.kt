@@ -210,6 +210,28 @@ fun getYesterdayDate(): String {
 }
 
 
+fun getLastDateOfMonth(): String {
+
+    val today = Date()
+
+    val calendar = Calendar.getInstance()
+    calendar.time = today
+
+    calendar.add(Calendar.MONTH, 1)
+    calendar[Calendar.DAY_OF_MONTH] = 1
+    calendar.add(Calendar.DATE, -1)
+
+    val lastDayOfMonth = calendar.time
+
+    val sdf: DateFormat = SimpleDateFormat("dd-MM-yyyy")
+    println("Last Day of Month: " + sdf.format(lastDayOfMonth))
+
+
+
+    return sdf.format(lastDayOfMonth).toString()
+}
+
+
 fun getCurrentDateTime(): String {
 
     val sdf = SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
