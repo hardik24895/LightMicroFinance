@@ -9,9 +9,10 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.commonProject.extention.goToActivityAndClearTask
+import com.commonProject.utils.SessionManager
 import com.lightmicrofinance.commonproject.databinding.ActivitySplashBinding
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : BaseActivity() {
     lateinit var binding: ActivitySplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,14 +35,11 @@ class SplashActivity : AppCompatActivity() {
 
     }
     private fun validateRedirection() {
-     /*   if (session.isLoggedIn) {
-            if (session.getDataByKeyBoolean(SessionManager.IsFirst, true)) {
-                goToActivityAndClearTask<WelComeActivity>()
-            } else {
-                goToActivityAndClearTask<HomeActivity>()
-            }
-        } else*/
+        if (session.isLoggedIn) {
+            goToActivityAndClearTask<MainActivity>()
+        } else{
             goToActivityAndClearTask<LoginActivity>()
+        }
     }
 
  /*   fun validation() {

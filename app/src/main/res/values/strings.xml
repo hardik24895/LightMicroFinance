@@ -21,6 +21,7 @@
 
     <string name="msg_logout">Would you like to exit from the App?</string>
     <string name="otp_verify">OTP Verification</string>
+    <string name="reset_text">We will send you New Auto Generate Password</string>
     <string name="otp_text">We will send you an OTP on your Registered mobile number</string>
     <string name="emp_id">Employee ID</string>
     <string name="getotp">Get otp</string>
@@ -29,6 +30,7 @@
     <string name="new_password">New Password</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password?</string>
+    <string name="reset_password">Reset Password</string>
     <string name="login">Login</string>
     <string name="sign_in">Sign In</string>
     <string name="loan_ac_number">Loan Ac. Number</string>
@@ -56,5 +58,43 @@
     <string name="search">Search</string>
     <string name="no_data_found">No Data Found!</string>
     <string name="show_server_error">Server Connetion Failed.</string>
+    <string name="enter_empid">Enter EmployeeID</string>
+    <string name="enter_valid_empid">Enter Valid EmployeeID</string>
+    <string name="enter_valid_password">Enter Minimum Six Character Password</string>
+    <string name="change_pwd">Change Password</string>
+    <string name="enter_old_pwd">Enter OLD Password</string>
+    <string name="password_same_old_new">New Password Can Not Be Same As Old Password</string>
+    <string name="password_not_matched">Password Not Matched</string>
+    <string name="target">Target</string>
+    <string name="achived">Achived</string>
+    <string name="per_achived">% Ach</string>
+    <string name="le_new">LE New</string>
+    <string name="le_renewl">LE Renewal</string>
+    <string name="total_le">Total LE</string>
+    <string name="dd_done">DD Done</string>
+    <string name="dd_pos">DD +ve</string>
+    <string name="grt">GRT</string>
+    <string name="dsb_cleint">Disb Client</string>
+    <string name="dsb_amount">Disb Amount</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="collection_percentage">Collection Percentage</string>
+    <string name="report">Reports</string>
+    <string name="diff">Diff.</string>
+    <string name="actual">Actual</string>
+    <string name="plan">Plan</string>
+    <string name="parameter">Parameter</string>
+    <string name="_le_new">LE - New</string>
+    <string name="_le_re_new">LE - Renew</string>
+    <string name="dd">DD</string>
+    <string name="dd_ve">DD +ve</string>
+    <string name="disb_client">Disb Client</string>
+    <string name="disb_amount">Disb Amount</string>
+
+    <string name="plan_amount">100</string>
+    <string name="actual_amount">125</string>
+    <string name="diff_amount">65.00</string>
+    <string name="per_achived_amount">80.03%</string>
+
 
 </resources>

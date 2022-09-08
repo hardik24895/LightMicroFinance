@@ -39,25 +39,25 @@ class CollectionAdapter(
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val data = list[position]
-        holder.bindData(mContext, data, listener, session, binding, status)
+        holder.bindData(mContext, data, listener, session, status)
     }
 
     interface OnItemSelected {
         fun onItemSelect(position: Int, data: CollectionDataItem, action: String)
     }
 
-    class ItemHolder( containerView:  RowCollectionBinding) :
+    class ItemHolder(containerView: RowCollectionBinding) :
         RecyclerView.ViewHolder(containerView.root) {
+        var binding = containerView
         fun bindData(
             context: Context,
             data: CollectionDataItem,
             listener: OnItemSelected, session: SessionManager,
-            binding: RowCollectionBinding,
             status: String
         ) {
 
 
-            if (status==Constant.PENDING){
+            if (status == Constant.PENDING) {
                 binding.imgCardBg.setImageResource(R.drawable.orange_card)
             }else if (status==Constant.PARTIALY){
                 binding.imgCardBg.setImageResource(R.drawable.blue_card)

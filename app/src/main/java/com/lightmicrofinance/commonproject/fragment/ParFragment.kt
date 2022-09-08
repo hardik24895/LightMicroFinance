@@ -6,24 +6,38 @@ import android.os.Bundle
 import android.view.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blogspot.atifsoftwares.animatoolib.Animatoo
+import com.commonProject.extention.invisible
+import com.commonProject.extention.showAlert
+import com.commonProject.extention.visible
+import com.commonProject.interfaces.LoadMoreListener
+import com.commonProject.network.CallbackObserver
+import com.commonProject.network.Networking
+import com.commonProject.network.addTo
 import com.commonProject.utils.Constant
 import com.lightmicrofinance.commonproject.R
 import com.lightmicrofinance.commonproject.activity.SearchActivty
 import com.lightmicrofinance.commonproject.adapter.ParAdapter
-import com.lightmicrofinance.commonproject.databinding.FragmentParBinding
 import com.lightmicrofinance.commonproject.databinding.ReclerviewSwipelayoutBinding
+import com.lightmicrofinance.commonproject.modal.ParDataItem
+import com.lightmicrofinance.commonproject.modal.ParListModal
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+
 
 
 class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
 
     var adapter: ParAdapter? = null
 
-    private val list: MutableList<String> = mutableListOf()
-    var status = "Pending"
-
+    private val list: MutableList<ParDataItem> = mutableListOf()
+    var status = Constant.PENDING
+    var page: Int = 1
+    var hasNextPage: Boolean = true
     companion object {
-        var email: String = ""
-        var name: String = ""
+        var CenterName: String = ""
+        var LoanID: String = ""
+        var ClientID: String = ""
+        var ClientName: String = ""
     }
 
     private var _binding: ReclerviewSwipelayoutBinding? = null
@@ -44,55 +58,59 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        list.add("test1")
-        list.add("test1")
-        list.add("test1")
-        list.add("test1")
-        list.add("test1")
-        list.add("test1")
-        list.add("test1")
-        list.add("test1")
-        list.add("test1")
-        list.add("test1")
-        list.add("test1")
+        //setupRecyclerView()
 
-        setupRecyclerView()
-
-
-        /*      setHomeScreenTitle(requireActivity(), getString(R.string.nav_visitor))
-              recyclerView.setLoadMoreListener(object : LoadMoreListener {
+              _binding?.recyclerView?.setLoadMoreListener(object : LoadMoreListener {
                   override fun onLoadMore() {
-                      if (hasNextPage && !recyclerView.isLoading) {
-                          progressbar.visible()
-                          getLeadList(++page)
+                      if (hasNextPage && !   _binding?.recyclerView?.isLoading!!) {
+                          _binding?.progressbar?.visible()
+                          getParList(++page)
                       }
                   }
-              })*/
+              })
 
-        /*    swipeRefreshLayout.setOnRefreshListener {
-                email = ""
-                name = ""
+        _binding?.swipeRefreshLayout?.setOnRefreshListener {
+                CenterName = ""
+                ClientID = ""
+                LoanID = ""
+                ClientName = ""
                 page = 1
                 list.clear()
                 hasNextPage = true
-                recyclerView.isLoading = true
+                _binding?.recyclerView?.isLoading = true
                 adapter?.notifyDataSetChanged()
-                getLeadList(page)
-            }*/
+                getParList(page)
+            }
+
+    }
+
+    fun getRefreshData(){
+        CenterName = ""
+        ClientID = ""
+        LoanID = ""
+        ClientName = ""
+        page = 1
+        list.clear()
+        setupRecyclerView()
+        hasNextPage = true
+      _binding?.swipeRefreshLayout?.isRefreshing = true
+      _binding?.recyclerView?.isLoading = true
+        adapter?.notifyDataSetChanged()
+        getParList(page)
     }
 
     fun setupRecyclerView() {
 
         val layoutManager = LinearLayoutManager(requireContext())
-        _binding?.recyclerView?.layoutManager = layoutManager
+      _binding?.recyclerView?.layoutManager = layoutManager
         adapter = ParAdapter(requireContext(), list, session, status, this)
-        _binding?.recyclerView?.adapter = adapter
+      _binding?.recyclerView?.adapter = adapter
 
     }
 
-    override fun onItemSelect(position: Int, data: String, action: String) {
+    override fun onItemSelect(position: Int, data: ParDataItem, action: String) {
 
-
+      // goToActivity<AddCollectionActivity>()
     }
 
 
@@ -103,18 +121,19 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-           /* R.id.action_add -> {
-                if (checkUserRole(
-                        session.roleData.data?.visitor?.isEdit.toString(),
-                        requireContext()
-                    )
-                )
-                    showDialog()
-                return true
-            }*/
+            /* R.id.action_add -> {
+                 if (checkUserRole(
+                         session.roleData.data?.visitor?.isEdit.toString(),
+                         requireContext()
+                     )
+                 )
+                     showDialog()
+                 return true
+             }*/
             R.id.action_filter -> {
                 val intent = Intent(context, SearchActivty::class.java)
-                intent.putExtra(Constant.DATA, Constant.LEAD)
+                intent.putExtra(Constant.DATA, Constant.COLLECTION)
+                intent.putExtra(Constant.TYPE, status)
                 startActivity(intent)
                 Animatoo.animateCard(context)
                 return true
@@ -128,118 +147,100 @@ class ParFragment : BaseFragment(), ParAdapter.OnItemSelected {
         setHasOptionsMenu(true)
     }
 
-/*    override fun onResume() {
+    override fun onResume() {
         page = 1
         list.clear()
         hasNextPage = true
-        swipeRefreshLayout.isRefreshing = true
+      _binding?.swipeRefreshLayout?.isRefreshing = true
         setupRecyclerView()
-        recyclerView.isLoading = true
-        getLeadList(page)
+      _binding?.recyclerView?.isLoading = true
+        getParList(page)
         super.onResume()
 
-    }*/
-
-/*
-    fun showDialog() {
-        val dialog = AddVisitorDailog.newInstance(requireContext(),
-            object : AddVisitorDailog.onItemClick {
-                override fun onItemCLicked(mobile: String, serviceId: String) {
-                    checkLead(mobile, serviceId)
-                }
-            })
-        val bundle = Bundle()
-        bundle.putString(Constant.TITLE, getString(R.string.app_name))
-//        bundle.putString(
-//            Constant.TEXT,
-//            getString(R.string.msg_get_data_from_server)
-//        )
-        dialog.arguments = bundle
-        dialog.show(childFragmentManager, "YesNO")
     }
-*/
 
-    /* fun getLeadList(page: Int) {
-         var result = ""
-         try {
-             val jsonBody = JSONObject()
-             jsonBody.put("PageSize", Constant.PAGE_SIZE)
-             jsonBody.put("CurrentPage", page)
-             jsonBody.put("Name", name)
-             jsonBody.put("EmailID", email)
-             jsonBody.put("CityID", session.getDataByKey(SessionManager.KEY_CITY_ID))
-             result = Networking.setParentJsonData(
-                 Constant.METHOD_LEADLIST,
-                 jsonBody
-             )
 
-         } catch (e: JSONException) {
-             e.printStackTrace()
-         }
+     fun getParList(page: Int) {
 
+         val params = HashMap<String, Any>()
+         params["PageSize"] =  Constant.PAGE_SIZE
+         params["CurrentPage"] = page
+         params["FECode"] = session.user.data?.fECode.toString()
+         params["CenterName"] = CenterName
+         params["LoanID"] = LoanID
+         params["ClientID"] = ClientID
+         params["ClientName"] = ClientName
+         params["CollectionType"] = status
 
          Networking
              .with(requireContext())
              .getServices()
-             .getLeadList(Networking.wrapParams(result))//wrapParams Wraps parameters in to Request body Json format
+             .getPar(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
              .subscribeOn(Schedulers.io())
              .observeOn(AndroidSchedulers.mainThread())
-             .subscribeWith(object : CallbackObserver<LeadListModal>() {
-                 override fun onSuccess(response: LeadListModal) {
+             .subscribeWith(object : CallbackObserver<ParListModal>() {
+                 override fun onSuccess(response: ParListModal) {
                      if (list.size > 0) {
-                         progressbar.invisible()
+                       _binding?.progressbar?.invisible()
                      }
-                     swipeRefreshLayout.isRefreshing = false
-                     list.addAll(response.data)
-                     adapter?.notifyItemRangeInserted(
-                         list.size.minus(response.data.size),
-                         list.size
-                     )
-                     hasNextPage = list.size < response.rowcount
+                   _binding?.swipeRefreshLayout?.isRefreshing = false
+
+                     if (response.error==false){
+                         list.addAll(response.data)
+                         adapter?.notifyItemRangeInserted(
+                             list.size.minus(response.data.size),
+                             list.size
+                         )
+                         hasNextPage = list.size < response.rows
+                     }
 
                      refreshData(getString(R.string.no_data_found), 1)
                  }
 
                  override fun onFailed(code: Int, message: String) {
                      if (list.size > 0) {
-                         progressbar.invisible()
+                       _binding?.progressbar?.invisible()
                      }
-                     showAlert(message)
+                     showAlert(getString(R.string.show_server_error))
                      refreshData(message, code)
                  }
 
              }).addTo(autoDisposable)
-     }*/
+     }
 
 
-    /*private fun refreshData(msg: String?, code: Int) {
-        recyclerView.setLoadedCompleted()
-        swipeRefreshLayout.isRefreshing = false
+    private fun refreshData(msg: String?, code: Int) {
+      _binding?.recyclerView?.setLoadedCompleted()
+      _binding?.swipeRefreshLayout?.isRefreshing = false
         adapter?.notifyDataSetChanged()
 
         if (list.size > 0) {
-            imgNodata.invisible()
-            recyclerView.visible()
+          _binding?.imgNodata?.invisible()
+          _binding?.recyclerView?.visible()
         } else {
-            imgNodata.visible()
+          _binding?.imgNodata?.visible()
             if (code == 0)
-                imgNodata.setImageResource(R.drawable.no_internet_bg)
+              _binding?.imgNodata?.setImageResource(R.drawable.no_internet_bg)
             else
-                imgNodata.setImageResource(R.drawable.nodata)
-            recyclerView.invisible()
+              _binding?.imgNodata?.setImageResource(R.drawable.nodata)
+          _binding?.recyclerView?.invisible()
         }
-    }*/
+    }
 
     override fun onDestroyView() {
-        email = ""
-        name = ""
+        CenterName = ""
+        ClientID = ""
+        LoanID = ""
+        ClientName = ""
         _binding = null
         super.onDestroyView()
     }
 
     override fun onDestroy() {
-        email = ""
-        name = ""
+        CenterName = ""
+        ClientID = ""
+        LoanID = ""
+        ClientName = ""
         super.onDestroy()
     }
 

@@ -1,20 +1,18 @@
 package com.lightmicrofinance.commonproject.adapter
 
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-
-
 import com.commonProject.utils.SessionManager
-import com.lightmicrofinance.commonproject.R
-import com.lightmicrofinance.commonproject.databinding.RowCollectionBinding
 import com.lightmicrofinance.commonproject.databinding.RowParBinding
+import com.lightmicrofinance.commonproject.modal.ParDataItem
 
 
 class ParAdapter(
     private val mContext: Context,
-    var list: MutableList<String> = mutableListOf(),
+    var list: MutableList<ParDataItem> = mutableListOf(),
     var session: SessionManager,
     var status: String,
     private val listener: ParAdapter.OnItemSelected,
@@ -38,22 +36,33 @@ class ParAdapter(
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
         val data = list[position]
-        holder.bindData(mContext, data, listener, session, binding, status)
+        holder.bindData(mContext, data, listener, session)
     }
 
     interface OnItemSelected {
-        fun onItemSelect(position: Int, data: String, action: String)
+        fun onItemSelect(position: Int, data: ParDataItem, action: String)
     }
 
-    class ItemHolder(containerView: RowParBinding) :
-        RecyclerView.ViewHolder(containerView.root) {
+    class ItemHolder(containerView: RowParBinding) : RecyclerView.ViewHolder(containerView.root) {
+        val binding = containerView
+
         fun bindData(
             context: Context,
-            data: String,
-            listener: OnItemSelected, session: SessionManager,
-            binding: RowParBinding,
-            status: String
+            data: ParDataItem,
+            listener: OnItemSelected, session: SessionManager
         ) {
+
+            binding.txtFeCodeNo.text = data.fECode
+            binding.txtLoanID.text = data.loanID
+            binding.txtBranchName.text = data.branch
+            binding.txtDPD.text  = data.dPD
+            binding.txtCenterName.text = data.centerName
+            binding.txtBucket.text = data.bucket
+            binding.txtClientName.text = data.clientName
+            binding.txtCleintID.text = data.clientID
+            binding.txtAmount.text = data.amount
+            binding.txtOverDue.text = data.overdueAmount
+
 
             itemView.setOnClickListener { listener.onItemSelect(adapterPosition, data, "MainView") }
 

@@ -38,17 +38,17 @@ class SettingFragment : BaseFragment() {
 
         _binding?.linAboutus?.setOnClickListener {
             intent.putExtra(Constant.TITLE, "2")
-            intent.putExtra("Desc", "AboutUS")
+            intent.putExtra("Desc", "About US")
             mContext?.startActivity(intent)
         }
         _binding?.linPrivacyPolicy?.setOnClickListener {
             intent.putExtra(Constant.TITLE, "3")
-            intent.putExtra("Desc", "PrivacyPolicy")
+            intent.putExtra("Desc", "Privacy Policy")
             mContext?.startActivity(intent)
         }
         _binding?.linTermsAndCondition?.setOnClickListener {
             intent.putExtra(Constant.TITLE, "1")
-            intent.putExtra("Desc", "TermandCondition")
+            intent.putExtra("Desc", "Term and Condition")
             startActivity(intent)
         }
 

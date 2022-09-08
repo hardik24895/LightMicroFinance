@@ -5,11 +5,10 @@
     android:layout_height="match_parent"
     android:padding="@dimen/_8sdp">
 
-    <com.github.mikephil.charting.charts.BarChart
+    <com.github.mikephil.charting.charts.CombinedChart
         android:id="@+id/barChart_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +20,7 @@
         android:layout_height="0dp"
         app:cardElevation="@dimen/_4sdp"
         android:layout_weight="1"
+        android:visibility="gone"
         app:cardCornerRadius="@dimen/_8sdp"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/cardView2"
@@ -70,7 +70,7 @@
                 android:id="@+id/txtTargetTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Target"
+                android:text="@string/target"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16ssp" />
         </LinearLayout>
@@ -85,6 +85,7 @@
         android:layout_weight="1"
         app:cardCornerRadius="@dimen/_8sdp"
         app:cardElevation="@dimen/_4sdp"
+        android:visibility="gone"
         app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toTopOf="@+id/cardView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -132,7 +133,7 @@
                 android:id="@+id/txtTotalCollectionTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total Collection"
+                android:text="@string/total_collection"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16ssp" />
         </LinearLayout>
@@ -145,6 +146,7 @@
         android:layout_width="match_parent"
         app:cardElevation="@dimen/_4sdp"
         android:layout_height="0dp"
+        android:visibility="gone"
         android:layout_weight="1"
         app:cardCornerRadius="@dimen/_8sdp"
         app:cardUseCompatPadding="true"
@@ -193,7 +195,7 @@
                 android:id="@+id/txtCollectionPersentageTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Collection Percentage"
+                android:text="@string/collection_percentage"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/_16ssp" />
         </LinearLayout>

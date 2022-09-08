@@ -2,10 +2,12 @@ package com.commonProject.ui.dialog
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.ProgressBar
 import com.lightmicrofinance.commonproject.R
 import com.lightmicrofinance.commonproject.databinding.CommonDialogProgressBinding
+
 
 
 /**

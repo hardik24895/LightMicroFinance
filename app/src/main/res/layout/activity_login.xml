@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/mainView"
     android:background="@drawable/bg_login_blue"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.LoginActivity">
@@ -74,8 +75,8 @@
                     android:layout_height="wrap_content"
                     android:backgroundTint="@android:color/transparent"
                     android:fontFamily="@font/poppins_regular"
-                    android:inputType="number"
-                    android:maxLength="10"
+                    android:inputType="textCapCharacters"
+                    android:maxLength="8"
                     android:singleLine="true"
                     android:textColor="@color/black"
                 />

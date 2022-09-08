@@ -2,19 +2,18 @@ package com.lightmicrofinance.commonproject.activity
 
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.drawerlayout.widget.DrawerLayout
+import com.bumptech.glide.Glide
 
-import android.widget.ImageView
 import com.commonProject.extention.*
 import com.commonProject.utils.Constant
 import com.commonProject.utils.SessionManager
 import com.lightmicrofinance.commonproject.R
 import com.lightmicrofinance.commonproject.databinding.ActivityMainBinding
 import com.lightmicrofinance.commonproject.dialog.LogoutDailog
-
-import com.lightmicrofinance.commonproject.fragment.CollectionFragment
-import com.lightmicrofinance.commonproject.fragment.HomeFragment
-import com.lightmicrofinance.commonproject.fragment.ParFragment
-import com.lightmicrofinance.commonproject.fragment.SettingFragment
+import com.lightmicrofinance.commonproject.fragment.*
 
 class MainActivity : BaseActivity() {
 
@@ -39,6 +38,37 @@ class MainActivity : BaseActivity() {
 
         binding.appbarMain.tvTitle.text = getString(R.string.home)
         replaceFragment(HomeFragment(), R.id.framLayout)
+
+        binding.leftDrawerMenu.txtName.text = session.user.data?.name
+
+
+        binding.drawerLayout.addDrawerListener(object : DrawerLayout.DrawerListener {
+            override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+            }
+
+            override fun onDrawerOpened(drawerView: View) {
+                binding.leftDrawerMenu.txtName.setText(session.user.data?.name)
+
+
+              /*  Glide.with(this@MainActivity)
+                    .load(session.user.data?.photoURL)
+                    .apply(
+                        com.bumptech.glide.request.RequestOptions().centerCrop()
+                            .placeholder(R.drawable.test_profile)
+                    )
+                    .into(binding.leftDrawerMenu.roundedImageView)*/
+            }
+
+            override fun onDrawerClosed(drawerView: View) {
+
+            }
+
+            override fun onDrawerStateChanged(newState: Int) {
+                val inputMethodManager =
+                    getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus()?.getWindowToken(), 0)
+            }
+        })
     }
 
     fun drawerClickIteam() {
@@ -60,8 +90,6 @@ class MainActivity : BaseActivity() {
            toggleLeftDrawer()
            binding.appbarMain.tvTitle.text = getString(R.string.collection)
            replaceFragment(CollectionFragment(), R.id.framLayout)
-
-
        }
 
         binding.leftDrawerMenu.linPar.setOnClickListener {
@@ -70,6 +98,18 @@ class MainActivity : BaseActivity() {
             replaceFragment(ParFragment(), R.id.framLayout)
         }
 
+        binding.leftDrawerMenu.linBusiness.setOnClickListener {
+            toggleLeftDrawer()
+            binding.appbarMain.tvTitle.text = getString(R.string.bussiness)
+            replaceFragment(BusinessFragment(), R.id.framLayout)
+        }
+
+        binding.leftDrawerMenu.linReport.setOnClickListener {
+
+            toggleLeftDrawer()
+            binding.appbarMain.tvTitle.text =getString(R.string.report)
+            replaceFragment(BusinessSummaryFragment(), R.id.framLayout)
+        }
         binding.leftDrawerMenu.linSetting.setOnClickListener {
 
             toggleLeftDrawer()

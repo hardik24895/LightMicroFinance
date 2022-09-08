@@ -10,22 +10,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.LifecycleOwner
-import com.commonProject.extention.invisible
-import com.commonProject.extention.visible
+import com.commonProject.extention.*
 import com.commonProject.network.AutoDisposable
+import com.commonProject.network.CallbackObserver
+import com.commonProject.network.Networking
+import com.commonProject.network.addTo
 import com.commonProject.utils.Constant
 import com.commonProject.utils.SessionManager
 import com.lightmicrofinance.commonproject.R
+import com.lightmicrofinance.commonproject.activity.MainActivity
 import com.lightmicrofinance.commonproject.databinding.DialogForgotPasswordBinding
 import com.lightmicrofinance.commonproject.databinding.DialogLogoutBinding
+import com.lightmicrofinance.commonproject.modal.LoginModal
 import com.lightmicrofinance.commonproject.utils.BlurDialogFragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 class ForgotPasswordDailog(context: Context) : BlurDialogFragment(), LifecycleOwner {
-    private val autoDisposable = AutoDisposable()
-    private lateinit var session: SessionManager
-    private var _binding: DialogForgotPasswordBinding? = null
 
+    private var _binding: DialogForgotPasswordBinding? = null
     private val binding get() = _binding!!
 
     companion object {
@@ -50,8 +54,6 @@ class ForgotPasswordDailog(context: Context) : BlurDialogFragment(), LifecycleOw
         savedInstanceState: Bundle?
     ): View? {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-        session = SessionManager(requireContext())
-        autoDisposable.bindTo(this.lifecycle)
         _binding = DialogForgotPasswordBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -69,11 +71,26 @@ class ForgotPasswordDailog(context: Context) : BlurDialogFragment(), LifecycleOw
             dismissAllowingStateLoss()
         }
         _binding?.btnGetOtp?.setOnClickListener {
-            listener.onItemCLicked()
-            dismissAllowingStateLoss()
+           validation()
         }
 
 
+    }
+
+    fun validation(){
+        when {
+           _binding?.edtPhone!!.isEmpty() -> {
+                binding.mainView.showSnackBar(getString(R.string.enter_empid))
+            }
+            _binding?.edtPhone!!.getValue().length != 8 -> {
+                binding.mainView.showSnackBar(getString(R.string.enter_valid_empid))
+            }
+            else -> {
+                resetPassword()
+            }
+
+
+        }
     }
 
     override fun onCancel(dialog: DialogInterface) {
@@ -91,7 +108,7 @@ class ForgotPasswordDailog(context: Context) : BlurDialogFragment(), LifecycleOw
     }
 
     interface onItemClick {
-        fun onItemCLicked()
+        fun onItemCLicked(password:String)
     }
 
     interface onDissmiss {
@@ -101,6 +118,43 @@ class ForgotPasswordDailog(context: Context) : BlurDialogFragment(), LifecycleOw
     override fun onDestroyView() {
         super.onDestroyView()
         _binding =null
+    }
+
+
+    fun resetPassword() {
+        showProgressbar()
+        val params = HashMap<String, Any>()
+        params["FECode"] = _binding?.edtPhone!!.getValue()
+
+        Networking
+            .with(requireContext())
+            .getServices()
+            .resetPassword(Networking.wrapParams(params))//wrapParams Wraps parameters in to Request body Json format
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object : CallbackObserver<LoginModal>() {
+                override fun onSuccess(response: LoginModal) {
+                    val data = response.data
+                    hideProgressbar()
+                    if (response.error == false) {
+                        if (data != null) {
+                           dismissAllowingStateLoss()
+                            listener.onItemCLicked(data.password.toString())
+                        } else {
+                            showAlert(response.message.toString())
+                        }
+                    } else {
+                        showAlert(response.message.toString())
+                    }
+
+                }
+
+                override fun onFailed(code: Int, message: String) {
+                    showAlert(message)
+                    hideProgressbar()
+                }
+
+            }).addTo(autoDisposable)
     }
 }
 
